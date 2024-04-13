@@ -5,12 +5,12 @@ website:
   title: "Visual Analytics"
   navbar:
     left:
-      - href: index.qmd
-        text: Home
-      - href: about.qmd
-        text: About
-      - href: landing.qmd
-        text: Landing Page
+      - text: Home
+        href: index.qmd
+      - text: About
+        href: about.qmd
+      - text: Learning Journey
+        href: journey.qmd
       - text: Hands-on Exercise
         menu: 
           - text: "Hands-on Exercise"
