@@ -10,10 +10,10 @@ website:
       - text: About
         href: about.qmd
       - text: Learning Journey
-        href: journey.qmd
+        href: landing.qmd
       - text: Hands-on Exercise
         menu: 
-          - text: "Hands-on Exercise"
+          - text: "Hands-on Exercise 1"
             href: Hands-on Exercise/hands-on-ex1.qmd
       - text: In-class Exercise
         menu: 
