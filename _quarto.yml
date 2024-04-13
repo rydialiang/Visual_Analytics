@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "Visual_Analytics"
+  title: "VA 2024"
   navbar:
     left:
       - href: index.qmd
@@ -16,7 +16,7 @@ website:
       - text: In-class Exercise
         menu: 
           - text: "In-class Exercise 1"
-            href: In-class Exercise/In-class_Ex01/In-class_Ex01.qmd
+            href: In-class_Ex01.qmd
 
 format:
   html:
