@@ -1,5 +1,5 @@
 ---
-title: "Visual_Analytics"
+title: "Learning Journey for Visual Analytics"
 ---
 
 This is a Quarto website.
