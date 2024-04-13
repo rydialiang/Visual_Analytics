@@ -9,15 +9,14 @@ execute:
   warning: false
   freeze: true
 ---
+
 ```{r}
-# usethis::use # Install pacman, if not installed yet
-install.packages("pacman")
 
 # load tidyverse from pacman
 pacman::p_load(tidyverse)
 
 # load exam data using readr, part of tidyverse package
-exam_data <- read_csv("data/Exam_data.csv")
+exam_data <- read_csv("Hands-on Exercise/data/Exam_data.csv")
 
 # R base Histogram
 hist(exam_data$MATHS)
