@@ -12,11 +12,13 @@ website:
       - text: Hands-on Exercise
         menu: 
           - text: "Hands-on Exercise"
-            href: 
+            href: In-class_Ex01.qmd
       - text: In-class Exercise
         menu: 
           - text: "In-class Exercise 1"
             href: In-class_Ex01.qmd
+          - text: "In-class Exercise 2"
+            href: In-class_Ex02.qmd
 
 format:
   html:
