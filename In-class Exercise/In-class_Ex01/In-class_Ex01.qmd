@@ -8,6 +8,16 @@ execute:
   echo: true
   warning: false
   freeze: true
+website: 
+  title: "Visual Analytics"
+  navbar:
+    left:
+      - text: "Hands-on Exercises"
+      - href: index.qmd
+      - about.qmd
+      
+format: 
+  html:
 ---
 
 ## Loading R packages
