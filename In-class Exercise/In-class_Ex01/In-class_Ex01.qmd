@@ -13,7 +13,7 @@ website:
   navbar:
     left:
       - text: "Hands-on Exercises"
-      - href: index.qmd
+      - href: Hands-on_Ex
       - about.qmd
       
 format: 
