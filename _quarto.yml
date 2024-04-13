@@ -5,6 +5,14 @@ website:
   title: "Visual_Analytics"
   navbar:
     left:
+      - text: Hands-on Exercise
+        menu: 
+          - text: "In-class Exercise 1"
+            href: "In-class_Exercise/In-class_Ex01"
+      - text: In-class Exercise
+        menu: 
+          - text: "In-class Exercise 1"
+            href: "In-class_Exercise/In-class_Ex01"
       - href: index.qmd
         text: Home
       - about.qmd
