@@ -29,11 +29,11 @@ pacman::p_load(tidyverse)
 ```
 
 ```{r}
-realis <- read_csv("data/realis2019.csv")
+realis.csv <- read_csv("data/realis2019.csv")
 ```
 
 ```{r}
-ggplot(data = realis,
-       aes(x = `Unit.Price....psm.`)) +
+ggplot(data = realis.csv,
+       aes(x = `Unit Price ($ psm)`)) + 
   geom_histogram()
 ```
