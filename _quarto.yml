@@ -9,6 +9,8 @@ website:
         text: Home
       - href: about.qmd
         text: About
+      - href: landing.qmd
+        text: "Landing Page"
       - text: Hands-on Exercise
         menu: 
           - text: "Hands-on Exercise"
