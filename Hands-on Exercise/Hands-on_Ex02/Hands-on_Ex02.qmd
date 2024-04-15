@@ -10,4 +10,4 @@ execute:
   freeze: true
 ---
 
-![](images/coming soon.jpeg)
+![](images/coming%20soon.jpeg)

@@ -57,14 +57,14 @@ website:
             href: In-class Exercise/In-class_Ex10/In-class_Ex10.qmd
       - text: Take-home Exercise
         menu: 
-        - text: "Take-home Exercise 1"
-          href: Take-home Exercise/Take-home_Ex01/Take-home_Ex01.qmd
-        - text: "Take-home Exercise 2"
-          href: Take-home Exercise/Take-home_Ex02/Take-home_Ex02.qmd
-        - text: "Take-home Exercise 3"
-          href: Take-home Exercise/Take-home_Ex03/Take-home_Ex03.qmd
-        - text: "Take-home Exercise 4"
-          href: Take-home Exercise/Take-home_Ex04/Take-home_Ex04.qmd
+          - text: "Take-home Exercise 1"
+            href: Take-home Exercise/Take-home_Ex01/Take-home_Ex01.qmd
+          - text: "Take-home Exercise 2"
+            href: Take-home Exercise/Take-home_Ex02/Take-home_Ex02.qmd
+          - text: "Take-home Exercise 3"
+            href: Take-home Exercise/Take-home_Ex03/Take-home_Ex03.qmd
+          - text: "Take-home Exercise 4"
+            href: Take-home Exercise/Take-home_Ex04/Take-home_Ex04.qmd
 format:
   html:
     theme: solar

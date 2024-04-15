@@ -116,4 +116,5 @@ ggplot(data=exam_data,
        aes(x= MATHS, y=ENGLISH)) +
   geom_point() +
   geom_smooth(linewidth=0.5)
+
 ```
