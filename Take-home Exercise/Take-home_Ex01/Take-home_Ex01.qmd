@@ -12,53 +12,74 @@ execute:
 
 # **Creating data visualisation beyond default**
 
-## 1.0 Setting the scene
+## 1.0 Overview
+
+### 1.1 Setting the scene
 
 There are two major residential property market in Singapore, namely public and private housing. Public housing aims to meet the basic need of the general public with monthly \$14,000 for families/couples buying a new HDB flat. Singapore is a city-state with limited land resource. Housing, on the other hand, is one of the basic need of people of this city-state. In order to ensure that all citizen in the country can access to affordable housing, the government have initiated massive public housing programme since independent.
 
-## 2.0 The Task
+### 1.2 The Task
 
-Assuming the role of a graphical editor of a median company, you are requested to prepare minimum two and maximum three data visualisation to reveal the ***private residential market*** and ***sub-markets of Singapore*** for the 1st quarter of 2024.
+Assuming the role of a graphical editor of a media company, you are requested to prepare minimum two and maximum three data visualisation to reveal the ***private residential market*** and ***sub-markets of Singapore*** for the 1st quarter of 2024.
 
-## 3.0 The Data Visualisation
+## 2.0 Set Up
+
+### 2.1 Loading the packages into R
+
+T he `pac::p_load()` function to load the required R packages in the working environment. The following packages are used in this set up:
+
+-   ggthemes: Extra themes, geoms, and scales for ggplot2.
+-   tidyverse: A collection of core packages designed for data science, used extensively for data preparation and wrangling.
+-   To add XXX
 
 ```{r}
 # load tidyverse from pacman
 pacman::p_load(tidyverse,dplyr)
+```
 
+### 2.2 Importing the data sets
+
+Five sets of data are provided for this exercise:
+
+1.  2023 Quarter 1 Residential Transaction: ResidentialTransaction20240308160536.csv
+2.  2023 Quarter 2 Residential Transaction: ResidentialTransaction20240308160736.csv
+3.  2023 Quarter 3 Residential Transaction: ResidentialTransaction20240308161009.csv
+4.  2023 Quarter 4 Residential Transaction: ResidentialTransaction20240308161109.csv
+5.  2024 Quarter 1 Residential Transaction: ResidentialTransaction20240414220633.csv
+
+```{r}
 # load transaction data using readr, part of tidyverse package
-data <- read_csv("data/ResidentialTransaction20240414220633.csv")
+data.24Q1 <- read_csv("data/ResidentialTransaction20240414220633.csv")
+```
+
+```{r}
+# have a basic understanding for all 21 variables
+glimpse(data.24Q1)
 
 ```
 
 ```{r}
 # have a basic understanding for all 21 variables
-glimpse(data)
+glimpse(data.24Q1)
 
 ```
 
 ```{r}
-# have a basic understanding for all 21 variables
-glimpse(data)
-
-```
-
-```{r}
-ggplot(data = data, 
+ggplot(data = data.24Q1, 
        aes(x=`Type of Sale`)) +
   geom_bar() 
 
 ```
 
 ```{r}
-ggplot(data = data, 
+ggplot(data = data.24Q1, 
        aes(x=`Type of Area`)) +
   geom_bar() 
 
 ```
 
 ```{r}
-ggplot(data = data,
+ggplot(data = data.24Q1,
        aes(x =`Planning Area`,
            fill = `Type of Sale`)) +
   geom_bar() +
