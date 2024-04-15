@@ -47,22 +47,37 @@ Five sets of data are provided for this exercise:
 4.  2023 Quarter 4 Residential Transaction: ResidentialTransaction20240308161109.csv
 5.  2024 Quarter 1 Residential Transaction: ResidentialTransaction20240414220633.csv
 
+All five sets of data consists of past transactions between Q1 of 2023 to Q1 of 2024, with 21 variables that will be explored in detail after the data sets are imported.
+
 ```{r}
 # load transaction data using readr, part of tidyverse package
+data.23Q1 <- read_csv("data/ResidentialTransaction20240308160536.csv")
+data.23Q2 <- read_csv("data/ResidentialTransaction20240308160736.csv")
+data.23Q3 <- read_csv("data/ResidentialTransaction20240308161009.csv")
+data.23Q4 <- read_csv("data/ResidentialTransaction20240308161109.csv")
 data.24Q1 <- read_csv("data/ResidentialTransaction20240414220633.csv")
 ```
 
+To have a basic understanding of all 21 variables, `glimpse()` is used with 2024 Q1 data. We can see that there are 21 coloumns, with the following data types:
+
+-   doubles:
+
+    1.  `Transacted Price ($)`
+    2.  `Area (SQFT)`
+    3.  `Unit Price ($ PSF)`
+    4.  `Area (SQM)`
+    5.  `Unit Price ($ PSM)`
+    6.  `Number of Units`
+
+-   characters: the rest of the 15 variables
+
 ```{r}
 # have a basic understanding for all 21 variables
 glimpse(data.24Q1)
 
 ```
 
-```{r}
-# have a basic understanding for all 21 variables
-glimpse(data.24Q1)
 
-```
 
 ```{r}
 ggplot(data = data.24Q1, 
