@@ -1,0 +1,67 @@
+---
+title: "Take-home Ex 01"
+author: "Liang Xiuhao Rydia"
+date: "April 15, 2024"
+date-modified: "last-modified"
+execute:
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---
+
+# **Creating data visualisation beyond default**
+
+## 1.0 Setting the scene
+
+There are two major residential property market in Singapore, namely public and private housing. Public housing aims to meet the basic need of the general public with monthly \$14,000 for families/couples buying a new HDB flat. Singapore is a city-state with limited land resource. Housing, on the other hand, is one of the basic need of people of this city-state. In order to ensure that all citizen in the country can access to affordable housing, the government have initiated massive public housing programme since independent.
+
+## 2.0 The Task
+
+Assuming the role of a graphical editor of a median company, you are requested to prepare minimum two and maximum three data visualisation to reveal the ***private residential market*** and ***sub-markets of Singapore*** for the 1st quarter of 2024.
+
+```{r}
+# load tidyverse from pacman
+pacman::p_load(tidyverse,dplyr)
+
+# load transaction data using readr, part of tidyverse package
+data <- read_csv("data/ResidentialTransaction20240414220633.csv")
+
+```
+
+```{r}
+# have a basic understanding for all 21 variables
+glimpse(data)
+
+```
+
+```{r}
+# have a basic understanding for all 21 variables
+glimpse(data)
+
+```
+
+
+
+```{r}
+ggplot(data = data, 
+       aes(x=`Type of Sale`)) +
+  geom_bar() 
+
+```
+```{r}
+ggplot(data = data, 
+       aes(x=`Type of Area`)) +
+  geom_bar() 
+
+```
+
+```{r}
+ggplot(data = data,
+       aes(x =`Planning Area`,
+           fill = `Type of Sale`)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+```
+
