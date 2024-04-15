@@ -1,0 +1,13 @@
+---
+title: "Hands-on Ex 2"
+author: "Liang Xiuhao Rydia"
+date: "April 20, 2024"
+date-modified: "last-modified"
+execute:
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---
+
+![](images/coming soon.jpeg)
