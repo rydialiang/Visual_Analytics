@@ -10,7 +10,7 @@ execute:
   freeze: true
 ---
 
-# **Creating data visualisation beyond default**
+# **Building Elegant and yet Informative Data Visualisation**
 
 ## 1.0 Overview
 
@@ -71,13 +71,18 @@ To have a basic understanding of all 21 variables, `glimpse()` is used with 2024
 
 -   characters: the rest of the 15 variables
 
+
 ```{r}
 # have a basic understanding for all 21 variables
 glimpse(data.24Q1)
 
 ```
 
+### 2.3 Data Wrangling
 
+At
+
+## 3.0 Data Visualisation
 
 ```{r}
 ggplot(data = data.24Q1, 
