@@ -58,7 +58,7 @@ data.23Q4 <- read_csv("data/ResidentialTransaction20240308161109.csv")
 data.24Q1 <- read_csv("data/ResidentialTransaction20240414220633.csv")
 ```
 
-To have a basic understanding of all 21 variables, `glimpse()` is used with 2024 Q1 data. We can see that there are 21 coloumns, with the following data types:
+To have a basic understanding of all 21 variables, `glimpse()` is used with 2024 Q1 data. We can see that there are 21 columns, with the following data types:
 
 -   doubles:
 
