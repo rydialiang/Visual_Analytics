@@ -20,6 +20,8 @@ There are two major residential property market in Singapore, namely public and 
 
 Assuming the role of a graphical editor of a median company, you are requested to prepare minimum two and maximum three data visualisation to reveal the ***private residential market*** and ***sub-markets of Singapore*** for the 1st quarter of 2024.
 
+## 3.0 The Task
+
 ```{r}
 # load tidyverse from pacman
 pacman::p_load(tidyverse,dplyr)
