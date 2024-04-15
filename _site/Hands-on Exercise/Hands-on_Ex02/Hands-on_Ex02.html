@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<head>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
 
-<meta charset="utf-8" />
-<meta name="generator" content="quarto-1.4.553" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="author" content="Liang Xiuhao Rydia">
+<meta name="dcterms.date" content="2024-04-20">
 
-<meta name="author" content="Liang Xiuhao Rydia" />
-<meta name="dcterms.date" content="2024-04-20" />
-
-<title>Visual Analytics – Hands-on Ex 2</title>
+<title>Visual Analytics - Hands-on Ex 2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -26,7 +24,23 @@ ul.task-list li input[type="checkbox"] {
 }
 </style>
 
-<!-- htmldependencies:E3FAD763 -->
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -56,153 +70,155 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body>
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="/index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Visual Analytics</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-  aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
-  onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="/index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="/about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="/journey.html"> 
+    <a class="nav-link" href="../../journey.html"> 
 <span class="menu-text">Learning Journey</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Hands-on Exercise</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
         <li>
-    <a class="dropdown-item" href="/Hands-on Exercise/Hands-on_Ex01/Hands-on_Ex01.html">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex01/Hands-on_Ex01.html">
  <span class="dropdown-text">Hands-on Exercise 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html">
  <span class="dropdown-text">Hands-on Exercise 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.qmd">
  <span class="dropdown-text">Hands-on Exercise 3</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Hands-on Exercise/Hands-on_Ex04/Hands-on_Ex04.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex04/Hands-on_Ex04.qmd">
  <span class="dropdown-text">Hands-on Exercise 4</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Hands-on Exercise/Hands-on_Ex05/Hands-on_Ex05.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex05/Hands-on_Ex05.qmd">
  <span class="dropdown-text">Hands-on Exercise 5</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Hands-on Exercise/Hands-on_Ex06/Hands-on_Ex06.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex06/Hands-on_Ex06.qmd">
  <span class="dropdown-text">Hands-on Exercise 6</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Hands-on Exercise/Hands-on_Ex07/Hands-on_Ex07.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex07/Hands-on_Ex07.qmd">
  <span class="dropdown-text">Hands-on Exercise 7</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Hands-on Exercise/Hands-on_Ex08/Hands-on_Ex08.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex08/Hands-on_Ex08.qmd">
  <span class="dropdown-text">Hands-on Exercise 8</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Hands-on Exercise/Hands-on_Ex09/Hands-on_Ex09.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex09/Hands-on_Ex09.qmd">
  <span class="dropdown-text">Hands-on Exercise 9</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Hands-on Exercise/Hands-on_Ex10/Hands-on_Ex10.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex10/Hands-on_Ex10.qmd">
  <span class="dropdown-text">Hands-on Exercise 10</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-in-class-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-in-class-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">In-class Exercise</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-in-class-exercise">    
         <li>
-    <a class="dropdown-item" href="/In-class Exercise/In-class_Ex01/In-class_Ex01.html">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex01/In-class_Ex01.html">
  <span class="dropdown-text">In-class Exercise 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/In-class Exercise/In-class_Ex02/In-class_Ex02.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex02/In-class_Ex02.qmd">
  <span class="dropdown-text">In-class Exercise 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/In-class Exercise/In-class_Ex03/In-class_Ex03.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex03/In-class_Ex03.qmd">
  <span class="dropdown-text">In-class Exercise 3</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/In-class Exercise/In-class_Ex04/In-class_Ex04.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex04/In-class_Ex04.qmd">
  <span class="dropdown-text">In-class Exercise 4</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/In-class Exercise/In-class_Ex05/In-class_Ex05.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex05/In-class_Ex05.qmd">
  <span class="dropdown-text">In-class Exercise 5</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/In-class Exercise/In-class_Ex06/In-class_Ex06.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex06/In-class_Ex06.qmd">
  <span class="dropdown-text">In-class Exercise 6</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/In-class Exercise/In-class_Ex07/In-class_Ex07.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex07/In-class_Ex07.qmd">
  <span class="dropdown-text">In-class Exercise 7</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/In-class Exercise/In-class_Ex08/In-class_Ex08.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex08/In-class_Ex08.qmd">
  <span class="dropdown-text">In-class Exercise 8</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/In-class Exercise/In-class_Ex09/In-class_Ex09.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex09/In-class_Ex09.qmd">
  <span class="dropdown-text">In-class Exercise 9</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/In-class Exercise/In-class_Ex10/In-class_Ex10.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex10/In-class_Ex10.qmd">
  <span class="dropdown-text">In-class Exercise 10</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Take-home Exercise</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
         <li>
-    <a class="dropdown-item" href="/Take-home Exercise/Take-home_Ex01/Take-home_Ex01.html">
+    <a class="dropdown-item" href="../../Take-home Exercise/Take-home_Ex01/Take-home_Ex01.html">
  <span class="dropdown-text">Take-home Exercise 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Take-home Exercise/Take-home_Ex02/Take-home_Ex02.qmd">
+    <a class="dropdown-item" href="../../Take-home Exercise/Take-home_Ex02/Take-home_Ex02.qmd">
  <span class="dropdown-text">Take-home Exercise 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Take-home Exercise/Take-home_Ex03/Take-home_Ex03.qmd">
+    <a class="dropdown-item" href="../../test">
+ <span class="dropdown-text">test</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Take-home Exercise/Take-home_Ex03/Take-home_Ex03.qmd">
  <span class="dropdown-text">Take-home Exercise 3</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="/Take-home Exercise/Take-home_Ex04/Take-home_Ex04.qmd">
+    <a class="dropdown-item" href="../../Take-home Exercise/Take-home_Ex04/Take-home_Ex04.qmd">
  <span class="dropdown-text">Take-home Exercise 4</span></a>
   </li>  
     </ul>
@@ -219,7 +235,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <div id="quarto-toc-target"></div>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -261,16 +277,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><img src="images/coming%20soon.jpeg" class="img-fluid" /></p>
-<div id="quarto-navigation-envelope" class="hidden">
-<p><span class="hidden" data-render-id="quarto-int-sidebar-title">Visual Analytics</span> <span class="hidden" data-render-id="quarto-int-navbar-title">Visual Analytics</span> <span class="hidden" data-render-id="quarto-int-navbar:Home">Home</span> <span class="hidden" data-render-id="quarto-int-navbar:/index.html">/index.html</span> <span class="hidden" data-render-id="quarto-int-navbar:About">About</span> <span class="hidden" data-render-id="quarto-int-navbar:/about.html">/about.html</span> <span class="hidden" data-render-id="quarto-int-navbar:Learning Journey">Learning Journey</span> <span class="hidden" data-render-id="quarto-int-navbar:/journey.html">/journey.html</span> <span class="hidden" data-render-id="quarto-int-navbar:Hands-on Exercise">Hands-on Exercise</span> <span class="hidden" data-render-id="quarto-int-navbar:Hands-on Exercise 1">Hands-on Exercise 1</span> <span class="hidden" data-render-id="quarto-int-navbar:/Hands-on Exercise/Hands-on_Ex01/Hands-on_Ex01.html">/Hands-on Exercise/Hands-on_Ex01/Hands-on_Ex01.html</span> <span class="hidden" data-render-id="quarto-int-navbar:Hands-on Exercise 2">Hands-on Exercise 2</span> <span class="hidden" data-render-id="quarto-int-navbar:/Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html">/Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html</span> <span class="hidden" data-render-id="quarto-int-navbar:Hands-on Exercise 3">Hands-on Exercise 3</span> <span class="hidden" data-render-id="quarto-int-navbar:/Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.qmd">/Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:Hands-on Exercise 4">Hands-on Exercise 4</span> <span class="hidden" data-render-id="quarto-int-navbar:/Hands-on Exercise/Hands-on_Ex04/Hands-on_Ex04.qmd">/Hands-on Exercise/Hands-on_Ex04/Hands-on_Ex04.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:Hands-on Exercise 5">Hands-on Exercise 5</span> <span class="hidden" data-render-id="quarto-int-navbar:/Hands-on Exercise/Hands-on_Ex05/Hands-on_Ex05.qmd">/Hands-on Exercise/Hands-on_Ex05/Hands-on_Ex05.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:Hands-on Exercise 6">Hands-on Exercise 6</span> <span class="hidden" data-render-id="quarto-int-navbar:/Hands-on Exercise/Hands-on_Ex06/Hands-on_Ex06.qmd">/Hands-on Exercise/Hands-on_Ex06/Hands-on_Ex06.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:Hands-on Exercise 7">Hands-on Exercise 7</span> <span class="hidden" data-render-id="quarto-int-navbar:/Hands-on Exercise/Hands-on_Ex07/Hands-on_Ex07.qmd">/Hands-on Exercise/Hands-on_Ex07/Hands-on_Ex07.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:Hands-on Exercise 8">Hands-on Exercise 8</span> <span class="hidden" data-render-id="quarto-int-navbar:/Hands-on Exercise/Hands-on_Ex08/Hands-on_Ex08.qmd">/Hands-on Exercise/Hands-on_Ex08/Hands-on_Ex08.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:Hands-on Exercise 9">Hands-on Exercise 9</span> <span class="hidden" data-render-id="quarto-int-navbar:/Hands-on Exercise/Hands-on_Ex09/Hands-on_Ex09.qmd">/Hands-on Exercise/Hands-on_Ex09/Hands-on_Ex09.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:Hands-on Exercise 10">Hands-on Exercise 10</span> <span class="hidden" data-render-id="quarto-int-navbar:/Hands-on Exercise/Hands-on_Ex10/Hands-on_Ex10.qmd">/Hands-on Exercise/Hands-on_Ex10/Hands-on_Ex10.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:In-class Exercise">In-class Exercise</span> <span class="hidden" data-render-id="quarto-int-navbar:In-class Exercise 1">In-class Exercise 1</span> <span class="hidden" data-render-id="quarto-int-navbar:/In-class Exercise/In-class_Ex01/In-class_Ex01.html">/In-class Exercise/In-class_Ex01/In-class_Ex01.html</span> <span class="hidden" data-render-id="quarto-int-navbar:In-class Exercise 2">In-class Exercise 2</span> <span class="hidden" data-render-id="quarto-int-navbar:/In-class Exercise/In-class_Ex02/In-class_Ex02.qmd">/In-class Exercise/In-class_Ex02/In-class_Ex02.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:In-class Exercise 3">In-class Exercise 3</span> <span class="hidden" data-render-id="quarto-int-navbar:/In-class Exercise/In-class_Ex03/In-class_Ex03.qmd">/In-class Exercise/In-class_Ex03/In-class_Ex03.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:In-class Exercise 4">In-class Exercise 4</span> <span class="hidden" data-render-id="quarto-int-navbar:/In-class Exercise/In-class_Ex04/In-class_Ex04.qmd">/In-class Exercise/In-class_Ex04/In-class_Ex04.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:In-class Exercise 5">In-class Exercise 5</span> <span class="hidden" data-render-id="quarto-int-navbar:/In-class Exercise/In-class_Ex05/In-class_Ex05.qmd">/In-class Exercise/In-class_Ex05/In-class_Ex05.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:In-class Exercise 6">In-class Exercise 6</span> <span class="hidden" data-render-id="quarto-int-navbar:/In-class Exercise/In-class_Ex06/In-class_Ex06.qmd">/In-class Exercise/In-class_Ex06/In-class_Ex06.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:In-class Exercise 7">In-class Exercise 7</span> <span class="hidden" data-render-id="quarto-int-navbar:/In-class Exercise/In-class_Ex07/In-class_Ex07.qmd">/In-class Exercise/In-class_Ex07/In-class_Ex07.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:In-class Exercise 8">In-class Exercise 8</span> <span class="hidden" data-render-id="quarto-int-navbar:/In-class Exercise/In-class_Ex08/In-class_Ex08.qmd">/In-class Exercise/In-class_Ex08/In-class_Ex08.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:In-class Exercise 9">In-class Exercise 9</span> <span class="hidden" data-render-id="quarto-int-navbar:/In-class Exercise/In-class_Ex09/In-class_Ex09.qmd">/In-class Exercise/In-class_Ex09/In-class_Ex09.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:In-class Exercise 10">In-class Exercise 10</span> <span class="hidden" data-render-id="quarto-int-navbar:/In-class Exercise/In-class_Ex10/In-class_Ex10.qmd">/In-class Exercise/In-class_Ex10/In-class_Ex10.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:Take-home Exercise">Take-home Exercise</span> <span class="hidden" data-render-id="quarto-int-navbar:Take-home Exercise 1">Take-home Exercise 1</span> <span class="hidden" data-render-id="quarto-int-navbar:/Take-home Exercise/Take-home_Ex01/Take-home_Ex01.html">/Take-home Exercise/Take-home_Ex01/Take-home_Ex01.html</span> <span class="hidden" data-render-id="quarto-int-navbar:Take-home Exercise 2">Take-home Exercise 2</span> <span class="hidden" data-render-id="quarto-int-navbar:/Take-home Exercise/Take-home_Ex02/Take-home_Ex02.qmd">/Take-home Exercise/Take-home_Ex02/Take-home_Ex02.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:Take-home Exercise 3">Take-home Exercise 3</span> <span class="hidden" data-render-id="quarto-int-navbar:/Take-home Exercise/Take-home_Ex03/Take-home_Ex03.qmd">/Take-home Exercise/Take-home_Ex03/Take-home_Ex03.qmd</span> <span class="hidden" data-render-id="quarto-int-navbar:Take-home Exercise 4">Take-home Exercise 4</span> <span class="hidden" data-render-id="quarto-int-navbar:/Take-home Exercise/Take-home_Ex04/Take-home_Ex04.qmd">/Take-home Exercise/Take-home_Ex04/Take-home_Ex04.qmd</span></p>
-</div>
-<div id="quarto-meta-markdown" class="hidden">
-<p><span class="hidden" data-render-id="quarto-metatitle">Visual Analytics - Hands-on Ex 2</span> <span class="hidden" data-render-id="quarto-twittercardtitle">Visual Analytics - Hands-on Ex 2</span> <span class="hidden" data-render-id="quarto-ogcardtitle">Visual Analytics - Hands-on Ex 2</span> <span class="hidden" data-render-id="quarto-metasitename">Visual Analytics</span> <span class="hidden" data-render-id="quarto-twittercarddesc"></span> <span class="hidden" data-render-id="quarto-ogcardddesc"></span></p>
-</div>
+<p><img src="images/coming soon.jpeg" class="img-fluid"></p>
+
+
 
 </main> <!-- /main -->
-<script id = "quarto-html-after-body" type="application/javascript">
+<script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -681,6 +693,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 </div> <!-- /content -->
 
-</body>
 
-</html>
+
+
+</body></html>
