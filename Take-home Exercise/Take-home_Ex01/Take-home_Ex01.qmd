@@ -88,39 +88,17 @@ To have a basic understanding of all 21 variables, `glimpse()` is used with 2024
 -   characters: the rest of the 16 variables, including `Quarter`
 
 ```{r}
-# have a basic understanding for all 21 variables
-glimpse(data.24Q1)
+# have a basic understanding for all 22 variables
+glimpse(df)
 
 ```
 
 ### 2.3 Understanding the data
 
-```{r}
-qtr_dist
-```
 
 ```{r}
-# counting number of distinct
-D <- data.24Q1 %>%
-  group_by(`Type of Area`) %>% 
-  count()
-```
-
-```{r}
-# counting number of distinct
-Project <- data.24Q1 %>%
-  group_by(`Project Name`) %>% count()
-```
-
-```{r}
-# counting number of distinct
-Region <- data.24Q1 %>%
-  group_by(`Planning Region`) %>% count()
-```
-
-```{r}
-ggplot(data = data.24Q1, 
-       aes(x=`Type of Sale`)) +
+ggplot(data = df, 
+       aes(x=Quarter, fill = `Type of Sale`)) +
   geom_bar() 
 
 ```
