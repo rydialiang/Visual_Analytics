@@ -107,35 +107,19 @@ ggplot(data = df,
 ```
 
 ```{r}
-ggplot(data = df, 
-       aes(y = `Transacted Price ($)`, x = Quarter)) +
-  geom_boxplot()
-```
-
-From the boxplot above, it seems like there are outliers in 23Q1 that are extremely far from the rest of the data points. We may choose to exclude these transactions to have a better data set. However, given that this are all the actual transactions that have happened in the past five quarters, it may not be a good idea to exclude these data.
-
-Hence, we could explore other options such as comparing the selecting similar property types to make more meaningful conclusion.
-
-```{r}
 ggplot(data = df ,
        aes(x = `Transacted Price ($)`,
            y = Quarter,
-           fill = 0.5)) +
-  geom_density_ridges_gradient(
-    scale = 3,
-    rel_min_height = 0.01) +
-  scale_fill_viridis_c(name = "Transacted Price",
-                       option = "C") +
-  scale_x_continuous(
-    name = "Transacted Price",
-    expand = c(0,0)
-  ) +
-  scale_y_discrete(
-    name = NULL,
-    expand = expansion(add = c(0.2,2.6))
-  ) +
-  theme_ridges()
-
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE,
+    quantiles = 4,
+    quantile_lines = TRUE) +
+  scale_fill_viridis_d(name = "Quartiles") +
+  theme_ridges()+
+  facet_wrap(~`Property Type`,scales = "free")
 
 ```
 
@@ -143,7 +127,8 @@ ggplot(data = df ,
 ggplot(data = df, 
        aes(x=`Type of Area`,
            fill = `Type of Sale`)) +
-  geom_bar() 
+  geom_bar() +
+  facet_grid(~Quarter, scales = "free")
 
 ```
 
@@ -177,14 +162,30 @@ ggplot(data = land_df ,
     quantile_lines = TRUE) +
   scale_fill_viridis_d(name = "Quartiles") +
   theme_ridges()+
-  facet_wrap(~`Property Type`,scales = "free")
+  facet_grid(~`Property Type`,scales = "free") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  scale_x_continuous(labels = scales::comma)
   
 ```
 
 ```{r}
 ggplot(data = land_df, 
-       aes(y = `Transacted Price ($)`, x = Quarter)) +
-  geom_boxplot()
+       aes(y = `Transacted Price ($)`, x = `Property Type`)) +
+  geom_boxplot()+
+  facet_grid(~Quarter) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  coord_cartesian(xlim=c(1,4),
+                  ylim=c(0,30000000))
+```
+```{r}
+ggplot(data = strata_df, 
+       aes(y = `Transacted Price ($)`, 
+           x = `Property Type`)) +
+  geom_boxplot()+
+  facet_grid(~Quarter) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  coord_cartesian(xlim=c(1,6),
+                  ylim=c(0,10000000))
 
 ```
 
@@ -235,7 +236,9 @@ ggplot(data = strata_df ,
     quantile_lines = TRUE) +
   scale_fill_viridis_d(name = "Quartiles") +
   theme_ridges()+
-  facet_wrap(~`Planning Region`, scales = "free")
+  facet_grid(~`Planning Region`, scales = "free")+
+  scale_x_continuous(labels = scales::comma)+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) 
 
 ```
 
