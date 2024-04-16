@@ -30,11 +30,11 @@ T he `pac::p_load()` function to load the required R packages in the working env
 
 -   ggthemes: Extra themes, geoms, and scales for ggplot2.
 -   tidyverse: A collection of core packages designed for data science, used extensively for data preparation and wrangling.
--   To add XXX
+-   ggridges: a ggplot2 extension specially designed for plotting ridgeline plots, and
 
 ```{r}
 # load tidyverse from pacman
-pacman::p_load(tidyverse,dplyr)
+pacman::p_load(tidyverse,dplyr,ggridges,ggthemes)
 ```
 
 ### 2.2 Importing the data sets
@@ -58,6 +58,22 @@ data.23Q4 <- read_csv("data/ResidentialTransaction20240308161109.csv")
 data.24Q1 <- read_csv("data/ResidentialTransaction20240414220633.csv")
 ```
 
+To add new column `Quarter` into each of the csv file.
+
+```{r}
+data.23Q1$Quarter <- rep('23Q1',nrow(data.23Q1))
+data.23Q2$Quarter <- rep('23Q2',nrow(data.23Q2))
+data.23Q3$Quarter <- rep('23Q3',nrow(data.23Q3))
+data.23Q4$Quarter <-rep('23Q4',nrow(data.23Q4))
+data.24Q1$Quarter <- rep('24Q1',nrow(data.24Q1))
+```
+
+Combining all the data set into one
+
+```{r}
+df <- rbind(data.23Q1,data.23Q2,data.23Q3,data.23Q4,data.24Q1)
+```
+
 To have a basic understanding of all 21 variables, `glimpse()` is used with 2024 Q1 data. We can see that there are 21 columns, with the following data types:
 
 -   doubles:
@@ -69,8 +85,7 @@ To have a basic understanding of all 21 variables, `glimpse()` is used with 2024
     5.  `Unit Price ($ PSM)`
     6.  `Number of Units`
 
--   characters: the rest of the 15 variables
-
+-   characters: the rest of the 16 variables, including `Quarter`
 
 ```{r}
 # have a basic understanding for all 21 variables
@@ -78,18 +93,43 @@ glimpse(data.24Q1)
 
 ```
 
-### 2.3 Understanding the data 
+### 2.3 Understanding the data
 
 ```{r}
-
-
+qtr_dist
 ```
 
+```{r}
+# counting number of distinct
+D <- data.24Q1 %>%
+  group_by(`Type of Area`) %>% 
+  count()
+```
+
+```{r}
+# counting number of distinct
+Project <- data.24Q1 %>%
+  group_by(`Project Name`) %>% count()
+```
+
+```{r}
+# counting number of distinct
+Region <- data.24Q1 %>%
+  group_by(`Planning Region`) %>% count()
+```
 
 ```{r}
 ggplot(data = data.24Q1, 
        aes(x=`Type of Sale`)) +
   geom_bar() 
+
+```
+
+```{r}
+ggplot(data = ,
+       aes(y=`Transacted Price ($)`)) +
+  geom_density() 
+
 
 ```
 
