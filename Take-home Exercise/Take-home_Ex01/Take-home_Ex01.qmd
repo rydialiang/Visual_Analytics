@@ -148,7 +148,7 @@ ggplot(data = data.24Q1,
 ```
 
 ```{r}
-ggplot(data = data.24Q1,
+ggplot(data = df,
        aes(x =`Planning Area`,
            fill = `Type of Sale`)) +
   geom_bar() +
