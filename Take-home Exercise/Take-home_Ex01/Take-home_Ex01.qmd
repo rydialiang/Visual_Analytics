@@ -146,7 +146,7 @@ ggplot(data = df,
 
 ```
 
-Looking at the bar chart above, it might be a good way to filter the data based on Type of Area to do further analysis. 
+Looking at the bar chart above, it might be a good way to filter the data based on Type of Area to do further analysis. To lend some background context to this segregation, you can refer to this link: [Landed vs. Strata Landed](https://plbinsights.com/landed-vs-strata-landed-whats-the-difference-how-have-they-performed-in-recent-years/#:~:text=According%20to%20the%20URA%20website,as%20a%20pure%20landed%20property.) From this link, we can also derive further segregation by Property Type. 
 
 ```{r}
 land_df <- filter(df, `Type of Area` == 'Land')
@@ -156,9 +156,11 @@ strata_df<- filter(df, `Type of Area` == 'Strata')
 
 ```{r}
 ggplot(data = land_df, 
-       aes(y = `Transacted Price ($)`, x = Quarter)) +
-  geom_boxplot()
+       aes(x= `Property Type`,
+           fill = `Property Type`)) +
+  geom_bar()
 ```
+
 ```{r}
 ggplot(data = land_df ,
        aes(x = `Transacted Price ($)`,
@@ -178,16 +180,47 @@ ggplot(data = land_df ,
     expand = expansion(add = c(0.2,2.6))
   ) +
   theme_ridges()
-
-
 ```
-Although the 
+```{r}
+ggplot(data = land_df ,
+       aes(x = `Transacted Price ($)`,
+           y = Quarter,
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE,
+    quantiles = 4,
+    quantile_lines = TRUE) +
+  scale_fill_viridis_d(name = "Quartiles") +
+  theme_ridges()+
+  
+```
+
+
 ```{r}
 ggplot(data = strata_df, 
        aes(y = `Transacted Price ($)`, x = Quarter)) +
   geom_boxplot()
 ```
-Looking 
+
+```{r}
+ggplot(data = strata_df ,
+       aes(x = `Transacted Price ($)`,
+           y = Quarter,
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE,
+    quantiles = 4,
+    quantile_lines = TRUE) +
+  scale_fill_viridis_d(name = "Quartiles") +
+  theme_ridges()
+
+```
+
+Although after filtering
 
 ```{r}
 ggplot(data = df,
