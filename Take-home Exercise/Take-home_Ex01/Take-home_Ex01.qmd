@@ -276,7 +276,6 @@ C <- ggplot(data = strata_df,
 ## 3.0 Data Visualisation
 
 ```{r}
-#| eval: false
 (B/C)+
   plot_annotation(tag_levels = 'I')
 ```
