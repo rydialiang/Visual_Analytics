@@ -301,8 +301,44 @@ ggplot(data = df,
   scale_y_continuous(labels = scales::comma)+
   ggtitle("Distribution of Transacted Prices by Quarter with mean")
 ```
+```{r}
+quarter_means <- land_df %>%
+  group_by(Quarter) %>%
+  summarise(mean_tprice = mean(`Transacted Price ($)`))
 
+ggplot(data = df,
+       aes(y=`Transacted Price ($)`,
+           x=`Quarter`)
+       )+
+  geom_violin()+
+  coord_cartesian(xlim=c(1,5),
+                  ylim=c(min(df$`Transacted Price ($)`),7500000)) +
+  geom_point(data = quarter_means, 
+             aes(y = mean_tprice), 
+             color = "red", 
+             size = 3)+
+  scale_y_continuous(labels = scales::comma)+
+  ggtitle("Distribution of Transacted Prices by Quarter with mean for Land")
+```
 
+```{r}
+quarter_means <- strata_df %>%
+  group_by(Quarter) %>%
+  summarise(mean_tprice = mean(`Transacted Price ($)`))
 
+ggplot(data = df,
+       aes(y=`Transacted Price ($)`,
+           x=`Quarter`)
+       )+
+  geom_violin()+
+  coord_cartesian(xlim=c(1,5),
+                  ylim=c(min(df$`Transacted Price ($)`),7500000)) +
+  geom_point(data = quarter_means, 
+             aes(y = mean_tprice), 
+             color = "red", 
+             size = 3)+
+  scale_y_continuous(labels = scales::comma)+
+  ggtitle("Distribution of Transacted Prices by Quarter with mean for Strata")
+```
 
 
