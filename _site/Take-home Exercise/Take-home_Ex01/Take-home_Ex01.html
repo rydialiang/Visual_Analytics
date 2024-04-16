@@ -316,7 +316,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">April 15, 2024</p>
+      <p class="date-modified">April 16, 2024</p>
     </div>
   </div>
     
@@ -348,11 +348,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>ggthemes: Extra themes, geoms, and scales for ggplot2.</li>
 <li>tidyverse: A collection of core packages designed for data science, used extensively for data preparation and wrangling.</li>
-<li>To add XXX</li>
+<li>ggridges: a ggplot2 extension specially designed for plotting ridgeline plots</li>
+<li>colorspace:</li>
+<li>ggiraph: for making ‘ggplot’ graphics interactive.</li>
+<li>plotly: R library for plotting interactive statistical graphs.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load tidyverse from pacman</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse,dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse,dplyr,ggridges,ggthemes,colorspace,ggiraph,plotly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="importing-the-data-sets" class="level3">
@@ -374,6 +377,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>data<span class="fl">.23</span>Q4 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/ResidentialTransaction20240308161109.csv"</span>)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data<span class="fl">.24</span>Q1 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/ResidentialTransaction20240414220633.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>To add new column <code>Quarter</code> into each of the csv file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data<span class="fl">.23</span>Q1<span class="sc">$</span>Quarter <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">'23Q1'</span>,<span class="fu">nrow</span>(data<span class="fl">.23</span>Q1))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data<span class="fl">.23</span>Q2<span class="sc">$</span>Quarter <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">'23Q2'</span>,<span class="fu">nrow</span>(data<span class="fl">.23</span>Q2))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>data<span class="fl">.23</span>Q3<span class="sc">$</span>Quarter <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">'23Q3'</span>,<span class="fu">nrow</span>(data<span class="fl">.23</span>Q3))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>data<span class="fl">.23</span>Q4<span class="sc">$</span>Quarter <span class="ot">&lt;-</span><span class="fu">rep</span>(<span class="st">'23Q4'</span>,<span class="fu">nrow</span>(data<span class="fl">.23</span>Q4))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>data<span class="fl">.24</span>Q1<span class="sc">$</span>Quarter <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">'24Q1'</span>,<span class="fu">nrow</span>(data<span class="fl">.24</span>Q1))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Combining all the data set into one</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(data<span class="fl">.23</span>Q1,data<span class="fl">.23</span>Q2,data<span class="fl">.23</span>Q3,data<span class="fl">.23</span>Q4,data<span class="fl">.24</span>Q1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>To have a basic understanding of all 21 variables, <code>glimpse()</code> is used with 2024 Q1 data. We can see that there are 21 columns, with the following data types:</p>
 <ul>
 <li><p>doubles:</p>
@@ -385,56 +400,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>Unit Price ($ PSM)</code></li>
 <li><code>Number of Units</code></li>
 </ol></li>
-<li><p>characters: the rest of the 15 variables</p></li>
+<li><p>characters: the rest of the 16 variables, including <code>Quarter</code></p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># have a basic understanding for all 21 variables</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(data<span class="fl">.24</span>Q1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># have a basic understanding for all 22 variables</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 4,902
-Columns: 21
-$ `Project Name`                &lt;chr&gt; "THE LANDMARK", "POLLEN COLLECTION", "SK…
-$ `Transacted Price ($)`        &lt;dbl&gt; 2726888, 3850000, 2346000, 2190000, 1954…
-$ `Area (SQFT)`                 &lt;dbl&gt; 1076.40, 1808.35, 1087.16, 807.30, 796.5…
-$ `Unit Price ($ PSF)`          &lt;dbl&gt; 2533, 2129, 2158, 2713, 2453, 2577, 838,…
-$ `Sale Date`                   &lt;chr&gt; "01 Jan 2024", "01 Jan 2024", "01 Jan 20…
-$ Address                       &lt;chr&gt; "173 CHIN SWEE ROAD #22-11", "34 POLLEN …
+<pre><code>Rows: 26,806
+Columns: 22
+$ `Project Name`                &lt;chr&gt; "THE REEF AT KING'S DOCK", "URBAN TREASU…
+$ `Transacted Price ($)`        &lt;dbl&gt; 2317000, 1823500, 1421112, 1258112, 1280…
+$ `Area (SQFT)`                 &lt;dbl&gt; 882.65, 882.65, 1076.40, 1033.34, 871.88…
+$ `Unit Price ($ PSF)`          &lt;dbl&gt; 2625, 2066, 1320, 1218, 1468, 1767, 1095…
+$ `Sale Date`                   &lt;chr&gt; "01 Jan 2023", "02 Jan 2023", "02 Jan 20…
+$ Address                       &lt;chr&gt; "12 HARBOURFRONT AVENUE #05-32", "205 JA…
 $ `Type of Sale`                &lt;chr&gt; "New Sale", "New Sale", "New Sale", "New…
-$ `Type of Area`                &lt;chr&gt; "Strata", "Land", "Strata", "Strata", "S…
-$ `Area (SQM)`                  &lt;dbl&gt; 100.0, 168.0, 101.0, 75.0, 74.0, 123.0, …
-$ `Unit Price ($ PSM)`          &lt;dbl&gt; 27269, 22917, 23228, 29200, 26405, 27741…
+$ `Type of Area`                &lt;chr&gt; "Strata", "Strata", "Strata", "Strata", …
+$ `Area (SQM)`                  &lt;dbl&gt; 82.0, 82.0, 100.0, 96.0, 81.0, 308.7, 42…
+$ `Unit Price ($ PSM)`          &lt;dbl&gt; 28256, 22238, 14211, 13105, 15802, 19015…
 $ `Nett Price($)`               &lt;chr&gt; "-", "-", "-", "-", "-", "-", "-", "-", …
-$ `Property Type`               &lt;chr&gt; "Condominium", "Terrace House", "Apartme…
+$ `Property Type`               &lt;chr&gt; "Condominium", "Condominium", "Executive…
 $ `Number of Units`             &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-$ Tenure                        &lt;chr&gt; "99 yrs from 28/08/2020", "99 yrs from 0…
+$ Tenure                        &lt;chr&gt; "99 yrs from 12/01/2021", "Freehold", "9…
 $ `Completion Date`             &lt;chr&gt; "Uncompleted", "Uncompleted", "Uncomplet…
-$ `Purchaser Address Indicator` &lt;chr&gt; "Private", "N.A", "HDB", "N.A", "Private…
-$ `Postal Code`                 &lt;chr&gt; "169878", "807233", "469657", "118992", …
-$ `Postal District`             &lt;chr&gt; "03", "28", "16", "05", "21", "21", "28"…
-$ `Postal Sector`               &lt;chr&gt; "16", "80", "46", "11", "59", "58", "79"…
-$ `Planning Region`             &lt;chr&gt; "Central Region", "North East Region", "…
-$ `Planning Area`               &lt;chr&gt; "Outram", "Serangoon", "Bedok", "Queenst…</code></pre>
+$ `Purchaser Address Indicator` &lt;chr&gt; "HDB", "Private", "HDB", "HDB", "HDB", "…
+$ `Postal Code`                 &lt;chr&gt; "097996", "419535", "269343", "269294", …
+$ `Postal District`             &lt;chr&gt; "04", "14", "27", "27", "28", "19", "10"…
+$ `Postal Sector`               &lt;chr&gt; "09", "41", "26", "26", "79", "54", "27"…
+$ `Planning Region`             &lt;chr&gt; "Central Region", "East Region", "North …
+$ `Planning Area`               &lt;chr&gt; "Bukit Merah", "Bedok", "Yishun", "Yishu…
+$ Quarter                       &lt;chr&gt; "23Q1", "23Q1", "23Q1", "23Q1", "23Q1", …</code></pre>
 </div>
 </div>
 </section>
 <section id="understanding-the-data" class="level3">
 <h3 class="anchored" data-anchor-id="understanding-the-data">2.3 Understanding the data</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data<span class="fl">.24</span>Q1, </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Type of Sale</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data<span class="fl">.24</span>Q1, </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Type of Area</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>Quarter, <span class="at">fill =</span> <span class="st">`</span><span class="at">Type of Sale</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -444,15 +448,70 @@ $ `Planning Area`               &lt;chr&gt; "Outram", "Serangoon", "Bedok", "Que
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data<span class="fl">.24</span>Q1,</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span><span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span>,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">`</span><span class="at">Type of Sale</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df, </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y =</span> <span class="st">`</span><span class="at">Transacted Price ($)</span><span class="st">`</span>, <span class="at">x =</span> Quarter)) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot_interactive</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">tooltip =</span> <span class="st">`</span><span class="at">Transacted Price ($)</span><span class="st">`</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>From the boxplot above, it seems like there are outliers in 23Q1 that are extremely far from the rest of the data points. We may choose to exclude these transactions to have a better data set. However, given that this are all the actual transactions that have happened in the past five quarters, it may not be a good idea to exclude these data.</p>
+<p>Hence, we could explore other options such as comparing the selecting similar property types to make more meaningful conclusion.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df ,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Transacted Price ($)</span><span class="st">`</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> Quarter,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges_gradient</span>(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">scale =</span> <span class="dv">3</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">rel_min_height =</span> <span class="fl">0.01</span>) <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">name =</span> <span class="st">"Temp. [F]"</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">option =</span> <span class="st">"C"</span>) <span class="sc">+</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Transacted Price"</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="cn">NULL</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">add =</span> <span class="fu">c</span>(<span class="fl">0.2</span>,<span class="fl">2.6</span>))</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ridges</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data<span class="fl">.24</span>Q1, </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Type of Area</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> data<span class="fl">.24</span>Q1,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span><span class="st">`</span><span class="at">Planning Area</span><span class="st">`</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">`</span><span class="at">Type of Sale</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

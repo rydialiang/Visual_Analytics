@@ -30,11 +30,14 @@ T he `pac::p_load()` function to load the required R packages in the working env
 
 -   ggthemes: Extra themes, geoms, and scales for ggplot2.
 -   tidyverse: A collection of core packages designed for data science, used extensively for data preparation and wrangling.
--   ggridges: a ggplot2 extension specially designed for plotting ridgeline plots, and
+-   ggridges: a ggplot2 extension specially designed for plotting ridgeline plots
+-   colorspace:
+-   ggiraph: for making ‘ggplot’ graphics interactive.
+-   plotly: R library for plotting interactive statistical graphs.
 
 ```{r}
 # load tidyverse from pacman
-pacman::p_load(tidyverse,dplyr,ggridges,ggthemes)
+pacman::p_load(tidyverse,dplyr,ggridges,ggthemes,colorspace,ggiraph,plotly)
 ```
 
 ### 2.2 Importing the data sets
@@ -91,22 +94,48 @@ To have a basic understanding of all 21 variables, `glimpse()` is used with 2024
 # have a basic understanding for all 22 variables
 glimpse(df)
 
+
 ```
 
 ### 2.3 Understanding the data
-
 
 ```{r}
 ggplot(data = df, 
        aes(x=Quarter, fill = `Type of Sale`)) +
   geom_bar() 
-
 ```
 
 ```{r}
-ggplot(data = ,
-       aes(y=`Transacted Price ($)`)) +
-  geom_density() 
+ggplot(data = df, 
+       aes(y = `Transacted Price ($)`, x = Quarter)) +
+  geom_boxplot_interactive(
+    aes(tooltip = `Transacted Price ($)`)
+  ) 
+```
+
+From the boxplot above, it seems like there are outliers in 23Q1 that are extremely far from the rest of the data points. We may choose to exclude these transactions to have a better data set. However, given that this are all the actual transactions that have happened in the past five quarters, it may not be a good idea to exclude these data.
+
+Hence, we could explore other options such as comparing the selecting similar property types to make more meaningful conclusion.
+
+```{r}
+ggplot(data = df ,
+       aes(x = `Transacted Price ($)`,
+           y = Quarter,
+           fill = 0.5)) +
+  geom_density_ridges_gradient(
+    scale = 3,
+    rel_min_height = 0.01) +
+  scale_fill_viridis_c(name = "Temp. [F]",
+                       option = "C") +
+  scale_x_continuous(
+    name = "Transacted Price",
+    expand = c(0,0)
+  ) +
+  scale_y_discrete(
+    name = NULL,
+    expand = expansion(add = c(0.2,2.6))
+  ) +
+  theme_ridges()
 
 
 ```
