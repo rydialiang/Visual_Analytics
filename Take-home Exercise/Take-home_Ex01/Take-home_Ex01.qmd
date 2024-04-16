@@ -108,9 +108,7 @@ ggplot(data = df,
 ```{r}
 ggplot(data = df, 
        aes(y = `Transacted Price ($)`, x = Quarter)) +
-  geom_boxplot_interactive(
-    aes(tooltip = `Transacted Price ($)`)
-  ) 
+  geom_boxplot()
 ```
 
 From the boxplot above, it seems like there are outliers in 23Q1 that are extremely far from the rest of the data points. We may choose to exclude these transactions to have a better data set. However, given that this are all the actual transactions that have happened in the past five quarters, it may not be a good idea to exclude these data.
@@ -125,7 +123,7 @@ ggplot(data = df ,
   geom_density_ridges_gradient(
     scale = 3,
     rel_min_height = 0.01) +
-  scale_fill_viridis_c(name = "Temp. [F]",
+  scale_fill_viridis_c(name = "Transacted Price",
                        option = "C") +
   scale_x_continuous(
     name = "Transacted Price",
@@ -141,11 +139,55 @@ ggplot(data = df ,
 ```
 
 ```{r}
-ggplot(data = data.24Q1, 
-       aes(x=`Type of Area`)) +
+ggplot(data = df, 
+       aes(x=`Type of Area`,
+           fill = `Type of Sale`)) +
   geom_bar() 
 
 ```
+
+Looking at the bar chart above, it might be a good way to filter the data based on Type of Area to do further analysis. 
+
+```{r}
+land_df <- filter(df, `Type of Area` == 'Land')
+strata_df<- filter(df, `Type of Area` == 'Strata')
+
+```
+
+```{r}
+ggplot(data = land_df, 
+       aes(y = `Transacted Price ($)`, x = Quarter)) +
+  geom_boxplot()
+```
+```{r}
+ggplot(data = land_df ,
+       aes(x = `Transacted Price ($)`,
+           y = Quarter,
+           fill = 0.5)) +
+  geom_density_ridges_gradient(
+    scale = 3,
+    rel_min_height = 0.01) +
+  scale_fill_viridis_c(name = "Transacted Price",
+                       option = "C") +
+  scale_x_continuous(
+    name = "Transacted Price",
+    expand = c(0,0)
+  ) +
+  scale_y_discrete(
+    name = NULL,
+    expand = expansion(add = c(0.2,2.6))
+  ) +
+  theme_ridges()
+
+
+```
+Although the 
+```{r}
+ggplot(data = strata_df, 
+       aes(y = `Transacted Price ($)`, x = Quarter)) +
+  geom_boxplot()
+```
+Looking 
 
 ```{r}
 ggplot(data = df,
@@ -153,6 +195,7 @@ ggplot(data = df,
            fill = `Type of Sale`)) +
   geom_bar() +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
 
 ```
 
