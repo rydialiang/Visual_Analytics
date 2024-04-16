@@ -34,10 +34,11 @@ T he `pac::p_load()` function to load the required R packages in the working env
 -   colorspace:
 -   ggiraph: for making ‘ggplot’ graphics interactive.
 -   plotly: R library for plotting interactive statistical graphs.
+-   patchwork: specially designed for combining separate ggplot2 graphs into a single figure.
 
 ```{r}
 # load tidyverse from pacman
-pacman::p_load(tidyverse,dplyr,ggridges,ggthemes,colorspace,ggiraph,plotly)
+pacman::p_load(tidyverse,dplyr,ggridges,ggthemes,colorspace,ggiraph,plotly,patchwork)
 ```
 
 ### 2.2 Importing the data sets
@@ -146,7 +147,7 @@ ggplot(data = df,
 
 ```
 
-Looking at the bar chart above, it might be a good way to filter the data based on Type of Area to do further analysis. To lend some background context to this segregation, you can refer to this link: [Landed vs. Strata Landed](https://plbinsights.com/landed-vs-strata-landed-whats-the-difference-how-have-they-performed-in-recent-years/#:~:text=According%20to%20the%20URA%20website,as%20a%20pure%20landed%20property.) From this link, we can also derive further segregation by Property Type. 
+Looking at the bar chart above, it might be a good way to filter the data based on Type of Area to do further analysis. To lend some background context to this segregation, you can refer to this link: [Landed vs. Strata Landed](https://plbinsights.com/landed-vs-strata-landed-whats-the-difference-how-have-they-performed-in-recent-years/#:~:text=According%20to%20the%20URA%20website,as%20a%20pure%20landed%20property.) From this link, we can also derive further segregation by Property Type.
 
 ```{r}
 land_df <- filter(df, `Type of Area` == 'Land')
@@ -167,26 +168,6 @@ ggplot(data = land_df,
 ggplot(data = land_df ,
        aes(x = `Transacted Price ($)`,
            y = Quarter,
-           fill = 0.5)) +
-  geom_density_ridges_gradient(
-    scale = 3,
-    rel_min_height = 0.01) +
-  scale_fill_viridis_c(name = "Transacted Price",
-                       option = "C") +
-  scale_x_continuous(
-    name = "Transacted Price",
-    expand = c(0,0)
-  ) +
-  scale_y_discrete(
-    name = NULL,
-    expand = expansion(add = c(0.2,2.6))
-  ) +
-  theme_ridges()
-```
-```{r}
-ggplot(data = land_df ,
-       aes(x = `Transacted Price ($)`,
-           y = Quarter,
            fill = factor(stat(quantile))
            )) +
   stat_density_ridges(
@@ -199,7 +180,6 @@ ggplot(data = land_df ,
   facet_wrap(~`Property Type`,scales = "free")
   
 ```
-
 
 ```{r}
 ggplot(data = land_df, 
@@ -224,6 +204,7 @@ ggplot(strata_df,
   facet_wrap(~`Property Type`, scales = "free")
   
 ```
+
 ```{r}
 mean_land_by_property_type <- land_df %>%
   group_by(`Property Type`) %>%
@@ -258,16 +239,45 @@ ggplot(data = strata_df ,
 
 ```
 
-
-
 ```{r}
 ggplot(data = df,
-       aes(x =`Planning Area`,
+       aes(x =`Purchaser Address Indicator`,
            fill = `Type of Sale`)) +
   geom_bar() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  facet_grid(~`Planning Region`)+
+  ggtitle("Purchaser Address Indicator by Planning Region")
+          
 
+```
+
+```{r}
+B <- ggplot(data = land_df,
+       aes(x =`Purchaser Address Indicator`,
+           fill = `Type of Sale`)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  facet_grid(~`Planning Region`) +
+  ggtitle("Land:Purchaser Address Indicator by Planning Region")
+
+```
+
+```{r}
+C <- ggplot(data = strata_df,
+       aes(x =`Purchaser Address Indicator`,
+           fill = `Type of Sale`)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  facet_grid(~`Planning Region`) +
+  ggtitle("Strata:Purchaser Address Indicator by Planning Region")
 
 ```
 
 ## 3.0 Data Visualisation
+
+```{r}
+#| eval: false
+(B/C)+
+  plot_annotation(tag_levels = 'I')
+```
+
