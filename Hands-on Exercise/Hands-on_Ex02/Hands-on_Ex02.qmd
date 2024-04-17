@@ -29,7 +29,12 @@ Key learning:
 
 In this exercise, beside tidyverse, four R packages will be used. They are:
 
-ggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels. ggthemes: an R package provides some extra themes, geoms, and scales for ‘ggplot2’. hrbrthemes: an R package provides typography-centric themes and theme components for ggplot2. patchwork: an R package for preparing composite figure created using ggplot2. Code chunk below will be used to check if these packages have been installed and also will load them onto your working R environment.
+-   ggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels.
+-   ggthemes: an R package provides some extra themes, geoms, and scales for ‘ggplot2’.
+-   hrbrthemes: an R package provides typography-centric themes and theme components for ggplot2.
+-   patchwork: an R package for preparing composite figure created using ggplot2. 
+
+Code chunk below will be used to check if these packages have been installed and also will load them onto your working R environment.
 
 ```{r}
 pacman::p_load(ggrepel,patchwork,
@@ -48,9 +53,11 @@ exam_data <- read_csv("data/Exam_data.csv")
 ```
 
 ## glimpse() the Data
+
 ```{r}
 glimpse(exam_data)
 ```
+
 There are a total of seven attributes in the exam_data tibble data frame. Four of them are categorical data type and the other three are in continuous data type.
 
 -   Categorical attributes: ID, CLASS, GENDER and RACE.
@@ -59,10 +66,12 @@ There are a total of seven attributes in the exam_data tibble data frame. Four o
 :::
 
 ## 3 Beyond ggplot2 Annotation: ggrepel
-Annotation for large number of data points is potentially challenging, as the annotations may overwhelm the plot. 
+
+Annotation for large number of data points is potentially challenging, as the annotations may overwhelm the plot.
 
 ::: panel-tabset
 ## The plot
+
 ```{r}
 #| echo: false
 ggplot(data=exam_data, 
@@ -79,8 +88,8 @@ ggplot(data=exam_data,
   ggtitle("English scores versus Maths scores for Primary 3")
 ```
 
-
 ## The code
+
 ```{r}
 #| eval: false
 ggplot(data=exam_data, 
