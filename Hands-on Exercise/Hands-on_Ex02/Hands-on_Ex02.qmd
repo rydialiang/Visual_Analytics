@@ -107,6 +107,45 @@ ggplot(data=exam_data,
 ```
 :::
 
+[ggrepel](https://ggrepel.slowkow.com/) is an extension of **ggplot2** package which provides `geoms` for **ggplot2** to repel overlapping text as in our example above.
 
+We simply replace `geom_text()` by [`geom_text_repel()`](https://ggrepel.slowkow.com/reference/geom_text_repel.html) and `geom_label()` by [`geom_label_repel`](https://ggrepel.slowkow.com/reference/geom_text_repel.html).
 
+## Working with ggrepel
+::: panel-tabset
+## The plot
+```{r}
+#| echo: False
+ggplot(exam_data,
+       aes(x= MATHS,
+       y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5) +
+  geom_label_repel(aes(label = ID),
+                   hjust = 0.5,
+                   vjust = 0.5) +
+  coord_cartesian(xlim = c(0,100),
+                  ylim = c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
 
+```
+
+## The code
+```{r}
+#| eval: False
+ggplot(exam_data,
+       aes(x= MATHS,
+       y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5) +
+  geom_label_repel(aes(label = ID),
+                   hjust = 0.5,
+                   vjust = 0.5) +
+  coord_cartesian(xlim = c(0,100),
+                  ylim = c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
+
+```
+:::
