@@ -52,4 +52,10 @@ There are a total of seven attributes in the exam_data tibble data frame. Four o
 -   The categorical attributes are: ID, CLASS, GENDER and RACE.
 
 -   The continuous attributes are: MATHS, ENGLISH and SCIENCE.
+
+## glimpse() the Data
+```{r}
+glimpse(exam_data)
+```
 :::
+
