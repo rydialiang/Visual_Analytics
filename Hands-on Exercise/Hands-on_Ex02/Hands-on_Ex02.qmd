@@ -26,13 +26,10 @@ Key learning:
 
 ::: panel-tabset
 ## Installing and loading the required libraries
+
 In this exercise, beside tidyverse, four R packages will be used. They are:
 
-ggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels.
-ggthemes: an R package provides some extra themes, geoms, and scales for ‘ggplot2’.
-hrbrthemes: an R package provides typography-centric themes and theme components for ggplot2.
-patchwork: an R package for preparing composite figure created using ggplot2.
-Code chunk below will be used to check if these packages have been installed and also will load them onto your working R environment.
+ggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels. ggthemes: an R package provides some extra themes, geoms, and scales for ‘ggplot2’. hrbrthemes: an R package provides typography-centric themes and theme components for ggplot2. patchwork: an R package for preparing composite figure created using ggplot2. Code chunk below will be used to check if these packages have been installed and also will load them onto your working R environment.
 
 ```{r}
 pacman::p_load(ggrepel,patchwork,
@@ -41,24 +38,18 @@ pacman::p_load(ggrepel,patchwork,
 ```
 
 ## Importing data
+
 For the purpose of this exercise, a data file called Exam_data will be used. It consists of year end examination grades of a cohort of primary 3 students from a local school. It is in csv file format.
 
 The code chunk below imports exam_data.csv into R environment by using read_csv() function of readr package. readr is one of the tidyverse package.
-::: {style="font-size: 1.4em"}
+
 ```{r}
-#| eval: false
-ggplot(data=exam_data, 
-       aes(x= MATHS, 
-           y=ENGLISH)) +
-  geom_point() +
-  geom_smooth(method=lm, 
-              size=0.5) +  
-  geom_label(aes(label = ID), 
-             hjust = .5, 
-             vjust = -.5) +
-  coord_cartesian(xlim=c(0,100),
-                  ylim=c(0,100)) +
-  ggtitle("English scores versus Maths scores for Primary 3")
+exam_data <- read_csv("chap02/data/Exam_data.csv")
 ```
-:::
+
+There are a total of seven attributes in the exam_data tibble data frame. Four of them are categorical data type and the other three are in continuous data type.
+
+-   The categorical attributes are: ID, CLASS, GENDER and RACE.
+
+-   The continuous attributes are: MATHS, ENGLISH and SCIENCE.
 :::
