@@ -1,0 +1,15 @@
+{
+  "hash": "4b675d70b9b60cc18fb04ed79393b1a8",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Hands-on Ex 2\"\nauthor: \"Liang Xiuhao Rydia\"\ndate: \"April 20, 2024\"\ndate-modified: \"last-modified\"\nexecute:\n  eval: true\n  echo: true\n  warning: false\n  freeze: true\n---\n\n\n## Hands-on Exercise 2: Beyond ggplot2 Fundamentals\n\n## 1 Overview\n\nThis chapter / Hands-on exercise is an introduction to several ggplot2 extension. Key idea is to create more elegant and effective statistical graphics, pleasing to the eyes of the reader, and reducing the cognitive load of the reader.\n\nKey learning:\n\n-   control the placement of annotation on a graph by using functions provided in ggrepel package\n\n-   create professional publication quality figure by using functions provided in ggthemes and hrbrthemes packages\n\n-   plot composite figure by combining ggplot2 graphs by using patchwork package.\n\n## 2 Getting started\n\n::: panel-tabset\n## Installing and loading the required libraries\n\nCode chunk below will be used to check if these packages have been installed and also will load them onto your working R environment.\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(ggrepel,patchwork,\n               ggthemes,hrbrthemes,\n               tidyverse)\n```\n:::\n\n\n## The code\n\n::: {style=\"font-size: 1.4em\"}\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              size=0.5) +  \n  geom_label(aes(label = ID), \n             hjust = .5, \n             vjust = -.5) +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100)) +\n  ggtitle(\"English scores versus Maths scores for Primary 3\")\n```\n:::\n\n:::\n:::\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -10,6 +10,7 @@ execute:
   freeze: true
 ---
 
+
 # **Building Elegant and yet Informative Data Visualisation**
 
 ## 1.0 Overview
@@ -36,10 +37,12 @@ T he `pac::p_load()` function to load the required R packages in the working env
 -   plotly: R library for plotting interactive statistical graphs.
 -   patchwork: specially designed for combining separate ggplot2 graphs into a single figure.
 
+
 ```{r}
 # load tidyverse from pacman
 pacman::p_load(tidyverse,dplyr,ggridges,ggthemes,colorspace,ggiraph,plotly,patchwork)
 ```
+
 
 ### 2.2 Importing the data sets
 
@@ -53,6 +56,7 @@ Five sets of data are provided for this exercise:
 
 All five sets of data consists of past transactions between Q1 of 2023 to Q1 of 2024, with 21 variables that will be explored in detail after the data sets are imported.
 
+
 ```{r}
 # load transaction data using readr, part of tidyverse package
 data.23Q1 <- read_csv("data/ResidentialTransaction20240308160536.csv")
@@ -62,7 +66,9 @@ data.23Q4 <- read_csv("data/ResidentialTransaction20240308161109.csv")
 data.24Q1 <- read_csv("data/ResidentialTransaction20240414220633.csv")
 ```
 
+
 To add new column `Quarter` into each of the csv file.
+
 
 ```{r}
 data.23Q1$Quarter <- rep('23Q1',nrow(data.23Q1))
@@ -72,11 +78,14 @@ data.23Q4$Quarter <-rep('23Q4',nrow(data.23Q4))
 data.24Q1$Quarter <- rep('24Q1',nrow(data.24Q1))
 ```
 
+
 Combining all the data set into one
+
 
 ```{r}
 df <- rbind(data.23Q1,data.23Q2,data.23Q3,data.23Q4,data.24Q1)
 ```
+
 
 To have a basic understanding of all 21 variables, `glimpse()` is used with 2024 Q1 data. We can see that there are 21 columns, with the following data types:
 
@@ -91,6 +100,7 @@ To have a basic understanding of all 21 variables, `glimpse()` is used with 2024
 
 -   characters: the rest of the 16 variables, including `Quarter`
 
+
 ```{r}
 # have a basic understanding for all 22 variables
 glimpse(df)
@@ -98,7 +108,9 @@ glimpse(df)
 
 ```
 
+
 ### 2.3 Understanding the data
+
 
 ```{r}
 ggplot(data = df, 
@@ -132,7 +144,9 @@ ggplot(data = df,
 
 ```
 
+
 Looking at the bar chart above, it might be a good way to filter the data based on Type of Area to do further analysis. To lend some background context to this segregation, you can refer to this link: [Landed vs. Strata Landed](https://plbinsights.com/landed-vs-strata-landed-whats-the-difference-how-have-they-performed-in-recent-years/#:~:text=According%20to%20the%20URA%20website,as%20a%20pure%20landed%20property.) From this link, we can also derive further segregation by Property Type.
+
 
 ```{r}
 land_df <- filter(df, `Type of Area` == 'Land')
@@ -177,6 +191,7 @@ ggplot(data = land_df,
   coord_cartesian(xlim=c(1,4),
                   ylim=c(0,30000000))
 ```
+
 ```{r}
 ggplot(data = strata_df, 
        aes(y = `Transacted Price ($)`, 
@@ -276,12 +291,15 @@ C <- ggplot(data = strata_df,
 
 ```
 
+
 ## 3.0 Data Visualisation
+
 
 ```{r}
 (B/C)+
   plot_annotation(tag_levels = 'I')
 ```
+
 ```{r}
 quarter_means <- df %>%
   group_by(Quarter) %>%
@@ -301,6 +319,7 @@ ggplot(data = df,
   scale_y_continuous(labels = scales::comma)+
   ggtitle("Distribution of Transacted Prices by Quarter with mean")
 ```
+
 ```{r}
 quarter_means <- land_df %>%
   group_by(Quarter) %>%

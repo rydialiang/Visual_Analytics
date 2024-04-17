@@ -10,4 +10,51 @@ execute:
   freeze: true
 ---
 
-![](images/coming%20soon.jpeg)
+## Hands-on Exercise 2: Beyond ggplot2 Fundamentals
+
+## 1 Overview
+
+This chapter / Hands-on exercise is an introduction to several ggplot2 extension. Key idea is to create more elegant and effective statistical graphics, pleasing to the eyes of the reader, and reducing the cognitive load of the reader.
+
+Key learning:
+
+-   control the placement of annotation on a graph by using functions provided in ggrepel package
+
+-   create professional publication quality figure by using functions provided in ggthemes and hrbrthemes packages
+
+-   plot composite figure by combining ggplot2 graphs by using patchwork package.
+
+## 2 Getting started
+
+::: panel-tabset
+## Installing and loading the required libraries
+
+Code chunk below will be used to check if these packages have been installed and also will load them onto your working R environment.
+```{r}
+pacman::p_load(ggrepel,patchwork,
+               ggthemes,hrbrthemes,
+               tidyverse)
+```
+
+## The code
+
+::: {style="font-size: 1.4em"}
+```{r}
+#| eval: false
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              size=0.5) +  
+  geom_label(aes(label = ID), 
+             hjust = .5, 
+             vjust = -.5) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
+```
+:::
+:::
+
+
