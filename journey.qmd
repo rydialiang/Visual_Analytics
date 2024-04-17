@@ -14,4 +14,7 @@ Lesson 1 on 13 Apr 2024:
 
 Lesson 2 on 20 Apr 2024:
 
+1.  Using panel-tabset
+2.  R4VA Chapter 2
+
 ![](images/coming%20soon.jpeg)
