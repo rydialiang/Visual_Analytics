@@ -47,15 +47,14 @@ The code chunk below imports exam_data.csv into R environment by using [read_csv
 exam_data <- read_csv("data/Exam_data.csv")
 ```
 
-There are a total of seven attributes in the exam_data tibble data frame. Four of them are categorical data type and the other three are in continuous data type.
-
--   The categorical attributes are: ID, CLASS, GENDER and RACE.
-
--   The continuous attributes are: MATHS, ENGLISH and SCIENCE.
-
 ## glimpse() the Data
 ```{r}
 glimpse(exam_data)
 ```
+There are a total of seven attributes in the exam_data tibble data frame. Four of them are categorical data type and the other three are in continuous data type.
+
+-   Categorical attributes: ID, CLASS, GENDER and RACE.
+
+-   Continuous attributes: MATHS, ENGLISH and SCIENCE.
 :::
 
