@@ -9,7 +9,7 @@
 <meta name="author" content="Liang Xiuhao Rydia">
 <meta name="dcterms.date" content="2024-04-20">
 
-<title>Visual Analytics - Hands-on Ex 2</title>
+<title>Visual Analytics - Hands-on Ex 2: Beyond ggplot2 Fundamentals</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -269,8 +269,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#hands-on-exercise-2-beyond-ggplot2-fundamentals" id="toc-hands-on-exercise-2-beyond-ggplot2-fundamentals" class="nav-link active" data-scroll-target="#hands-on-exercise-2-beyond-ggplot2-fundamentals">Hands-on Exercise 2: Beyond ggplot2 Fundamentals</a></li>
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">1 Overview</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">1 Overview</a></li>
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">2 Getting started</a></li>
   </ul>
 </nav>
@@ -280,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hands-on Ex 2</h1>
+<h1 class="title">Hands-on Ex 2: Beyond ggplot2 Fundamentals</h1>
 </div>
 
 
@@ -315,9 +314,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="hands-on-exercise-2-beyond-ggplot2-fundamentals" class="level2">
-<h2 class="anchored" data-anchor-id="hands-on-exercise-2-beyond-ggplot2-fundamentals">Hands-on Exercise 2: Beyond ggplot2 Fundamentals</h2>
-</section>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">1 Overview</h2>
 <p>This chapter / Hands-on exercise is an introduction to several ggplot2 extension. Key idea is to create more elegant and effective statistical graphics, pleasing to the eyes of the reader, and reducing the cognitive load of the reader.</p>
@@ -331,10 +327,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="getting-started" class="level2">
 <h2 class="anchored" data-anchor-id="getting-started">2 Getting started</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Installing and loading the required libraries</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">The code</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Installing and loading the required libraries</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Importing data</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Code chunk below will be used to check if these packages have been installed and also will load them onto your working R environment.</p>
+<p>In this exercise, beside tidyverse, four R packages will be used. They are:</p>
+<p>ggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels. ggthemes: an R package provides some extra themes, geoms, and scales for ‘ggplot2’. hrbrthemes: an R package provides typography-centric themes and theme components for ggplot2. patchwork: an R package for preparing composite figure created using ggplot2. Code chunk below will be used to check if these packages have been installed and also will load them onto your working R environment.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggrepel,patchwork,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>               ggthemes,hrbrthemes,</span>
@@ -342,7 +339,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div style="font-size: 1.4em">
+<p>For the purpose of this exercise, a data file called Exam_data will be used. It consists of year end examination grades of a cohort of primary 3 students from a local school. It is in csv file format.</p>
+<p>The code chunk below imports exam_data.csv into R environment by using read_csv() function of readr package. readr is one of the tidyverse package. ::: {style=“font-size: 1.4em”}</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>exam_data, </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span> MATHS, </span>
@@ -360,7 +358,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-</div>
+<p>:::</p>
 
 
 </section>
