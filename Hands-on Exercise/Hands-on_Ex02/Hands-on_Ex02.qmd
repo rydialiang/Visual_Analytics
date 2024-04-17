@@ -81,8 +81,8 @@ ggplot(data=exam_data,
   geom_smooth(method=lm, 
               linewidth=0.5) +  
   geom_label(aes(label = ID), 
-             hjust = .5, 
-             vjust = -.5) +
+             hjust = 0.5, 
+             vjust = 0.5) +
   coord_cartesian(xlim=c(0,100),
                   ylim=c(0,100)) +
   ggtitle("English scores versus Maths scores for Primary 3")
@@ -99,8 +99,8 @@ ggplot(data=exam_data,
   geom_smooth(method=lm, 
               linewidth=0.5) +  
   geom_label(aes(label = ID), 
-             hjust = .5, 
-             vjust = -.5) +
+             hjust = 0.5, 
+             vjust = 0.5) +
   coord_cartesian(xlim=c(0,100),
                   ylim=c(0,100)) +
   ggtitle("English scores versus Maths scores for Primary 3")
