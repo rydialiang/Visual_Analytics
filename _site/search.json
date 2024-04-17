@@ -152,5 +152,12 @@
     "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
     "section": "Working with ggrepel",
     "text": "Working with ggrepel\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(exam_data,\n       aes(x= MATHS,\n       y = ENGLISH)) +\n  geom_point() +\n  geom_smooth(method = lm,\n              linewidth = 0.5) +\n  geom_label_repel(aes(label = ID),\n                   hjust = 0.5,\n                   vjust = 0.5) +\n  coord_cartesian(xlim = c(0,100),\n                  ylim = c(0,100)) +\n  ggtitle(\"English scores versus Maths scores for Primary 3\")"
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-themes",
+    "href": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-themes",
+    "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
+    "section": "4 Beyond ggplot2 themes",
+    "text": "4 Beyond ggplot2 themes"
   }
 ]

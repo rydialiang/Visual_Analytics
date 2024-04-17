@@ -148,3 +148,6 @@ ggplot(exam_data,
 
 ```
 :::
+
+## 4 Beyond ggplot2 themes
+
