@@ -30,6 +30,7 @@ Key learning:
 ## Installing and loading the required libraries
 
 Code chunk below will be used to check if these packages have been installed and also will load them onto your working R environment.
+
 ```{r}
 pacman::p_load(ggrepel,patchwork,
                ggthemes,hrbrthemes,
@@ -56,5 +57,3 @@ ggplot(data=exam_data,
 ```
 :::
 :::
-
-
