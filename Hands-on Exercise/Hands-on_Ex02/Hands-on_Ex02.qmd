@@ -67,7 +67,7 @@ There are a total of seven attributes in the exam_data tibble data frame. Four o
 
 ## 3 Beyond ggplot2 Annotation: ggrepel
 
-Annotation for large number of data points is potentially challenging, as the annotations may overwhelm the plot.
+Annotation for large number of data points is potentially challenging, as the annotations may overwhelm the plot. In this example, `geom_label()` is used to show the labels on all the data points. The resulting plot below shows the annotation covering much of the data points. 
 
 ::: panel-tabset
 ## The plot
@@ -106,3 +106,7 @@ ggplot(data=exam_data,
   ggtitle("English scores versus Maths scores for Primary 3")
 ```
 :::
+
+
+
+
