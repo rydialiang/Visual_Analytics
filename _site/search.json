@@ -138,5 +138,12 @@
     "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
     "section": "",
     "text": "This chapter / Hands-on exercise is an introduction to several ggplot2 extension. Key idea is to create more elegant and effective statistical graphics, pleasing to the eyes of the reader, and reducing the cognitive load of the reader.\nKey learning:\n\ncontrol the placement of annotation on a graph by using functions provided in ggrepel package\ncreate professional publication quality figure by using functions provided in ggthemes and hrbrthemes packages\nplot composite figure by combining ggplot2 graphs by using patchwork package."
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-annotation-ggrepel",
+    "href": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-annotation-ggrepel",
+    "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
+    "section": "3 Beyond ggplot2 Annotation: ggrepel",
+    "text": "3 Beyond ggplot2 Annotation: ggrepel\nAnnotation for large number of data points is potentially challenging, as the annotations may overwhelm the plot.\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point() +\n  geom_smooth(method=lm, \n              linewidth=0.5) +  \n  geom_label(aes(label = ID), \n             hjust = .5, \n             vjust = -.5) +\n  coord_cartesian(xlim=c(0,100),\n                  ylim=c(0,100)) +\n  ggtitle(\"English scores versus Maths scores for Primary 3\")"
   }
 ]

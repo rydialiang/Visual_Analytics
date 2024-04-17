@@ -58,3 +58,42 @@ There are a total of seven attributes in the exam_data tibble data frame. Four o
 -   Continuous attributes: MATHS, ENGLISH and SCIENCE.
 :::
 
+## 3 Beyond ggplot2 Annotation: ggrepel
+Annotation for large number of data points is potentially challenging, as the annotations may overwhelm the plot. 
+
+::: panel-tabset
+## The plot
+```{r}
+#| echo: false
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              linewidth=0.5) +  
+  geom_label(aes(label = ID), 
+             hjust = .5, 
+             vjust = -.5) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
+```
+
+
+## The code
+```{r}
+#| eval: false
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              linewidth=0.5) +  
+  geom_label(aes(label = ID), 
+             hjust = .5, 
+             vjust = -.5) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100)) +
+  ggtitle("English scores versus Maths scores for Primary 3")
+```
+:::
