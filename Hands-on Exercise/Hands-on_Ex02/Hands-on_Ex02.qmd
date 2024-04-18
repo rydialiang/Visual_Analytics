@@ -403,7 +403,10 @@ p1 <- ggplot(data=exam_data,
                  color="grey25", 
                  fill="grey90") + 
   coord_cartesian(xlim=c(0,100)) +
-  ggtitle("Distribution of Maths scores")
+  ggtitle("Distribution of Maths scores") +
+  theme_ipsum(axis_title_size = 18,
+              base_size = 15,
+              grid = "Y")
 ```
 
 ## The code
@@ -417,7 +420,10 @@ p1 <- ggplot(data=exam_data,
                  color="grey25", 
                  fill="grey90") + 
   coord_cartesian(xlim=c(0,100)) +
-  ggtitle("Distribution of Maths scores")
+  ggtitle("Distribution of Maths scores") +
+  theme_ipsum(axis_title_size = 18,
+              base_size = 15,
+              grid = "Y")
 ```
 
 :::
@@ -436,7 +442,10 @@ p2 <- ggplot(data=exam_data,
                  color="grey25", 
                  fill="grey90") + 
   coord_cartesian(xlim=c(0,100)) +
-  ggtitle("Distribution of English scores")
+  ggtitle("Distribution of English scores") +
+  theme_ipsum(axis_title_size = 18,
+              base_size = 15,
+              grid = "Y")
 ```
 
 ## The code
@@ -450,7 +459,10 @@ p2 <- ggplot(data=exam_data,
                  color="grey25", 
                  fill="grey90") + 
   coord_cartesian(xlim=c(0,100)) +
-  ggtitle("Distribution of English scores")
+  ggtitle("Distribution of English scores") +
+  theme_ipsum(axis_title_size = 18,
+              base_size = 15,
+              grid = "Y")
 ```
 :::
 
@@ -468,7 +480,9 @@ p3 <- ggplot(exam_data,
   ggtitle("English scores versus Maths scores for Primary 3") +
   geom_label_repel(aes(label = ID), 
                    max.overlaps = 5) +  
-  theme_light()
+  theme_ipsum(axis_title_size = 18,
+              base_size = 15,
+              grid = "Y")
 ```
 
 ## The code
@@ -484,7 +498,9 @@ p3 <-ggplot(exam_data,
   ggtitle("English scores versus Maths scores for Primary 3") +
   geom_label_repel(aes(label = ID), 
                    max.overlaps = 5) +  
-  theme_light()
+  theme_ipsum(axis_title_size = 18,
+              base_size = 15,
+              grid = "Y")
 
 ```
 :::
@@ -496,6 +512,8 @@ There are several ggplot2 extension's functions support the needs to prepare com
 Patchwork package has a very simple syntax where we can create layouts super easily.
 
 General syntax that combines: - Two-Column Layout using the Plus Sign `+`. - Parenthesis `()` to create a subplot group. - Two-Row Layout using the Division Sign `/`
+
+### 5.2 Combining the ggplot2 graphs
 
 ::: panel-tabset
 ## The plot using `+`
