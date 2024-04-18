@@ -151,27 +151,13 @@ ggplot(exam_data,
 ```
 :::
 
+
+
+
+
 ## 4 Beyond ggplot2 Themes
 
-There are eight built-in themes in ggplot2. They are as follows:
-
-1.  theme_gray()
-
-2.  theme_bw()
-
-3.  theme_classic()
-
-4.  theme_dark()
-
-5.  theme_light()
-
-6.  theme_linedraw()
-
-7.  theme_minimal()
-
-8.  theme_void()
-
-You can browse through the plots of all the themes below:
+There are eight [built-in themes](https://ggplot2.tidyverse.org/reference/ggtheme.html) in ggplot2. You can browse through the plots of all the themes below. Visit this  [link](https://ggplot2.tidyverse.org/reference/index.html#themes) to learn more about ggplot2 `Themes`.
 
 ::: panel-tabset
 ## 1. theme_gray() - Default
@@ -288,3 +274,30 @@ ggplot(exam_data,
   theme_void()
 ```
 :::
+
+::: callout-tip
+### Points to note
+::: {style="font-size: 1.2em"}
+-   Note 1
+-   Note 2
+:::
+:::
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
