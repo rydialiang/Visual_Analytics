@@ -151,32 +151,33 @@ ggplot(exam_data,
 ```
 :::
 
-
-
-
-
 ## 4 Beyond ggplot2 Themes
 
-There are eight [built-in themes](https://ggplot2.tidyverse.org/reference/ggtheme.html) in ggplot2. You can browse through the plots of all the themes below. Visit this  [link](https://ggplot2.tidyverse.org/reference/index.html#themes) to learn more about ggplot2 `Themes`.
+There are eight [built-in themes](https://ggplot2.tidyverse.org/reference/ggtheme.html) in ggplot2. You can browse through the plots of all the themes below. Visit this [link](https://ggplot2.tidyverse.org/reference/index.html#themes) to learn more about ggplot2 `Themes`.
 
 ::: panel-tabset
 ## 1. theme_gray() - Default
 
-```{r}
-#| echo: FALSE
-ggplot(exam_data,
-       aes(x = MATHS,
-       y = ENGLISH)) +
-  geom_point() +
-  geom_smooth(method = lm,
-              linewidth = 0.5) +
-  ggtitle("English scores versus Maths scores for Primary 3") +
-  geom_label_repel(aes(label = ID), 
-                   max.overlaps = 5) +
-  theme_gray()
-```
+-   <div>
+
+    ```{r}
+    #| echo: FALSE
+    ggplot(exam_data,
+           aes(x = MATHS,
+           y = ENGLISH)) +
+      geom_point() +
+      geom_smooth(method = lm,
+                  linewidth = 0.5) +
+      ggtitle("English scores versus Maths scores for Primary 3") +
+      geom_label_repel(aes(label = ID), 
+                       max.overlaps = 5) +
+      theme_gray()
+    ```
+
+    </div>
 
 ## 2. theme_bw()
+
 ```{r}
 #| echo: FALSE
 ggplot(exam_data,
@@ -188,7 +189,9 @@ ggplot(exam_data,
   ggtitle("English scores versus Maths scores for Primary 3")+
   theme_bw()
 ```
+
 ## 3. theme_classic()
+
 ```{r}
 #| echo: FALSE
 ggplot(exam_data,
@@ -202,7 +205,9 @@ ggplot(exam_data,
                    max.overlaps = 5) +
   theme_classic()
 ```
+
 ## 4. theme_dark()
+
 ```{r}
 #| echo: FALSE
 ggplot(exam_data,
@@ -216,7 +221,9 @@ ggplot(exam_data,
                    max.overlaps = 5) +  
   theme_dark()
 ```
+
 ## 5. theme_light()
+
 ```{r}
 #| echo: FALSE
 ggplot(exam_data,
@@ -232,6 +239,7 @@ ggplot(exam_data,
 ```
 
 ## 6. theme_linedraw()
+
 ```{r}
 #| echo: FALSE
 ggplot(exam_data,
@@ -245,7 +253,9 @@ ggplot(exam_data,
                    max.overlaps = 5) +  
   theme_linedraw()
 ```
+
 ## 7. theme_minimal()
+
 ```{r}
 #| echo: FALSE
 ggplot(exam_data,
@@ -259,7 +269,9 @@ ggplot(exam_data,
                    max.overlaps = 5) +  
   theme_minimal()
 ```
+
 ## 8. theme_void()
+
 ```{r}
 #| echo: FALSE
 ggplot(exam_data,
@@ -277,27 +289,54 @@ ggplot(exam_data,
 
 ::: callout-tip
 ### Points to note
+
 ::: {style="font-size: 1.2em"}
 -   Note 1
 -   Note 2
 :::
 :::
 
+## 4.1 Working with ggthemes package
 
+[**ggthemes**](https://cran.r-project.org/web/packages/ggthemes/index.html) provides ['ggplot2' themes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/) that replicate the look of plots by Edward Tufte, Stephen Few, [Fivethirtyeight](https://fivethirtyeight.com/), [The Economist](https://www.economist.com/graphic-detail), 'Stata', 'Excel', and [The Wall Street Journal](https://www.pinterest.com/wsjgraphics/wsj-graphics/), among others.
 
+In the example below, *wsj* theme is used.
 
+::: panel-tabset
+## The plot
 
+```{r}
+#| echo: FALSE
+ggplot(exam_data,
+       aes(x = MATHS,
+       y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5) +
+  ggtitle("English versus Maths scores") +
+  geom_label_repel(aes(label = ID), 
+                   max.overlaps = 5) +  
+  theme_wsj()
+```
 
+## The code
 
+```{r}
+#| eval: FALSE
+ggplot(exam_data,
+       aes(x = MATHS,
+       y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5) +
+  ggtitle("English versus Maths scores") +
+  geom_label_repel(aes(label = ID), 
+                   max.overlaps = 5) +  
+  theme_wsj()
+```
+:::
 
-
-
-
-
-
-
-
-
-
-
-
+::: callout-tip
+### Additional tip on ggthemes
+-   Visit this [link](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/) for the overview of the applications of each theme. 
+:::
