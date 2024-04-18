@@ -340,3 +340,40 @@ ggplot(exam_data,
 ### Additional tip on ggthemes
 -   Visit this [link](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/) for the overview of the applications of each theme. 
 :::
+
+## 4.2 Working with hrbrthemes package
+
+The [hrbrthemes](https://cinc.rud.is/web/packages/hrbrthemes/)  is a collection of custom themes and utility functions for creating visually appealing and consistent plots using ggplot2. This package is developed by [Bob Rudis (hrbrmstr)](https://github.com/hrbrmstr/hrbrthemes) and offers an assortment of themes and utilities that can enhance the aesthetics and readability of your ggplot2 visualisations.
+
+::: panel-tabset
+## Original
+```{r}
+#| echo: FALSE
+ggplot(exam_data,
+       aes(x = MATHS,
+       y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5) +
+  ggtitle("English versus Maths scores") +
+  geom_label_repel(aes(label = ID), 
+                   max.overlaps = 5)
+```
+
+## With FT Theme
+```{r}
+#| eval: FALSE
+ggplot(exam_data,
+       aes(x = MATHS,
+       y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5) +
+  ggtitle("English versus Maths scores") +
+  geom_label_repel(aes(label = ID), 
+                   max.overlaps = 5) +  
+  theme_ipsum(axis_title_size = 18,
+              base_size = 15,
+              grid = "Y")
+```
+:::
