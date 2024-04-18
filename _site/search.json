@@ -158,7 +158,7 @@
     "href": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-themes",
     "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
     "section": "4 Beyond ggplot2 Themes",
-    "text": "4 Beyond ggplot2 Themes\nThere are eight built-in themes in ggplot2. They are as follows:\n\ntheme_gray()\ntheme_bw()\ntheme_classic()\ntheme_dark()\ntheme_light()\ntheme_linedraw()\ntheme_minimal()\ntheme_void()\n\nYou can browse through the plots of all the themes below:\n::: panel-tabset ## 1. theme_gray() - Default"
+    "text": "4 Beyond ggplot2 Themes\nThere are eight built-in themes in ggplot2. They are as follows:\n\ntheme_gray()\ntheme_bw()\ntheme_classic()\ntheme_dark()\ntheme_light()\ntheme_linedraw()\ntheme_minimal()\ntheme_void()\n\nYou can browse through the plots of all the themes below:\n\n1. theme_gray() - Default2. theme_bw()3. theme_classic()4. theme_dark()5. theme_light()6. theme_linedraw()7. theme_minimal()8. theme_void()"
   },
   {
     "objectID": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_bw",

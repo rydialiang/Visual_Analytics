@@ -273,13 +273,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">2 Getting started</a></li>
   <li><a href="#beyond-ggplot2-annotation-ggrepel" id="toc-beyond-ggplot2-annotation-ggrepel" class="nav-link" data-scroll-target="#beyond-ggplot2-annotation-ggrepel">3 Beyond ggplot2 Annotation: ggrepel</a></li>
   <li><a href="#beyond-ggplot2-themes" id="toc-beyond-ggplot2-themes" class="nav-link" data-scroll-target="#beyond-ggplot2-themes">4 Beyond ggplot2 Themes</a></li>
-  <li><a href="#theme_bw" id="toc-theme_bw" class="nav-link" data-scroll-target="#theme_bw">2. theme_bw()</a></li>
-  <li><a href="#theme_classic" id="toc-theme_classic" class="nav-link" data-scroll-target="#theme_classic">3. theme_classic()</a></li>
-  <li><a href="#theme_dark" id="toc-theme_dark" class="nav-link" data-scroll-target="#theme_dark">4. theme_dark()</a></li>
-  <li><a href="#theme_light" id="toc-theme_light" class="nav-link" data-scroll-target="#theme_light">5. theme_light()</a></li>
-  <li><a href="#theme_linedraw" id="toc-theme_linedraw" class="nav-link" data-scroll-target="#theme_linedraw">6. theme_linedraw()</a></li>
-  <li><a href="#theme_minimal" id="toc-theme_minimal" class="nav-link" data-scroll-target="#theme_minimal">7. theme_minimal()</a></li>
-  <li><a href="#theme_void" id="toc-theme_void" class="nav-link" data-scroll-target="#theme_void">8. theme_void()</a></li>
   </ul>
 </nav>
     </div>
@@ -468,7 +461,10 @@ $ SCIENCE &lt;dbl&gt; 15, 16, 16, 31, 25, 16, 25, 27, 15, 37, 42, 22, 32, 36, 35
 <li><p>theme_void()</p></li>
 </ol>
 <p>You can browse through the plots of all the themes below:</p>
-<p>::: panel-tabset ## 1. theme_gray() - Default</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">1. theme_gray() - Default</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">2. theme_bw()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">3. theme_classic()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-4" role="tab" aria-controls="tabset-4-4" aria-selected="false">4. theme_dark()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-5" role="tab" aria-controls="tabset-4-5" aria-selected="false">5. theme_light()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-6" role="tab" aria-controls="tabset-4-6" aria-selected="false">6. theme_linedraw()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-7" role="tab" aria-controls="tabset-4-7" aria-selected="false">7. theme_minimal()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-8-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-8" role="tab" aria-controls="tabset-4-8" aria-selected="false">8. theme_void()</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -478,9 +474,8 @@ $ SCIENCE &lt;dbl&gt; 15, 16, 16, 31, 25, 16, 25, 27, 15, 37, 42, 22, 32, 36, 35
 </div>
 </div>
 </div>
-</section>
-<section id="theme_bw" class="level2">
-<h2 class="anchored" data-anchor-id="theme_bw">2. theme_bw()</h2>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -490,9 +485,8 @@ $ SCIENCE &lt;dbl&gt; 15, 16, 16, 31, 25, 16, 25, 27, 15, 37, 42, 22, 32, 36, 35
 </div>
 </div>
 </div>
-</section>
-<section id="theme_classic" class="level2">
-<h2 class="anchored" data-anchor-id="theme_classic">3. theme_classic()</h2>
+</div>
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -502,9 +496,8 @@ $ SCIENCE &lt;dbl&gt; 15, 16, 16, 31, 25, 16, 25, 27, 15, 37, 42, 22, 32, 36, 35
 </div>
 </div>
 </div>
-</section>
-<section id="theme_dark" class="level2">
-<h2 class="anchored" data-anchor-id="theme_dark">4. theme_dark()</h2>
+</div>
+<div id="tabset-4-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-4-tab">
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -514,9 +507,8 @@ $ SCIENCE &lt;dbl&gt; 15, 16, 16, 31, 25, 16, 25, 27, 15, 37, 42, 22, 32, 36, 35
 </div>
 </div>
 </div>
-</section>
-<section id="theme_light" class="level2">
-<h2 class="anchored" data-anchor-id="theme_light">5. theme_light()</h2>
+</div>
+<div id="tabset-4-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-5-tab">
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -526,9 +518,8 @@ $ SCIENCE &lt;dbl&gt; 15, 16, 16, 31, 25, 16, 25, 27, 15, 37, 42, 22, 32, 36, 35
 </div>
 </div>
 </div>
-</section>
-<section id="theme_linedraw" class="level2">
-<h2 class="anchored" data-anchor-id="theme_linedraw">6. theme_linedraw()</h2>
+</div>
+<div id="tabset-4-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-6-tab">
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -538,9 +529,8 @@ $ SCIENCE &lt;dbl&gt; 15, 16, 16, 31, 25, 16, 25, 27, 15, 37, 42, 22, 32, 36, 35
 </div>
 </div>
 </div>
-</section>
-<section id="theme_minimal" class="level2">
-<h2 class="anchored" data-anchor-id="theme_minimal">7. theme_minimal()</h2>
+</div>
+<div id="tabset-4-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-7-tab">
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -550,15 +540,17 @@ $ SCIENCE &lt;dbl&gt; 15, 16, 16, 31, 25, 16, 25, 27, 15, 37, 42, 22, 32, 36, 35
 </div>
 </div>
 </div>
-</section>
-<section id="theme_void" class="level2">
-<h2 class="anchored" data-anchor-id="theme_void">8. theme_void()</h2>
+</div>
+<div id="tabset-4-8" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-8-tab">
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
 <p><img src="Hands-on_Ex02_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
