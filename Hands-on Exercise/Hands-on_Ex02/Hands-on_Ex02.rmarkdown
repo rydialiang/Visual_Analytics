@@ -10,6 +10,7 @@ execute:
   freeze: true
 ---
 
+
 ## 1 Overview
 
 This chapter / Hands-on exercise is an introduction to several ggplot2 extension. Key idea is to create more elegant and effective statistical graphics, pleasing to the eyes of the reader, and reducing the cognitive load of the reader.
@@ -36,11 +37,13 @@ In this exercise, beside tidyverse, four R packages will be used. They are:
 
 Code chunk below will be used to check if these packages have been installed and also will load them onto your working R environment.
 
+
 ```{r}
 pacman::p_load(ggrepel,patchwork,
                ggthemes,hrbrthemes,
                tidyverse)
 ```
+
 
 ## Importing data
 
@@ -48,15 +51,19 @@ For the purpose of this exercise, a data file called Exam_data will be used. It 
 
 The code chunk below imports exam_data.csv into R environment by using [read_csv()](https://readr.tidyverse.org/reference/read_delim.html) function of [**readr**](https://readr.tidyverse.org/) package. **readr** is one of the tidyverse package.
 
+
 ```{r}
 exam_data <- read_csv("data/Exam_data.csv")
 ```
 
+
 ## glimpse() the Data
+
 
 ```{r}
 glimpse(exam_data)
 ```
+
 
 There are a total of seven attributes in the exam_data tibble data frame. Four of them are categorical data type and the other three are in continuous data type.
 
@@ -71,6 +78,7 @@ Annotation for large number of data points is potentially challenging, as the an
 
 ::: panel-tabset
 ## The plot
+
 
 ```{r}
 #| echo: false
@@ -88,7 +96,9 @@ ggplot(data=exam_data,
   ggtitle("English scores versus Maths scores for Primary 3")
 ```
 
+
 ## The code
+
 
 ```{r}
 #| eval: false
@@ -105,6 +115,7 @@ ggplot(data=exam_data,
                   ylim=c(0,100)) +
   ggtitle("English scores versus Maths scores for Primary 3")
 ```
+
 :::
 
 [ggrepel](https://ggrepel.slowkow.com/) is an extension of **ggplot2** package which provides `geoms` for **ggplot2** to repel overlapping text as in our example above.
@@ -113,6 +124,7 @@ We simply replace `geom_text()` by [`geom_text_repel()`](https://ggrepel.slowkow
 
 ::: panel-tabset
 ## The plot
+
 
 ```{r}
 #| echo: False
@@ -131,7 +143,9 @@ ggplot(exam_data,
 
 ```
 
+
 ## The code
+
 
 ```{r}
 #| eval: False
@@ -149,6 +163,7 @@ ggplot(exam_data,
   ggtitle("English scores versus Maths scores for Primary 3")
 
 ```
+
 :::
 
 ## 4 Beyond ggplot2 Themes
@@ -159,6 +174,7 @@ There are eight [built-in themes](https://ggplot2.tidyverse.org/reference/ggthem
 ## 1. theme_gray() - Default
 
 -   <div>
+
 
     ```{r}
     #| echo: FALSE
@@ -174,9 +190,11 @@ There are eight [built-in themes](https://ggplot2.tidyverse.org/reference/ggthem
       theme_gray()
     ```
 
+
     </div>
 
 ## 2. theme_bw()
+
 
 ```{r}
 #| echo: FALSE
@@ -190,7 +208,9 @@ ggplot(exam_data,
   theme_bw()
 ```
 
+
 ## 3. theme_classic()
+
 
 ```{r}
 #| echo: FALSE
@@ -206,7 +226,9 @@ ggplot(exam_data,
   theme_classic()
 ```
 
+
 ## 4. theme_dark()
+
 
 ```{r}
 #| echo: FALSE
@@ -222,7 +244,9 @@ ggplot(exam_data,
   theme_dark()
 ```
 
+
 ## 5. theme_light()
+
 
 ```{r}
 #| echo: FALSE
@@ -238,7 +262,9 @@ ggplot(exam_data,
   theme_light()
 ```
 
+
 ## 6. theme_linedraw()
+
 
 ```{r}
 #| echo: FALSE
@@ -254,7 +280,9 @@ ggplot(exam_data,
   theme_linedraw()
 ```
 
+
 ## 7. theme_minimal()
+
 
 ```{r}
 #| echo: FALSE
@@ -270,7 +298,9 @@ ggplot(exam_data,
   theme_minimal()
 ```
 
+
 ## 8. theme_void()
+
 
 ```{r}
 #| echo: FALSE
@@ -285,6 +315,7 @@ ggplot(exam_data,
                    max.overlaps = 5) +  
   theme_void()
 ```
+
 :::
 
 ::: callout-tip
@@ -305,6 +336,7 @@ In the example below, *wsj* theme is used.
 ::: panel-tabset
 ## The plot
 
+
 ```{r}
 #| echo: FALSE
 ggplot(exam_data,
@@ -319,7 +351,9 @@ ggplot(exam_data,
   theme_wsj()
 ```
 
+
 ## The code
+
 
 ```{r}
 #| eval: FALSE
@@ -334,6 +368,7 @@ ggplot(exam_data,
                    max.overlaps = 5) +  
   theme_wsj()
 ```
+
 :::
 
 ::: callout-tip
@@ -349,6 +384,7 @@ The [hrbrthemes](https://cinc.rud.is/web/packages/hrbrthemes/) is a collection o
 ::: panel-tabset
 ## Original
 
+
 ```{r}
 #| echo: FALSE
 ggplot(exam_data,
@@ -362,7 +398,9 @@ ggplot(exam_data,
                    max.overlaps = 5)
 ```
 
+
 ## With FT Theme
+
 
 ```{r}
 #| echo: FALSE
@@ -379,6 +417,7 @@ ggplot(exam_data,
               base_size = 15,
               grid = "Y")
 ```
+
 :::
 
 ::: callout-tip
@@ -399,6 +438,7 @@ It is not unusual that multiple graphs are required to tell a compelling visual 
 
 ## The plot
 
+
 ```{r}
 #| echo: FALSE
 ggplot(data=exam_data, 
@@ -411,7 +451,9 @@ ggplot(data=exam_data,
   ggtitle("Distribution of Maths scores")
 ```
 
+
 ## The code
+
 
 ```{r}
 #| eval: FALSE
@@ -424,4 +466,5 @@ p1 <- ggplot(data=exam_data,
   coord_cartesian(xlim=c(0,100)) +
   ggtitle("Distribution of Maths scores")
 ```
+
 :::
