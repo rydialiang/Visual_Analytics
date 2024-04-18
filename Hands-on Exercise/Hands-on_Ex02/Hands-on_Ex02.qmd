@@ -528,3 +528,88 @@ p1 + p2
 :::
 
 Refer to [Plot Assembly](https://patchwork.data-imaginist.com/articles/guides/assembly.html) to learn more about nesting and wrapping of plots.
+
+### 5.3 Creating a composite figure with tag 
+In order to identify subplots in text, *patchwork* also provides auto-tagging capabilities as shown in the figure below.
+
+::: panel-tabset
+## The plot
+```{r}
+#| echo: FALSE
+(p1 + p2) / p3 + 
+  plot_annotation(tag_levels = 'I')
+
+```
+## The code
+```{r}
+#| eval: FALSE
+(p1 + p2) / p3 + 
+  plot_annotation(tag_levels = 'I')
+
+```
+:::
+
+## 5.4 Creating figure with insert
+
+Beside providing functions to place plots next to each other based on the provided layout. With [`inset_element()`](https://patchwork.data-imaginist.com/reference/inset_element.html) of **patchwork**, we can place one or several plots or graphic elements freely on top or below another plot.
+
+::: panel-tabset
+## The plot
+```{r}
+#| echo: FALSE
+p3 + inset_element(p2, 
+                   left = 0.02, 
+                   bottom = 0.7, 
+                   right = 0.5, 
+                   top = 1)
+
+```
+## The code
+```{r}
+#| eval: FALSE
+p3 + inset_element(p2, 
+                   left = 0.02, 
+                   bottom = 0.7, 
+                   right = 0.5, 
+                   top = 1)
+
+```
+:::
+
+## Creating a composite figure by using patchwork and ggtheme
+
+Figure below is created by combining patchwork and theme_ft_rc() of ggthemes package discussed earlier.
+
+::: panel-tabset
+## The plot
+```{r}
+#| echo: FALSE
+patchwork <- (p1 / p2) | p3
+patchwork & theme_ft_rc()
+
+```
+## The code
+```{r}
+#| eval: FALSE
+patchwork <- (p1 + p2) / p3
+patchwork & theme_ft_rc()
+```
+:::
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
