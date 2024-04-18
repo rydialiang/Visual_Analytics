@@ -229,5 +229,12 @@
     "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
     "section": "4.2 Working with hrbrthemes package",
     "text": "4.2 Working with hrbrthemes package\nThe hrbrthemes is a collection of custom themes and utility functions for creating visually appealing and consistent plots using ggplot2. This package is developed by Bob Rudis (hrbrmstr) and offers an assortment of themes and utilities that can enhance the aesthetics and readability of your ggplot2 visualisations.\n\nOriginalWith FT Theme\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat can we learn from the code chunk above?\n\n\n\n\n\naxis_title_size argument is used to increase the font size of the axis title to 18,\nbase_size argument is used to increase the default axis label to 15, and\ngrid argument is used to remove the x-axis grid lines."
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#beyond-single-graph",
+    "href": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#beyond-single-graph",
+    "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
+    "section": "5 Beyond Single Graph",
+    "text": "5 Beyond Single Graph\nIt is not unusual that multiple graphs are required to tell a compelling visual story. There are several ggplot2 extensions provide functions to compose figure with multiple graphs. In this section, you will learn how to create composite plot by combining multiple graphs. First, let us create three statistical graphics by using the code chunk below.\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\np1 &lt;- ggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") + \n  coord_cartesian(xlim=c(0,100)) +\n  ggtitle(\"Distribution of Maths scores\")"
   }
 ]
