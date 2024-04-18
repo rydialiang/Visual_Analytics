@@ -287,14 +287,10 @@ ggplot(exam_data,
 ```
 :::
 
-::: callout-tip
 ### Points to note
 
-::: {style="font-size: 1.2em"}
 -   Note 1
 -   Note 2
-:::
-:::
 
 ## 4.1 Working with ggthemes package
 
@@ -380,14 +376,15 @@ ggplot(exam_data,
               grid = "Y")
 ```
 :::
-:::
 
-::: callout-tip
+
+
+
 ### What can we learn from the code chunk above?
+
 -   `axis_title_size` argument is used to increase the font size of the axis title to 18,
 -   `base_size` argument is used to increase the default axis label to 15, and
 -   `grid` argument is used to remove the x-axis grid lines.
-:::
 
 
 ## 5 Beyond Single Graph
@@ -399,7 +396,7 @@ It is not unusual that multiple graphs are required to tell a compelling visual 
 
 ```{r}
 #| echo: FALSE
-ggplot(data=exam_data, 
+p1 <- ggplot(data=exam_data, 
              aes(x = MATHS)) +
   geom_histogram(bins=20, 
                  boundary = 100,
@@ -422,6 +419,7 @@ p1 <- ggplot(data=exam_data,
   coord_cartesian(xlim=c(0,100)) +
   ggtitle("Distribution of Maths scores")
 ```
+
 :::
 
 Next, we create two more graphs.
@@ -431,7 +429,7 @@ Next, we create two more graphs.
 
 ```{r}
 #| echo: FALSE
-ggplot(data=exam_data, 
+p2 <- ggplot(data=exam_data, 
              aes(x = ENGLISH)) +
   geom_histogram(bins=20, 
                  boundary = 100,
@@ -445,7 +443,7 @@ ggplot(data=exam_data,
 
 ```{r}
 #| eval: FALSE
-p2 <-ggplot(data=exam_data, 
+p2 <- ggplot(data=exam_data, 
              aes(x = ENGLISH)) +
   geom_histogram(bins=20, 
                  boundary = 100,
@@ -461,7 +459,7 @@ p2 <-ggplot(data=exam_data,
 
 ```{r}
 #| echo: FALSE
-ggplot(exam_data,
+p3 <- ggplot(exam_data,
        aes(x = MATHS,
        y = ENGLISH)) +
   geom_point() +
@@ -495,12 +493,9 @@ p3 <-ggplot(exam_data,
 
 There are several ggplot2 extension's functions support the needs to prepare composite figure by combining several graphs such as [`grid.arrange()`](https://cran.r-project.org/web/packages/gridExtra/vignettes/arrangeGrob.html) of **gridExtra** package and [`plot_grid()`](https://wilkelab.org/cowplot/reference/plot_grid.html) of [**cowplot**](https://wilkelab.org/cowplot/index.html) package. In this section, I am going to shared with you an ggplot2 extension called [**patchwork**](https://patchwork.data-imaginist.com/index.html) which is specially designed for combining separate ggplot2 graphs into a single figure.
 
-Patchwork package has a very simple syntax where we can create layouts super easily. 
+Patchwork package has a very simple syntax where we can create layouts super easily.
 
-General syntax that combines:
--   Two-Column Layout using the Plus Sign `+`.
--   Parenthesis `()` to create a subplot group.
--   Two-Row Layout using the Division Sign `/`
+General syntax that combines: - Two-Column Layout using the Plus Sign `+`. - Parenthesis `()` to create a subplot group. - Two-Row Layout using the Division Sign `/`
 
 ::: panel-tabset
 ## The plot using `+`
@@ -515,20 +510,21 @@ p1 + p2
 ```{r}
 #| eval: FALSE
 p1 + p2
-
 ```
+
 ## The plot using all 3 syntax
+
 ```{r}
 #| echo: FALSE
 (p1 + p2) / p3
 ```
+
 ## The code using all 3 syntax
+
 ```{r}
 #| eval: FALSE
 (p1 + p2) / p3
 ```
 :::
 
-
-
-
+Refer to [Plot Assembly](https://patchwork.data-imaginist.com/articles/guides/assembly.html) to learn more about nesting and wrapping of plots.
