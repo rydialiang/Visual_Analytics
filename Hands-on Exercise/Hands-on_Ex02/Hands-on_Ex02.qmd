@@ -32,7 +32,7 @@ In this exercise, beside tidyverse, four R packages will be used. They are:
 -   ggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels.
 -   ggthemes: an R package provides some extra themes, geoms, and scales for ‘ggplot2’.
 -   hrbrthemes: an R package provides typography-centric themes and theme components for ggplot2.
--   patchwork: an R package for preparing composite figure created using ggplot2. 
+-   patchwork: an R package for preparing composite figure created using ggplot2.
 
 Code chunk below will be used to check if these packages have been installed and also will load them onto your working R environment.
 
@@ -67,7 +67,7 @@ There are a total of seven attributes in the exam_data tibble data frame. Four o
 
 ## 3 Beyond ggplot2 Annotation: ggrepel
 
-Annotation for large number of data points is potentially challenging, as the annotations may overwhelm the plot. In this example, `geom_label()` is used to show the labels on all the data points. The resulting plot below shows the annotation covering much of the data points. 
+Annotation for large number of data points is potentially challenging, as the annotations may overwhelm the plot. In this example, `geom_label()` is used to show the labels on all the data points. The resulting plot below shows the annotation covering much of the data points.
 
 ::: panel-tabset
 ## The plot
@@ -113,6 +113,7 @@ We simply replace `geom_text()` by [`geom_text_repel()`](https://ggrepel.slowkow
 
 ::: panel-tabset
 ## The plot
+
 ```{r}
 #| echo: False
 ggplot(exam_data,
@@ -131,6 +132,7 @@ ggplot(exam_data,
 ```
 
 ## The code
+
 ```{r}
 #| eval: False
 ggplot(exam_data,
@@ -149,5 +151,140 @@ ggplot(exam_data,
 ```
 :::
 
-## 4 Beyond ggplot2 themes
+## 4 Beyond ggplot2 Themes
+
+There are eight built-in themes in ggplot2. They are as follows:
+
+1.  theme_gray()
+
+2.  theme_bw()
+
+3.  theme_classic()
+
+4.  theme_dark()
+
+5.  theme_light()
+
+6.  theme_linedraw()
+
+7.  theme_minimal()
+
+8.  theme_void()
+
+You can browse through the plots of all the themes below:
+
+::: panel-tabset
+## 1. theme_gray() - Default
+
+```{r}
+#| echo: FALSE
+ggplot(exam_data,
+       aes(x = MATHS,
+       y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5) +
+  ggtitle("English scores versus Maths scores for Primary 3") +
+  geom_label_repel(aes(label = ID), 
+                   max.overlaps = 5) +
+  theme_gray()
+```
+
+## 2. theme_bw()
+```{r}
+#| echo: FALSE
+ggplot(exam_data,
+       aes(x = MATHS,
+       y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5) +
+  ggtitle("English scores versus Maths scores for Primary 3")+
+  theme_bw()
+```
+## 3. theme_classic()
+```{r}
+#| echo: FALSE
+ggplot(exam_data,
+       aes(x = MATHS,
+       y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5) +
+  ggtitle("English scores versus Maths scores for Primary 3") +
+  geom_label_repel(aes(label = ID), 
+                   max.overlaps = 5) +
+  theme_classic()
+```
+## 4. theme_dark()
+```{r}
+#| echo: FALSE
+ggplot(exam_data,
+       aes(x = MATHS,
+       y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5) +
+  ggtitle("English scores versus Maths scores for Primary 3") +
+  geom_label_repel(aes(label = ID), 
+                   max.overlaps = 5) +  
+  theme_dark()
+```
+## 5. theme_light()
+```{r}
+#| echo: FALSE
+ggplot(exam_data,
+       aes(x = MATHS,
+       y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5) +
+  ggtitle("English scores versus Maths scores for Primary 3") +
+  geom_label_repel(aes(label = ID), 
+                   max.overlaps = 5) +  
+  theme_light()
+```
+
+## 6. theme_linedraw()
+```{r}
+#| echo: FALSE
+ggplot(exam_data,
+       aes(x = MATHS,
+       y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5) +
+  ggtitle("English scores versus Maths scores for Primary 3") +
+  geom_label_repel(aes(label = ID), 
+                   max.overlaps = 5) +  
+  theme_linedraw()
+```
+## 7. theme_minimal()
+```{r}
+#| echo: FALSE
+ggplot(exam_data,
+       aes(x = MATHS,
+       y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5) +
+  ggtitle("English scores versus Maths scores for Primary 3") +
+  geom_label_repel(aes(label = ID), 
+                   max.overlaps = 5) +  
+  theme_minimal()
+```
+## 8. theme_void()
+```{r}
+#| echo: FALSE
+ggplot(exam_data,
+       aes(x = MATHS,
+       y = ENGLISH)) +
+  geom_point() +
+  geom_smooth(method = lm,
+              linewidth = 0.5) +
+  ggtitle("English scores versus Maths scores for Primary 3") +
+  geom_label_repel(aes(label = ID), 
+                   max.overlaps = 5) +  
+  theme_void()
+```
 

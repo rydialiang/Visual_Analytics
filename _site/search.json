@@ -157,7 +157,56 @@
     "objectID": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-themes",
     "href": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#beyond-ggplot2-themes",
     "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
-    "section": "4 Beyond ggplot2 themes",
-    "text": "4 Beyond ggplot2 themes"
+    "section": "4 Beyond ggplot2 Themes",
+    "text": "4 Beyond ggplot2 Themes\nThere are eight built-in themes in ggplot2. They are as follows:\n\ntheme_gray()\ntheme_bw()\ntheme_classic()\ntheme_dark()\ntheme_light()\ntheme_linedraw()\ntheme_minimal()\ntheme_void()\n\nYou can browse through the plots of all the themes below:\n::: panel-tabset ## 1. theme_gray() - Default"
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_bw",
+    "href": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_bw",
+    "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
+    "section": "2. theme_bw()",
+    "text": "2. theme_bw()"
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_classic",
+    "href": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_classic",
+    "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
+    "section": "3. theme_classic()",
+    "text": "3. theme_classic()"
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_dark",
+    "href": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_dark",
+    "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
+    "section": "4. theme_dark()",
+    "text": "4. theme_dark()"
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_light",
+    "href": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_light",
+    "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
+    "section": "5. theme_light()",
+    "text": "5. theme_light()"
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_linedraw",
+    "href": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_linedraw",
+    "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
+    "section": "6. theme_linedraw()",
+    "text": "6. theme_linedraw()"
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_minimal",
+    "href": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_minimal",
+    "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
+    "section": "7. theme_minimal()",
+    "text": "7. theme_minimal()"
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_void",
+    "href": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#theme_void",
+    "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
+    "section": "8. theme_void()",
+    "text": "8. theme_void()"
   }
 ]
