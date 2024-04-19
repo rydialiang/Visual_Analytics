@@ -201,6 +201,9 @@ Some learning points from these plots:
 
 ### 2.4 Data Wrangling
 
+In this section, we aim to clean the data set to ensure the usefulness and accuracy of the visualisation. 
+
+
 ```{r}
 df %>%
   filter(`Type of Area` == 'Land') %>%
@@ -239,10 +242,10 @@ df %>%
            x = `Property Type`)) +
   geom_boxplot()+
   facet_grid(~Quarter) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   coord_cartesian(xlim=c(1,6)) +
-  scale_y_continuous(labels = scales::comma) 
-  theme_wsj()
+  scale_y_continuous(labels = scales::comma) +
+  theme_wsj()  +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
 ```
 
