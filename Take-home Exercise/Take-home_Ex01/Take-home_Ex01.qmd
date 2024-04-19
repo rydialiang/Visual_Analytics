@@ -114,9 +114,7 @@ Some of the variables I have classified under ordinal are contextual. For exampl
 
 Special Case: `Completion Date` is classified as chr, but a quick look at the data `df`, we will realise that this variable is a mix of quantitative and qualitative data type of `Uncomplete` and actual date of completion, which could be converted and analyse as doubles.
 
-Some important observations:
-1\. `Transacted Price ($)` and `Nett Price($)` are similar. In this analysis, we will use `Transacted Price ($)` for simplicity, as `Nett Price($)` has fair amount of missing data, and it is prices after deducting the value of the indirect discounts or benefits, and not representive for all transactions. 
-1\. `Area (SQFT)` and `Area (SQM)`, and `Unit Price ($ PSF)` and `Unit Price ($ PSM)` are similar measures in different unit. We will use `Area (SQFT)` and `Unit Price ($ PSF)`
+Some important observations: 1. `Transacted Price ($)` and `Nett Price($)` are similar. In this analysis, we will use `Transacted Price ($)` for simplicity, as `Nett Price($)` has fair amount of missing data, and it is prices after deducting the value of the indirect discounts or benefits, and not representive for all transactions. 1. `Area (SQFT)` and `Area (SQM)`, and `Unit Price ($ PSF)` and `Unit Price ($ PSM)` are similar measures in different unit. We will use `Area (SQFT)` and `Unit Price ($ PSF)`
 
 Next we look at the basic statistics of the current data using summary()
 
@@ -138,6 +136,19 @@ We have 12 rows that have transactions containing more than 1 unit sold, and a c
 To lend some background context, you can refer to this link: [Landed vs. Strata Landed](https://plbinsights.com/landed-vs-strata-landed-whats-the-difference-how-have-they-performed-in-recent-years/#:~:text=According%20to%20the%20URA%20website,as%20a%20pure%20landed%20property.) Basically, `Strata` means you only owns the property build on this land, but do not own the land itself. `Land` means you own the land and have more freedom and responsibility in terms of the constructions etc. The application of this knowledge for analysis is that `Strata` and `Land` classification can be identify as the sub-markets as owning a piece of land is likely to be more expensive for the purchaser compared to `Strata` title.
 
 Let's take a quick look at distribution before any data wrangling:
+
+```{r}
+df %>%
+  ggplot(aes(y = `Transacted Price ($)`,            
+           x = `Property Type`)) +
+  geom_boxplot()+
+  facet_grid(~Quarter) +
+  coord_cartesian(xlim=c(1,6)) +
+  scale_y_continuous(labels = scales::comma) +
+  theme_wsj() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+```
 
 ```{r}
 ggplot(data = df ,
@@ -181,7 +192,12 @@ df %>%
   ggtitle("Strata: No. of Transactions by 'Property Type'")
 ```
 
-Some learning points from these plots: 1. Apartment, Condominium and Terrace House seems to be affected most by outliers. 2. No. of transactions for Apartment classified under `Type of Area` as Land is low.There is no transaction of Condominium and Executive Condominium as these categories of Property Type are always strata for `Type of Sale`. The URA [Methodology](https://www.ura.gov.sg/reis/coverageandMethodology) Miscellaneous tab explains some of the terminologies. 3. No. of transactions for Detached House, Semi-Detached House and Terrace House are low compared to the rest of the three categories. 4. Sub markets to focus on could be the following: - For Land `Type of Sale`: Detached House, Semi-Detached House, and Terrace House. - For Strata `Type of Sale`: Apartment, Condominium, and Executive Condominium.
+Some learning points from these plots:
+
+1.  Apartment, Condominium and Terrace House seems to be affected most by outliers. There are two extreme outliers for transactions in 23Q1 and they are the two en bloc sales with 60 and 47 units of condominium each. As mention, the 5 en bloc sales will be removed from the data set to enable a meaning analysis.
+2.  No. of transactions for Apartment classified under `Type of Area` as Land is low.There is no transaction of Condominium and Executive Condominium as these categories of Property Type are always strata for `Type of Sale`. The URA [Methodology](https://www.ura.gov.sg/reis/coverageandMethodology) Miscellaneous tab explains some of the terminologies.
+3.  No. of transactions for Detached House, Semi-Detached House and Terrace House are low compared to the rest of the three categories.
+4.  Sub markets to focus on could be the following: - For Land `Type of Sale`: Detached House, Semi-Detached House, and Terrace House. - For Strata `Type of Sale`: Apartment, Condominium, and Executive Condominium.
 
 ### 2.4 Data Wrangling
 
@@ -213,20 +229,19 @@ df %>%
   geom_boxplot()+
   facet_grid(~Quarter) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  coord_cartesian(xlim=c(1,4),
-                  ylim=c(0,30000000))
+  coord_cartesian(xlim=c(1,4))
 ```
 
 ```{r}
 df %>%
-  filter(`Type of Area` == 'Land') %>%
+  filter(`Type of Area` == 'Strata') %>%
   ggplot(aes(y = `Transacted Price ($)`,            
            x = `Property Type`)) +
   geom_boxplot()+
   facet_grid(~Quarter) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  coord_cartesian(xlim=c(1,6),
-                  ylim=c(0,10000000))+
+  coord_cartesian(xlim=c(1,6)) +
+  scale_y_continuous(labels = scales::comma) 
   theme_wsj()
 
 ```
@@ -285,7 +300,7 @@ df %>%
   scale_fill_viridis_d(name = "Quartiles") +
   theme_ridges()+
   facet_grid(~`Planning Region`, scales = "free")+
-  scale_x_continuous(labels = scales::comma)+
+  scale_x_continuous(labels = scales::comma) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) 
 
 ```
@@ -360,5 +375,3 @@ ggplot(data = df,
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
 ```
-
-
