@@ -195,14 +195,30 @@ df %>%
 Some learning points from these plots:
 
 1.  Apartment, Condominium and Terrace House seems to be affected most by outliers. There are two extreme outliers for transactions in 23Q1 and they are the two en bloc sales with 60 and 47 units of condominium each. As mention, the 5 en bloc sales will be removed from the data set to enable a meaning analysis.
+
 2.  No. of transactions for Apartment classified under `Type of Area` as Land is low.There is no transaction of Condominium and Executive Condominium as these categories of Property Type are always strata for `Type of Sale`. The URA [Methodology](https://www.ura.gov.sg/reis/coverageandMethodology) Miscellaneous tab explains some of the terminologies.
+
 3.  No. of transactions for Detached House, Semi-Detached House and Terrace House are low compared to the rest of the three categories.
-4.  Sub markets to focus on could be the following: - For Land `Type of Sale`: Detached House, Semi-Detached House, and Terrace House. - For Strata `Type of Sale`: Apartment, Condominium, and Executive Condominium.
+
+4.  Sub markets to focus on could be the following:
+
+    -   For Land `Type of Sale`: Detached House, Semi-Detached House, and Terrace House.
+
+    -   For Strata `Type of Sale`: Apartment, Condominium, and Executive Condominium.
 
 ### 2.4 Data Wrangling
 
-In this section, we aim to clean the data set to ensure the usefulness and accuracy of the visualisation. 
+In this section, we aim to clean the data set to ensure the usefulness and accuracy of the visualisation.
 
+This is achieved by:
+
+1.  Removing outliers
+2.  Appropriate categorisation of variables
+3.  Additions of new variables to add new dimensions to analysis
+
+# XXX to continue from here XXX
+
+## 3.0 Data Visualisation
 
 ```{r}
 df %>%
@@ -308,7 +324,7 @@ df %>%
 
 ```
 
-## 3.0 Data Visualisation
+## 
 
 ```{r}
 quarter_means <- df %>%

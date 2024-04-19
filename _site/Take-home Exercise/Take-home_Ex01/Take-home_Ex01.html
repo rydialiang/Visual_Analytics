@@ -283,7 +283,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#understanding-the-data" id="toc-understanding-the-data" class="nav-link" data-scroll-target="#understanding-the-data">2.3 Understanding the data</a></li>
   <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">2.4 Data Wrangling</a></li>
   </ul></li>
+  </ul></li>
+  <li><a href="#xxx-to-continue-from-here-xxx" id="toc-xxx-to-continue-from-here-xxx" class="nav-link" data-scroll-target="#xxx-to-continue-from-here-xxx">XXX to continue from here XXX</a>
+  <ul class="collapse">
   <li><a href="#data-visualisation" id="toc-data-visualisation" class="nav-link" data-scroll-target="#data-visualisation">3.0 Data Visualisation</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -609,15 +613,32 @@ $ Quarter                       &lt;chr&gt; "23Q1", "23Q1", "23Q1", "23Q1", "23Q
 </div>
 <p>Some learning points from these plots:</p>
 <ol type="1">
-<li>Apartment, Condominium and Terrace House seems to be affected most by outliers. There are two extreme outliers for transactions in 23Q1 and they are the two en bloc sales with 60 and 47 units of condominium each. As mention, the 5 en bloc sales will be removed from the data set to enable a meaning analysis.</li>
-<li>No.&nbsp;of transactions for Apartment classified under <code>Type of Area</code> as Land is low.There is no transaction of Condominium and Executive Condominium as these categories of Property Type are always strata for <code>Type of Sale</code>. The URA <a href="https://www.ura.gov.sg/reis/coverageandMethodology">Methodology</a> Miscellaneous tab explains some of the terminologies.</li>
-<li>No.&nbsp;of transactions for Detached House, Semi-Detached House and Terrace House are low compared to the rest of the three categories.</li>
-<li>Sub markets to focus on could be the following: - For Land <code>Type of Sale</code>: Detached House, Semi-Detached House, and Terrace House. - For Strata <code>Type of Sale</code>: Apartment, Condominium, and Executive Condominium.</li>
+<li><p>Apartment, Condominium and Terrace House seems to be affected most by outliers. There are two extreme outliers for transactions in 23Q1 and they are the two en bloc sales with 60 and 47 units of condominium each. As mention, the 5 en bloc sales will be removed from the data set to enable a meaning analysis.</p></li>
+<li><p>No.&nbsp;of transactions for Apartment classified under <code>Type of Area</code> as Land is low.There is no transaction of Condominium and Executive Condominium as these categories of Property Type are always strata for <code>Type of Sale</code>. The URA <a href="https://www.ura.gov.sg/reis/coverageandMethodology">Methodology</a> Miscellaneous tab explains some of the terminologies.</p></li>
+<li><p>No.&nbsp;of transactions for Detached House, Semi-Detached House and Terrace House are low compared to the rest of the three categories.</p></li>
+<li><p>Sub markets to focus on could be the following:</p>
+<ul>
+<li><p>For Land <code>Type of Sale</code>: Detached House, Semi-Detached House, and Terrace House.</p></li>
+<li><p>For Strata <code>Type of Sale</code>: Apartment, Condominium, and Executive Condominium.</p></li>
+</ul></li>
 </ol>
 </section>
 <section id="data-wrangling" class="level3">
 <h3 class="anchored" data-anchor-id="data-wrangling">2.4 Data Wrangling</h3>
 <p>In this section, we aim to clean the data set to ensure the usefulness and accuracy of the visualisation.</p>
+<p>This is achieved by:</p>
+<ol type="1">
+<li>Removing outliers</li>
+<li>Appropriate categorisation of variables</li>
+<li>Additions of new variables to add new dimensions to analysis</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="xxx-to-continue-from-here-xxx" class="level1">
+<h1>XXX to continue from here XXX</h1>
+<section id="data-visualisation" class="level2">
+<h2 class="anchored" data-anchor-id="data-visualisation">3.0 Data Visualisation</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Type of Area</span><span class="st">`</span> <span class="sc">==</span> <span class="st">'Land'</span>) <span class="sc">%&gt;%</span></span>
@@ -753,9 +774,8 @@ $ Quarter                       &lt;chr&gt; "23Q1", "23Q1", "23Q1", "23Q1", "23Q
 </div>
 </div>
 </section>
-</section>
-<section id="data-visualisation" class="level2">
-<h2 class="anchored" data-anchor-id="data-visualisation">3.0 Data Visualisation</h2>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>quarter_means <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Quarter) <span class="sc">%&gt;%</span></span>
