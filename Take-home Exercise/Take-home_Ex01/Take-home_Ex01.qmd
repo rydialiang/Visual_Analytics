@@ -125,7 +125,7 @@ df %>%
   filter(`Number of Units` > 1) %>%
   arrange(desc(`Number of Units`)) 
 ```
-We have 12 rows that have transactions containing more than 1 unit sold, and a check on the `Address` shows that there are 5 sales that are en-bloc cases which should be remove from the analysis. These en-bloc cases are likely sales to companies rather than individual purchasers. Otherwise, those 7 cases of transactions with more than one unit sold should be included as are likely the cases of purchase of multiple units or the purchase of Land. 
+We have 12 rows that have transactions containing more than 1 unit sold, and a check on the `Address` shows that there are 5 sales that are en bloc cases which should be remove from the analysis. These en bloc cases are likely sales to companies rather than individual purchasers. See this [link](https://www.businesstimes.com.sg/companies-markets/meyer-park-sold-uol-singapore-land-group-jv-s39218-million-third-en-bloc-attempt) on the Meyer Park en bloc transaction.  Otherwise, those 7 cases of transactions with more than one unit sold should be included as are likely the cases of purchase of multiple units or the purchase of multiple adjacent plots of land. 
 
 To lend some background context, you can refer to this link: [Landed vs. Strata Landed](https://plbinsights.com/landed-vs-strata-landed-whats-the-difference-how-have-they-performed-in-recent-years/#:~:text=According%20to%20the%20URA%20website,as%20a%20pure%20landed%20property.) Basically, `Strata` means you only owns the property build on this land, but do not own the land itself. `Land` means you own the land and have more freedom and responsibility in terms of the constructions etc. The application of this knowledge for analysis is that `Strata` and `Land` classification can be identify as the sub-markets as owning a piece of land is likely to be more expensive for the purchaser compared to `Strata` title.  
 
@@ -266,7 +266,7 @@ quarter_means <- df %>%
   group_by(Quarter) %>%
   summarise(mean_tprice = mean(`Transacted Price ($)`))
 
-ggplot(data = df2,
+ggplot(data = df,
        aes(y=`Transacted Price ($)`,
            x=`Quarter`)
        )+
@@ -284,7 +284,7 @@ quarter_means <- land_df %>%
   group_by(Quarter) %>%
   summarise(mean_tprice = mean(`Transacted Price ($)`))
 
-ggplot(data = df2,
+ggplot(data = df,
        aes(y=`Transacted Price ($)`,
            x=`Quarter`)
        )+
