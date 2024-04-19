@@ -81,16 +81,11 @@ df <- rbind(data.23Q1,data.23Q2,data.23Q3,data.23Q4,data.24Q1)
 
 To have a basic understanding of all 22 variables, `glimpse()` is used with 2024 Q1 data. We can see that there are 21 columns, with the following data types:
 
--   doubles:
-
-    1.  `Transacted Price ($)`
-    2.  `Area (SQFT)`
-    3.  `Unit Price ($ PSF)`
-    4.  `Area (SQM)`
-    5.  `Unit Price ($ PSM)`
-    6.  `Number of Units`
+-   doubles: `Transacted Price ($)`, `Area (SQFT)`, `Unit Price ($ PSF)`, `Area (SQM)`, `Unit Price ($ PSM)`, `Number of Units`
 
 -   characters: the rest of the 16 variables, including `Quarter`
+
+Interestingly,  `Nett Price` is classified as characters, as it contains `-` character, although the rest of the columns should return doubles like `Transacted Price ($)`
 
 ```{r}
 # have a basic understanding for all 22 variables
@@ -99,29 +94,40 @@ glimpse(df)
 
 ### 2.3 Understanding the data
 
-On top of the data types that is automatically assigned by R to help the program know how to process it, we can split the data into 4 types of data category to help ourselves for future analytics application.
+On top of the data types that is automatically assigned by R to help the program know how to process it, we can split the data into 4 types of data category to help ourselves for future analytics application. 
 
 *Qualitative*
-1. Nominal
-- `Project Name`
-2. Ordinal
+
+1\. Nominal: `Project Name`, `Address`, `Type of Sale`, 
+
+2\. Ordinal: `Type of Area`, `Property Type`, `Sales Date`, `Purchaser Address Indicator`, `Postal Code`, `Postal District`, `Postal Sector`, `Planning Region`, `Planning Area` and `Quarter`.
+
+Some of the variables I have classified under ordinal are contextual. For example, I can choose to fill in the order for `Purchaser Address Indicator` as `Private` category is higher order than `HDB` category. The context is purchaser that address is `Private` is likely to be a person with higher Social Economic Status (SES) compared to a purchaser with `HDB` as address. Same could be applied to `Postal Code`, `Postal District`, `Postal Sector`, `Planning Region` and `Planning Area`.
 
 *Quantitative*
-3. Discrete
 
-4. Continuous
-    1.  `Transacted Price ($)`
-    2.  `Area (SQFT)`
-    3.  `Unit Price ($ PSF)`
-    4.  `Area (SQM)`
-    5.  `Unit Price ($ PSM)`
-    6.  `Number of Units`
+3\. Discrete: `Number of Units` and `Tenure`. Note that `Tenure` is still a chr data type as of now. If we choose to use this column for analysis, we do need to do data preparation on this. `Tenure` could also be classified under continuous data for more granularity. 
 
+4\. Continuous: `Transacted Price ($)`,`Area (SQFT)`, `Unit Price ($ PSF)`, `Area (SQM)`, `Unit Price ($ PSM)`, and `Nett Price($)`. Note that `Nett Price($)` is still a chr data type as of now. If we choose to use this column for analysis, we do need to do data preparation on this.
 
+Special Case:
+`Completion Date` is classified as chr, but a quick look at the data `df`, we will realise that this variable is a mix of quantitative and qualitative data type of `Uncomplete` and actual date of completion, which could be converted and analyse as doubles. 
 
+Next we look at the basic statistics of the current data using summary()
+```{r}
+# data summary
+summary(df)
+```
+From the continuous data above, we can conclude that there is a possibility of extreme outliers. The `Number of Units` has a max of 60, while the 3rd Quartile is 1.000. Let's examine the data by sorting it in descending order using `arrange(desc())` and take a look at data with `Number of Units`, as it greatly affect the analysis of `Transaction Price ($)`. 
 
+```{r}
+df %>%
+  filter(`Number of Units` > 1) %>%
+  arrange(desc(`Number of Units`)) 
+```
+We have 12 rows that have transactions containing more than 1 unit sold, and a check on the `Address` shows that there are 5 sales that are en-bloc cases which should be remove from the analysis. These en-bloc cases are likely sales to companies rather than individual purchasers. Otherwise, those 7 cases of transactions with more than one unit sold should be included as are likely the cases of purchase of multiple units or the purchase of Land. 
 
-
+To lend some background context, you can refer to this link: [Landed vs. Strata Landed](https://plbinsights.com/landed-vs-strata-landed-whats-the-difference-how-have-they-performed-in-recent-years/#:~:text=According%20to%20the%20URA%20website,as%20a%20pure%20landed%20property.) Basically, `Strata` means you only owns the property build on this land, but do not own the land itself. `Land` means you own the land and have more freedom and responsibility in terms of the constructions etc. The application of this knowledge for analysis is that `Strata` and `Land` classification can be identify as the sub-markets as owning a piece of land is likely to be more expensive for the purchaser compared to `Strata` title.  
 
 
 ```{r}
@@ -141,10 +147,7 @@ ggplot(data = df ,
   theme_economist()
 ```
 
-
-Looking at the bar chart above, it might be a good way to filter the data based on Type of Area to do further analysis. To lend some background context to this segregation, you can refer to this link: [Landed vs. Strata Landed](https://plbinsights.com/landed-vs-strata-landed-whats-the-difference-how-have-they-performed-in-recent-years/#:~:text=According%20to%20the%20URA%20website,as%20a%20pure%20landed%20property.) From this link, we can also derive further segregation by Property Type.
-
-
+Looking at the bar chart above, it might be a good way to filter the data based on Type of Area to do further analysis. From this link, we can also derive further segregation by Property Type.
 
 ```{r}
 land_df <- filter(df, `Type of Area` == 'Land')
@@ -162,7 +165,7 @@ ggplot(data = land_df,
 
 ```{r}
 ggplot(data = land_df ,
-       aes(x = `Transacted Price per Unit ($)`,
+       aes(x = `Transacted Price ($)`,
            y = Quarter,
            fill = factor(stat(quantile))
            )) +
@@ -181,16 +184,18 @@ ggplot(data = land_df ,
 
 ```{r}
 ggplot(data = land_df, 
-       aes(y = `Transacted Price per Unit ($)`,            x = `Property Type`)) +
+       aes(y = `Transacted Price ($)`,
+           x = `Property Type`)) +
   geom_boxplot()+
   facet_grid(~Quarter) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   coord_cartesian(xlim=c(1,4),
                   ylim=c(0,30000000))
 ```
+
 ```{r}
 ggplot(data = strata_df, 
-       aes(y = `Transacted Price per Unit ($)`,            x = `Property Type`)) +
+       aes(y = `Transacted Price ($)`,            x = `Property Type`)) +
   geom_boxplot()+
   facet_grid(~Quarter) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
@@ -203,11 +208,11 @@ ggplot(data = strata_df,
 ```{r}
 mean_strata_by_property_type <- strata_df %>%
   group_by(`Property Type`) %>%
-  summarise(mean_price = mean(`Transacted Price per Unit ($)`))
+  summarise(mean_price = mean(`Transacted Price ($)`))
 
 ggplot(strata_df,
        aes(x=`Area (SQM)`, 
-           y = `Transacted Price per Unit ($)`,
+           y = `Transacted Price ($)`,
            color = `Property Type`)) +
   geom_point_interactive() +
   coord_cartesian(xlim=c(0,1000),
@@ -220,11 +225,11 @@ ggplot(strata_df,
 ```{r}
 mean_land_by_property_type <- land_df %>%
   group_by(`Property Type`) %>%
-  summarise(mean_price = mean(`Transacted Price per Unit ($)`))
+  summarise(mean_price = mean(`Transacted Price ($)`))
 
 ggplot(land_df,
        aes(x=`Area (SQM)`, 
-           y = `Transacted Price per Unit ($)`,
+           y = `Transacted Price ($)`,
            color = `Property Type`)) +
   geom_point_interactive() +
   coord_cartesian(xlim=c(0,1000),
@@ -236,7 +241,7 @@ ggplot(land_df,
 
 ```{r}
 ggplot(data = strata_df ,
-       aes(x = `Transacted Price per Unit ($)`,
+       aes(x = `Transacted Price ($)`,
            y = Quarter,
            fill = factor(stat(quantile))
            )) +
@@ -255,17 +260,14 @@ ggplot(data = strata_df ,
 
 ## 3.0 Data Visualisation
 
+
 ```{r}
-(B/C)+
-  plot_annotation(tag_levels = 'I')
-```
-```{r}
-quarter_means <- df2 %>%
+quarter_means <- df %>%
   group_by(Quarter) %>%
-  summarise(mean_tprice = mean(`Transacted Price per Unit ($)`))
+  summarise(mean_tprice = mean(`Transacted Price ($)`))
 
 ggplot(data = df2,
-       aes(y=`Transacted Price per Unit ($)`,
+       aes(y=`Transacted Price ($)`,
            x=`Quarter`)
        )+
   geom_violin()+
@@ -280,10 +282,10 @@ ggplot(data = df2,
 ```{r}
 quarter_means <- land_df %>%
   group_by(Quarter) %>%
-  summarise(mean_tprice = mean(`Transacted Price per Unit ($)`))
+  summarise(mean_tprice = mean(`Transacted Price ($)`))
 
 ggplot(data = df2,
-       aes(y=`Transacted Price per Unit ($)`,
+       aes(y=`Transacted Price ($)`,
            x=`Quarter`)
        )+
   geom_violin()+
@@ -326,6 +328,7 @@ ggplot(data = df,
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
 ```
+
 ```{r}
 no.unit <-df %>%
   select(`Transacted Price ($)`,`Number of Units`) %>%
@@ -333,10 +336,9 @@ no.unit <-df %>%
   arrange(desc(`Number of Units`))
 ```
 
-
 ```{r}
 ggplot(data = df ,
-       aes(x = `Transacted Price per Unit ($)`,
+       aes(x = `Transacted Price ($)`,
            y = `Planning Region`,
            fill = factor(stat(quantile))
            )) +
@@ -354,6 +356,6 @@ ggplot(data = df ,
 
 ```{r}
 ggplot(df,
-       aes(y = df2$`Transacted Price per Unit ($)`)) +
+       aes(y = df$`Transacted Price ($)`)) +
   geom_boxplot()
 ```
