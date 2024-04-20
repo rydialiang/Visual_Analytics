@@ -71,10 +71,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -321,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">April 19, 2024</p>
+      <p class="date-modified">April 20, 2024</p>
     </div>
   </div>
     
@@ -359,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>ggiraph: for making ‘ggplot’ graphics interactive.</li>
 <li>plotly: R library for plotting interactive statistical graphs.</li>
 <li>patchwork: specially designed for combining separate ggplot2 graphs into a single figure.</li>
-<li>To add more…</li>
+<li>lubridate: for easy and fast parsing of Date / Time</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load tidyverse from pacman</span></span>
@@ -613,7 +613,7 @@ $ Quarter                       &lt;chr&gt; "23Q1", "23Q1", "23Q1", "23Q1", "23Q
 </div>
 <p>Some learning points from these plots:</p>
 <ol type="1">
-<li><p>Apartment, Condominium and Terrace House seems to be affected most by outliers. There are two extreme outliers for transactions in 23Q1 and they are the two en bloc sales with 60 and 47 units of condominium each. As mention, the 5 en bloc sales will be removed from the data set to enable a meaning analysis.</p></li>
+<li><p>Apartment, Condominium and Terrace House seems to be affected most by outliers. There are two extreme outliers for transactions in 23Q1 and they are the two en bloc sales with 60 and 47 units of condominium each. As mention, the 5 en bloc sales will be removed from the data set to enable meaningful analysis.</p></li>
 <li><p>No.&nbsp;of transactions for Apartment classified under <code>Type of Area</code> as Land is low.There is no transaction of Condominium and Executive Condominium as these categories of Property Type are always strata for <code>Type of Sale</code>. The URA <a href="https://www.ura.gov.sg/reis/coverageandMethodology">Methodology</a> Miscellaneous tab explains some of the terminologies.</p></li>
 <li><p>No.&nbsp;of transactions for Detached House, Semi-Detached House and Terrace House are low compared to the rest of the three categories.</p></li>
 <li><p>Sub markets to focus on could be the following:</p>

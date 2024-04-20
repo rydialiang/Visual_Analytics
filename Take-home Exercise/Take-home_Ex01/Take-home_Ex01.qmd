@@ -37,7 +37,7 @@ T he `pac::p_load()` function to load the required R packages in the working env
 -   ggiraph: for making ‘ggplot’ graphics interactive.
 -   plotly: R library for plotting interactive statistical graphs.
 -   patchwork: specially designed for combining separate ggplot2 graphs into a single figure.
--   To add more...
+-   lubridate: for easy and fast parsing of Date / Time
 
 ```{r}
 # load tidyverse from pacman
@@ -194,7 +194,7 @@ df %>%
 
 Some learning points from these plots:
 
-1.  Apartment, Condominium and Terrace House seems to be affected most by outliers. There are two extreme outliers for transactions in 23Q1 and they are the two en bloc sales with 60 and 47 units of condominium each. As mention, the 5 en bloc sales will be removed from the data set to enable a meaning analysis.
+1.  Apartment, Condominium and Terrace House seems to be affected most by outliers. There are two extreme outliers for transactions in 23Q1 and they are the two en bloc sales with 60 and 47 units of condominium each. As mention, the 5 en bloc sales will be removed from the data set to enable meaningful analysis.
 
 2.  No. of transactions for Apartment classified under `Type of Area` as Land is low.There is no transaction of Condominium and Executive Condominium as these categories of Property Type are always strata for `Type of Sale`. The URA [Methodology](https://www.ura.gov.sg/reis/coverageandMethodology) Miscellaneous tab explains some of the terminologies.
 
