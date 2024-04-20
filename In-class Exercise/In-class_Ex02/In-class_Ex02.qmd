@@ -1,0 +1,11 @@
+---
+title: "In-class_Ex02"
+author: "Liang Xiuhao Rydia"
+date: "20 April 2024"
+date-modified: "last-modified"
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  freeze: true
+---
