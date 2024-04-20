@@ -264,5 +264,12 @@
     "title": "Take-home Ex 01",
     "section": "",
     "text": "quarter_means &lt;- df %&gt;%\n  group_by(Quarter) %&gt;%\n  summarise(mean_tprice = mean(`Transacted Price ($)`))\n\ndf %&gt;%\nggplot(aes(y=`Transacted Price ($)`,\n           x=`Quarter`)\n       )+\n  geom_violin()+\n  geom_point(data = quarter_means, \n             aes(y = mean_tprice), \n             color = \"red\", \n             size = 3)+\n  scale_y_continuous(labels = scales::comma)+\n  ggtitle(\"Distribution of Transacted Prices by Quarter with mean\")\n\n\n\n\n\n\n\n\n\nquarter_means &lt;- df %&gt;%\n  filter(`Type of Area` == 'Land') %&gt;%\n  group_by(Quarter) %&gt;%\n  summarise(mean_tprice = mean(`Transacted Price ($)`))\n\ndf %&gt;% \n  ggplot(aes(y=`Transacted Price ($)`,\n             x=`Quarter`))+\n  geom_violin()+\n  geom_point(data = quarter_means, \n             aes(y = mean_tprice), \n             color = \"red\", \n             size = 3)+\n  scale_y_continuous(labels = scales::comma)+\n  ggtitle(\"Distribution of Transacted Prices by Quarter with mean for Land\")\n\n\n\n\n\n\n\n\n\nquarter_means &lt;- df %&gt;%\n  filter(`Type of Area` == 'Strata') %&gt;%\n  group_by(Quarter) %&gt;%\n  summarise(mean_tprice = mean(`Transacted Price ($)`))\n\ndf %&gt;%\nggplot(aes(y=`Transacted Price ($)`,\n           x=`Quarter`)\n       )+\n  geom_violin()+\n  coord_cartesian(xlim=c(1,5),\n                  ylim=c(min(df$`Transacted Price ($)`),7500000)) +\n  geom_point(data = quarter_means, \n             aes(y = mean_tprice), \n             color = \"red\", \n             size = 3)+\n  scale_y_continuous(labels = scales::comma)+\n  ggtitle(\"Distribution of Transacted Prices by Quarter with mean for Strata\")\n\n\n\n\n\n\n\n\n\nggplot(data = df, \n       aes(x=`Property Type`,\n           fill = `Type of Sale`)) +\n  geom_bar() +\n  facet_grid(~Quarter, scales = \"free\") +\n  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))"
+  },
+  {
+    "objectID": "In-class Exercise/In-class_Ex02/In-class_Ex02.html",
+    "href": "In-class Exercise/In-class_Ex02/In-class_Ex02.html",
+    "title": "In-class_Ex02",
+    "section": "",
+    "text": "pacman::p_load(tidyverse,ggdist,ggthemes)\n\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")"
   }
 ]
