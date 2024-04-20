@@ -68,7 +68,7 @@ website:
 
 format:
   html:
-    theme: zephyr
+    theme: cosmos
     css: styles.css
     toc: true
 
