@@ -68,7 +68,7 @@ website:
 
 format:
   html:
-    theme: solar
+    theme: cerulean
     css: styles.css
     toc: true
 
