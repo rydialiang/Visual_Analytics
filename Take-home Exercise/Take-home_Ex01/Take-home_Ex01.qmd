@@ -147,8 +147,6 @@ df %>%
 
 We have 12 rows that have transactions containing more than 1 unit sold, and a check on the `Address` shows that there are 5 sales that are en bloc cases which should be remove from the analysis. These en bloc cases are likely sales to companies for purpose of redevelopment rather than individual purchasers. See this [link](https://www.businesstimes.com.sg/companies-markets/meyer-park-sold-uol-singapore-land-group-jv-s39218-million-third-en-bloc-attempt) on the Meyer Park en bloc transaction. Otherwise, those 7 cases of transactions with more than one unit sold should be included as are likely the cases of purchase of multiple units or the purchase of multiple adjacent plots of land.
 
-To lend some background context, you can refer to this link: [Landed vs. Strata Landed](https://plbinsights.com/landed-vs-strata-landed-whats-the-difference-how-have-they-performed-in-recent-years/#:~:text=According%20to%20the%20URA%20website,as%20a%20pure%20landed%20property.) Basically, `Strata` means you only owns the property build on this land, but do not own the land itself. `Land` means you own the land and have more freedom and responsibility in terms of the constructions etc. The application of this knowledge for analysis is that `Strata` and `Land` classification can be identify as the sub-markets as owning a piece of land is likely to be more expensive for the purchaser compared to `Strata` title.
-
 Let's take a quick look at distribution before any data wrangling:
 
 ```{r}
@@ -181,6 +179,14 @@ ggplot(data = df ,
   theme_economist() +
   scale_x_continuous(labels = NULL)
 ```
+
+### 2.3.1 Identifying Sub-markets
+
+**Land vs. Strata**
+
+To lend some background context, you can refer to this link: [Landed vs. Strata Landed](https://plbinsights.com/landed-vs-strata-landed-whats-the-difference-how-have-they-performed-in-recent-years/#:~:text=According%20to%20the%20URA%20website,as%20a%20pure%20landed%20property.) Basically, `Strata` means you only owns the property build on this land, but do not own the land itself. `Land` means you own the land and have more freedom and responsibility in terms of the constructions etc. The application of this knowledge for analysis is that `Strata` and `Land` classification can be identify as the sub-markets as owning a piece of land is likely to be more expensive for the purchaser compared to `Strata` title.
+
+
 
 ```{r}
 df %>%
@@ -215,7 +221,26 @@ df %>%
   summarise(`Total Transaction Price ($)` = sum(`Transacted Price ($)`), `Mean Transaction Price ($)` = mean(`Transacted Price ($)`), `Median Transaction Price ($)` = median(`Transacted Price ($)`))
 ```
 
-Diving a bit deeper.
+Diving a bit deeper.We segregate them by `Property Type`
+
+```{r}
+df %>%
+  select(`Transacted Price ($)`,`Type of Area`, `Property Type`) %>%
+  group_by(`Property Type`, `Type of Area`) %>%
+  summarise(`Median Transaction Price ($)` = median(`Transacted Price ($)`))
+```
+
+```{r}
+df %>%
+  select(`Transacted Price ($)`,`Type of Area`, `Property Type`) %>%
+  group_by(`Property Type`,`Type of Area`) %>%
+  summarise(`Median Transaction Price ($)` = median(`Transacted Price ($)`, .groups = 'drop')) %>%
+  ggplot(aes(y = `Median Transaction Price ($)`,
+             x = `Property Type`)) +
+  geom_point() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma)
+```
 
 Some learning points from these plots and tibbles:
 
@@ -237,7 +262,7 @@ Some learning points from these plots and tibbles:
 
     -   For Strata type, it has high volume but lower average `Transacted Price ($)`.
 
-6.  Lastly, we can also draw a quick conclusion from the `No. of Transactions by 'Property Type'` bar charts that
+6.  Lastly, the scatter plot of median `Transaction Price ($)` suggest that there is a difference in the median price for the same `Property Type` with different `Type of Area`. Hence, the should study each of this sub-markets individually.
 
 ### 2.4 Data Wrangling
 
@@ -433,18 +458,13 @@ ggplot(aes(y=`Transacted Price ($)`,
 ```
 
 ```{r}
-ggplot(data = df, 
+ggplot(data = df.c, 
        aes(x=`Property Type`,
            fill = `Type of Sale`)) +
   geom_bar() +
   facet_grid(~Quarter, scales = "free") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
-```
-
-```{r}
-df.c %>%
-  glimpse()
 ```
 
 ## 4.0 References
