@@ -10,6 +10,7 @@ execute:
   freeze: true
 ---
 
+
 # **Building Elegant and yet Informative Data Visualisation**
 
 For the final product, you can use the table of content to the right to navigate straight to 3.0 Data Visualisation. If not, you can proceed to enjoy reading the step by step thought process for this visualisation.
@@ -39,10 +40,12 @@ T he `pac::p_load()` function to load the required R packages in the working env
 -   patchwork: specially designed for combining separate ggplot2 graphs into a single figure.
 -   lubridate: for easy and fast parsing of Date / Time
 
+
 ```{r}
 # load tidyverse from pacman
 pacman::p_load(tidyverse,dplyr,ggridges,ggthemes,colorspace,ggiraph,plotly,patchwork)
 ```
+
 
 ### 2.2 Importing the data sets
 
@@ -56,6 +59,7 @@ Five sets of data are provided for this exercise:
 
 All five sets of data consists of past transactions between Q1 of 2023 to Q1 of 2024, with 21 variables that will be explored in detail after the data sets are imported.
 
+
 ```{r}
 # load transaction data using readr, part of tidyverse package
 data.23Q1 <- read_csv("data/ResidentialTransaction20240308160536.csv")
@@ -65,7 +69,9 @@ data.23Q4 <- read_csv("data/ResidentialTransaction20240308161109.csv")
 data.24Q1 <- read_csv("data/ResidentialTransaction20240414220633.csv")
 ```
 
+
 To add new column `Quarter` into each of the csv file.
+
 
 ```{r}
 data.23Q1$Quarter <- rep('23Q1',nrow(data.23Q1))
@@ -75,11 +81,14 @@ data.23Q4$Quarter <- rep('23Q4',nrow(data.23Q4))
 data.24Q1$Quarter <- rep('24Q1',nrow(data.24Q1))
 ```
 
+
 Combining all the data set into one
+
 
 ```{r}
 df <- rbind(data.23Q1,data.23Q2,data.23Q3,data.23Q4,data.24Q1)
 ```
+
 
 To have a basic understanding of all 22 variables, `glimpse()` is used with 2024 Q1 data. We can see that there are 21 columns, with the following data types:
 
@@ -89,10 +98,12 @@ To have a basic understanding of all 22 variables, `glimpse()` is used with 2024
 
 Interestingly, `Nett Price` is classified as characters, as it contains `-` character, although the rest of the columns should return doubles like `Transacted Price ($)`
 
+
 ```{r}
 # have a basic understanding for all 22 variables
 glimpse(df)
 ```
+
 
 ### 2.3 Understanding the data
 
@@ -121,22 +132,27 @@ Next we look at the basic statistics of the current data using summary()
 ::: panel-tabset
 ## The Output
 
+
 ```{r}
 #| echo: False
 # data summary
 summary(df)
 ```
 
+
 ## The Code
+
 
 ```{r}
 #| eval: False
 # data summary
 summary(df)
 ```
+
 :::
 
 From the continuous data above, we can conclude that there is a possibility of extreme outliers. The `Number of Units` has a max of 60, while the 3rd Quartile is 1.000. Let's examine the data by sorting it in descending order using `arrange(desc())` and take a look at data with `Number of Units`, as it greatly affect the analysis of `Transaction Price ($)`.
+
 
 ```{r}
 df %>%
@@ -144,11 +160,13 @@ df %>%
   arrange(desc(`Number of Units`)) 
 ```
 
+
 We have 12 rows that have transactions containing more than 1 unit sold, and a check on the `Address` shows that there are 5 sales that are en bloc cases which should be remove from the analysis. These en bloc cases are likely sales to companies for purpose of redevelopment rather than individual purchasers. See this [link](https://www.businesstimes.com.sg/companies-markets/meyer-park-sold-uol-singapore-land-group-jv-s39218-million-third-en-bloc-attempt) on the Meyer Park en bloc transaction. Otherwise, those 7 cases of transactions with more than one unit sold should be included as are likely the cases of purchase of multiple units or the purchase of multiple adjacent plots of land.
 
 To lend some background context, you can refer to this link: [Landed vs. Strata Landed](https://plbinsights.com/landed-vs-strata-landed-whats-the-difference-how-have-they-performed-in-recent-years/#:~:text=According%20to%20the%20URA%20website,as%20a%20pure%20landed%20property.) Basically, `Strata` means you only owns the property build on this land, but do not own the land itself. `Land` means you own the land and have more freedom and responsibility in terms of the constructions etc. The application of this knowledge for analysis is that `Strata` and `Land` classification can be identify as the sub-markets as owning a piece of land is likely to be more expensive for the purchaser compared to `Strata` title.
 
 Let's take a quick look at distribution before any data wrangling:
+
 
 ```{r}
 df %>%
@@ -205,6 +223,7 @@ df %>%
   ggtitle("Strata: No. of Transactions by 'Property Type'")
 ```
 
+
 Some learning points from these plots:
 
 1.  Apartment, Condominium and Terrace House seems to be affected most by outliers. There are two extreme outliers for transactions in 23Q1 and they are the two en bloc sales with 60 and 47 units of condominium each. As mention, the 5 en bloc sales will be removed from the data set to enable meaningful analysis.
@@ -232,6 +251,7 @@ This is achieved by:
 # XXX to continue from here XXX
 
 ## 3.0 Data Visualisation
+
 
 ```{r}
 df %>%
@@ -337,7 +357,9 @@ df %>%
 
 ```
 
+
 ## 
+
 
 ```{r}
 quarter_means <- df %>%
@@ -408,8 +430,10 @@ ggplot(data = df,
 
 ```
 
+
 ## 4.0 References
 
 1\. T.S. Kam, R for Visual Analytics [Chapter 9](https://r4va.netlify.app/chap09) for visualisation of Ridgeline plots with quantile lines.
 
 2\. Claus O. Wilke, Fundamentals of Data Visualization [Chapter 2](https://clauswilke.com/dataviz/aesthetic-mapping.html) for understanding and classification of variables.
+
