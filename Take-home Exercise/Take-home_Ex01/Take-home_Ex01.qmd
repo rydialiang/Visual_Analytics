@@ -213,11 +213,12 @@ Some learning points from these plots:
 
 3.  No. of transactions for Detached House, Semi-Detached House and Terrace House are low compared to the rest of the three categories.
 
-4.  Sub markets to focus on could be the following:
+4.  Sub markets to focus on based on the number of transactions could be the following lists. However, we should also note that we can prioritise the sub-market for analysis based on the total transactions in each category instead of just looking at volume of transactions. 
 
     -   For Land `Type of Sale`: Detached House, Semi-Detached House, and Terrace House.
 
     -   For Strata `Type of Sale`: Apartment, Condominium, and Executive Condominium.
+    
 
 ### 2.4 Data Wrangling
 
