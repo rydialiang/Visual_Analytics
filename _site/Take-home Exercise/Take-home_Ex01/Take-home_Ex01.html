@@ -281,9 +281,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#loading-the-packages-into-r" id="toc-loading-the-packages-into-r" class="nav-link" data-scroll-target="#loading-the-packages-into-r">2.1 Loading the packages into R</a></li>
   <li><a href="#importing-the-data-sets" id="toc-importing-the-data-sets" class="nav-link" data-scroll-target="#importing-the-data-sets">2.2 Importing the data sets</a></li>
   <li><a href="#understanding-the-data" id="toc-understanding-the-data" class="nav-link" data-scroll-target="#understanding-the-data">2.3 Understanding the data</a></li>
-  </ul></li>
-  <li><a href="#the-code" id="toc-the-code" class="nav-link" data-scroll-target="#the-code">The Code</a>
-  <ul class="collapse">
   <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">2.4 Data Wrangling</a></li>
   </ul></li>
   </ul></li>
@@ -449,15 +446,17 @@ $ Quarter                       &lt;chr&gt; "23Q1", "23Q1", "23Q1", "23Q1", "23Q
 <p>4. Continuous: <code>Transacted Price ($)</code>,<code>Area (SQFT)</code>, <code>Unit Price ($ PSF)</code>, <code>Area (SQM)</code>, <code>Unit Price ($ PSM)</code>, and <code>Nett Price($)</code>. Note that <code>Nett Price($)</code> is still a chr data type as of now. If we choose to use this column for analysis, we do need to do data preparation on this.</p>
 <p>Special Case: <code>Completion Date</code> is classified as chr, but a quick look at the data <code>df</code>, we will realise that this variable is a mix of quantitative and qualitative data type of <code>Uncomplete</code> and actual date of completion, which could be converted and analyse as doubles.</p>
 <p>Some important observations: 1. <code>Transacted Price ($)</code> and <code>Nett Price($)</code> are similar. In this analysis, we will use <code>Transacted Price ($)</code> for simplicity, as <code>Nett Price($)</code> has fair amount of missing data, and it is prices after deducting the value of the indirect discounts or benefits, and not representive for all transactions. 1. <code>Area (SQFT)</code> and <code>Area (SQM)</code>, and <code>Unit Price ($ PSF)</code> and <code>Unit Price ($ PSM)</code> are similar measures in different unit. We will use <code>Area (SQFT)</code> and <code>Unit Price ($ PSF)</code></p>
-<p>Next we look at the basic statistics of the current data using summary() ::: panel-tabset ## The Output</p>
+<p>Next we look at the basic statistics of the current data using summary()</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">The Output</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">The Code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># data summary</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-</section>
-<section id="the-code" class="level2">
-<h2 class="anchored" data-anchor-id="the-code">The Code</h2>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code> Project Name       Transacted Price ($)  Area (SQFT)       Unit Price ($ PSF)
@@ -510,7 +509,9 @@ $ Quarter                       &lt;chr&gt; "23Q1", "23Q1", "23Q1", "23Q1", "23Q
                                                                             </code></pre>
 </div>
 </div>
-<p>:::</p>
+</div>
+</div>
+</div>
 <p>From the continuous data above, we can conclude that there is a possibility of extreme outliers. The <code>Number of Units</code> has a max of 60, while the 3rd Quartile is 1.000. Let’s examine the data by sorting it in descending order using <code>arrange(desc())</code> and take a look at data with <code>Number of Units</code>, as it greatly affect the analysis of <code>Transaction Price ($)</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
@@ -632,6 +633,7 @@ $ Quarter                       &lt;chr&gt; "23Q1", "23Q1", "23Q1", "23Q1", "23Q
 <li><p>For Strata <code>Type of Sale</code>: Apartment, Condominium, and Executive Condominium.</p></li>
 </ul></li>
 </ol>
+</section>
 <section id="data-wrangling" class="level3">
 <h3 class="anchored" data-anchor-id="data-wrangling">2.4 Data Wrangling</h3>
 <p>In this section, we aim to clean the data set to ensure the usefulness and accuracy of the visualisation.</p>

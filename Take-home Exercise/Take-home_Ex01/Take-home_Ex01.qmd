@@ -119,7 +119,7 @@ Some important observations: 1. `Transacted Price ($)` and `Nett Price($)` are s
 Next we look at the basic statistics of the current data using summary()
 
 ::: panel-tabset
-## The Output
+## The Output 
 ```{r}
 #| eval: False
 # data summary
