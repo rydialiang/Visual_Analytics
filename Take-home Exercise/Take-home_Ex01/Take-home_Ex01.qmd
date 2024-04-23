@@ -96,7 +96,7 @@ glimpse(df)
 
 ### 2.3 Understanding the data
 
-On top of the data types that is automatically assigned by R to help the program know how to process it, we can split the data into 4 types of data category to help ourselves for future analytics application. You can refer to the FAQ, Data Dictionary and Methodology in [URA website](https://va24-ry.netlify.app/take-home%20exercise/take-home_ex01/take-home_ex01).
+On top of the data types that is automatically assigned by R to help the program know how to process it, we can split the data into 4 types of data category to help ourselves for future analytics application. You can refer to the FAQ, Data Dictionary and Methodology in [URA website](https://www.ura.gov.sg/reis/dataDictionary).
 
 *Qualitative*
 
@@ -119,7 +119,7 @@ Some important observations: 1. `Transacted Price ($)` and `Nett Price($)` are s
 Next we look at the basic statistics of the current data using summary()
 
 ::: panel-tabset
-## The Output
+### The Output
 
 ```{r}
 #| echo: False
@@ -127,7 +127,7 @@ Next we look at the basic statistics of the current data using summary()
 summary(df)
 ```
 
-## The Code
+### The Code
 
 ```{r}
 #| eval: False
@@ -225,16 +225,27 @@ In this section, we aim to clean the data set to ensure the usefulness and accur
 
 This is achieved by:
 
-1.  Removing outliers
+1.  Removing irrelevant data and outliers
 2.  Appropriate categorisation of variables
 3.  Additions of new variables to add new dimensions to analysis
+
+### 2.4.1 Removing the en bloc sales
+
+For the follow code chunk, we aim to remove all the enbloc sales, including the 5 transactions that we have found in section 2.3. While we have no idea if there are more than 5 cases of en bloc sales, the follow code chunk will effectively remove all the rows with the string "ENBLOC" in `Address` column.
+
+```{r}
+df.c <- df %>%
+  filter(!grepl('ENBLOC', df$Address))
+df.c
+```
+In the df.c tibble, it showed that 5 rows had been removed. Now there is only 26,801 rows instead of the original 26,806 rows in the initial df. This confirm that there are only 5 en bloc sales in the data frame. 
 
 # XXX to continue from here XXX
 
 ## 3.0 Data Visualisation
 
 ```{r}
-df %>%
+df.c %>%
   filter(`Type of Area` == 'Land') %>%
   ggplot(aes(x = `Transacted Price ($)`,
            y = Quarter,
@@ -254,37 +265,36 @@ df %>%
 ```
 
 ```{r}
-df %>%
+df.c %>%
   filter(`Type of Area` == 'Land') %>%
   ggplot(aes(y = `Transacted Price ($)`,
-           x = `Property Type`)) +
+           x = `Quarter`)) +
   geom_boxplot()+
-  facet_grid(~Quarter) +
+  facet_grid(~`Property Type`) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   coord_cartesian(xlim=c(1,4))
 ```
 
 ```{r}
-df %>%
+df.c %>%
   filter(`Type of Area` == 'Strata') %>%
   ggplot(aes(y = `Transacted Price ($)`,            
-           x = `Property Type`)) +
+           x = Quarter)) +
   geom_boxplot()+
-  facet_grid(~Quarter) +
+  facet_grid(~`Property Type`) +
   coord_cartesian(xlim=c(1,6)) +
   scale_y_continuous(labels = scales::comma) +
   theme_wsj()  +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-
 ```
 
 ```{r}
-mean_strata_by_property_type <- df %>%
+mean_strata_by_property_type <- df.c %>%
   filter(`Type of Area` == 'Strata') %>%
   group_by(`Property Type`) %>%
   summarise(mean_price = mean(`Transacted Price ($)`))
 
-df %>%
+df.c %>%
   filter(`Type of Area` == 'Strata') %>%
   ggplot(aes(x=`Area (SQM)`, 
            y = `Transacted Price ($)`,
@@ -298,12 +308,12 @@ df %>%
 ```
 
 ```{r}
-mean_land_by_property_type <-  df %>%
+mean_land_by_property_type <-  df.c %>%
   filter(`Type of Area` == 'Land') %>%
   group_by(`Property Type`) %>%
   summarise(mean_price = mean(`Transacted Price ($)`))
 
-df %>%
+df.c %>%
 filter(`Type of Area` == 'Land') %>%
 ggplot(aes(x=`Area (SQM)`, 
            y = `Transacted Price ($)`,
@@ -318,7 +328,7 @@ ggplot(aes(x=`Area (SQM)`,
 
 ```{r}
 
-df %>%
+df.c %>%
   filter(`Type of Area` == 'Strata') %>%
   ggplot(aes(x = `Transacted Price ($)`,
            y = Quarter,
@@ -340,11 +350,11 @@ df %>%
 ## 
 
 ```{r}
-quarter_means <- df %>%
+quarter_means <- df.c %>%
   group_by(Quarter) %>%
   summarise(mean_tprice = mean(`Transacted Price ($)`))
 
-df %>%
+df.c %>%
 ggplot(aes(y=`Transacted Price ($)`,
            x=`Quarter`)
        )+
@@ -358,12 +368,12 @@ ggplot(aes(y=`Transacted Price ($)`,
 ```
 
 ```{r}
-quarter_means <- df %>%
+quarter_means <- df.c %>%
   filter(`Type of Area` == 'Land') %>%
   group_by(Quarter) %>%
   summarise(mean_tprice = mean(`Transacted Price ($)`))
 
-df %>% 
+df.c %>% 
   ggplot(aes(y=`Transacted Price ($)`,
              x=`Quarter`))+
   geom_violin()+
@@ -377,12 +387,12 @@ df %>%
 ```
 
 ```{r}
-quarter_means <- df %>%
+quarter_means <- df.c %>%
   filter(`Type of Area` == 'Strata') %>%
   group_by(Quarter) %>%
   summarise(mean_tprice = mean(`Transacted Price ($)`))
 
-df %>%
+df.c %>%
 ggplot(aes(y=`Transacted Price ($)`,
            x=`Quarter`)
        )+
@@ -413,3 +423,5 @@ ggplot(data = df,
 1\. T.S. Kam, R for Visual Analytics [Chapter 9](https://r4va.netlify.app/chap09) for visualisation of Ridgeline plots with quantile lines.
 
 2\. Claus O. Wilke, Fundamentals of Data Visualization [Chapter 2](https://clauswilke.com/dataviz/aesthetic-mapping.html) for understanding and classification of variables.
+
+3\. Stack Overflow, ["Filter rows which contain a certain string"](https://stackoverflow.com/questions/22850026/filter-rows-which-contain-a-certain-string) for removing en bloc sales from the data frame. 
