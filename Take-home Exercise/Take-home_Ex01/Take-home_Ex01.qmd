@@ -164,13 +164,6 @@ df %>%
 
 ```
 
-
-
-
-
-
-
-
 ```{r}
 ggplot(data = df ,
        aes(x = `Transacted Price ($)`,
@@ -213,19 +206,16 @@ df %>%
   ggtitle("Strata: No. of Transactions by 'Property Type'")
 ```
 
-To understand which `Type of Area` has high market value by median of total `Transacted Price ($)`:
+To understand which `Type of Area` has high market value by `Transacted Price ($)`:
+
 ```{r}
 df %>%
-  select(`Transacted Price ($)`,`Type of Area`,`Property Type`,`Number of Units`) %>%
-  group_by(`Type of Area`,`Property Type`) %>%
-  summarise(`Median of Transacted Price`= median(`Transacted Price ($)`)) %>%
-  ggplot(aes( y = `Median of Transacted Price`,
-              x = `Property Type`,
-              fill = `Type of Area`)) +
-           geom_point() +
-  theme_wsj()  +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+  select(`Transacted Price ($)`,`Type of Area`) %>%
+  group_by(`Type of Area`) %>%
+  summarise(`Total Transaction Price ($)` = sum(`Transacted Price ($)`), `Mean Transaction Price ($)` = mean(`Transacted Price ($)`), `Median Transaction Price ($)` = median(`Transacted Price ($)`))
 ```
+
+Diving a bit deeper.
 
 Some learning points from these plots and tibbles:
 
@@ -235,14 +225,19 @@ Some learning points from these plots and tibbles:
 
 3.  No. of transactions for Detached House, Semi-Detached House and Terrace House are low compared to the rest of the three categories.
 
-4.  Sub markets to focus on based on the number of transactions could be the following lists. 
+4.  Sub markets to focus on based on the number of transactions could be the following lists.
 
     -   For Land `Type of Sale`: Detached House, Semi-Detached House, and Terrace House.
 
     -   For Strata `Type of Sale`: Apartment, Condominium, and Executive Condominium.
-    
-5.  However, we should also note that we can prioritise the sub-market for analysis based on the total transactions in each category instead of just looking at volume of transactions. In the `Type of Area` with Total of `Transacted Price ($)` tibble above, we see that although Land type transaction low in volume, the total transactions in the 5 quarters are 2 times more than the total transactions of Stata type sales. 
-    
+
+5.  However, we should also note that we can prioritise the sub-market for analysis based on the total, mean and median `Transaction Price ($)` in each category (Land and Strata) instead of just looking at volume of transactions. In the `Type of Area` with Total of `Transacted Price ($)` tibbles above, we see that Land type transaction low in volume, the total transactions in the 5 quarters is about 1/5 the total transactions of Stata type sales. However, when we look at the mean and median `Transacted Price ($)`, we observe that mean and median `Transaction Price ($)` Land type is roughly 3 times of Strata type.
+
+    -   This mean that Land type has low volume for number of transactions but generally higher average `Transacted Price ($)`.
+
+    -   For Strata type, it has high volume but lower average `Transacted Price ($)`.
+
+6.  Lastly, we can also draw a quick conclusion from the `No. of Transactions by 'Property Type'` bar charts that
 
 ### 2.4 Data Wrangling
 
@@ -263,7 +258,8 @@ df.c <- df %>%
   filter(!grepl('ENBLOC', df$Address))
 df.c
 ```
-In the df.c tibble, it showed that 5 rows had been removed. Now there is only 26,801 rows instead of the original 26,806 rows in the initial df. This confirm that there are only 5 en bloc sales in the data frame. 
+
+In the df.c tibble, it showed that 5 rows had been removed. Now there is only 26,801 rows instead of the original 26,806 rows in the initial df. This confirm that there are only 5 en bloc sales in the data frame.
 
 # XXX to continue from here XXX
 
@@ -450,10 +446,11 @@ ggplot(data = df,
 df.c %>%
   glimpse()
 ```
+
 ## 4.0 References
 
 1\. T.S. Kam, R for Visual Analytics [Chapter 9](https://r4va.netlify.app/chap09) for visualisation of Ridgeline plots with quantile lines.
 
 2\. Claus O. Wilke, Fundamentals of Data Visualization [Chapter 2](https://clauswilke.com/dataviz/aesthetic-mapping.html) for understanding and classification of variables.
 
-3\. Stack Overflow, ["Filter rows which contain a certain string"](https://stackoverflow.com/questions/22850026/filter-rows-which-contain-a-certain-string) for removing en bloc sales from the data frame. 
+3\. Stack Overflow, ["Filter rows which contain a certain string"](https://stackoverflow.com/questions/22850026/filter-rows-which-contain-a-certain-string) for removing en bloc sales from the data frame.
