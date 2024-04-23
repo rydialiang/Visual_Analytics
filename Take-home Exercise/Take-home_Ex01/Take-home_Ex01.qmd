@@ -38,10 +38,11 @@ T he `pac::p_load()` function to load the required R packages in the working env
 -   plotly: R library for plotting interactive statistical graphs.
 -   patchwork: specially designed for combining separate ggplot2 graphs into a single figure.
 -   lubridate: for easy and fast parsing of Date / Time
+-   ggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels.
 
 ```{r}
 # load tidyverse from pacman
-pacman::p_load(tidyverse,dplyr,ggridges,ggthemes,colorspace,ggiraph,plotly,patchwork)
+pacman::p_load(tidyverse,dplyr,ggridges,ggthemes,colorspace,ggiraph,plotly,patchwork, ggrepel)
 ```
 
 ### 2.2 Importing the data sets
@@ -163,6 +164,13 @@ df %>%
 
 ```
 
+
+
+
+
+
+
+
 ```{r}
 ggplot(data = df ,
        aes(x = `Transacted Price ($)`,
@@ -205,7 +213,21 @@ df %>%
   ggtitle("Strata: No. of Transactions by 'Property Type'")
 ```
 
-Some learning points from these plots:
+To understand which `Type of Area` has high market value by median of total `Transacted Price ($)`:
+```{r}
+df %>%
+  select(`Transacted Price ($)`,`Type of Area`,`Property Type`,`Number of Units`) %>%
+  group_by(`Type of Area`,`Property Type`) %>%
+  summarise(`Median of Transacted Price`= median(`Transacted Price ($)`)) %>%
+  ggplot(aes( y = `Median of Transacted Price`,
+              x = `Property Type`,
+              fill = `Type of Area`)) +
+           geom_point() +
+  theme_wsj()  +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+Some learning points from these plots and tibbles:
 
 1.  Apartment, Condominium and Terrace House seems to be affected most by outliers. There are two extreme outliers for transactions in 23Q1 and they are the two en bloc sales with 60 and 47 units of condominium each. As mention, the 5 en bloc sales will be removed from the data set to enable meaningful analysis.
 
@@ -213,11 +235,13 @@ Some learning points from these plots:
 
 3.  No. of transactions for Detached House, Semi-Detached House and Terrace House are low compared to the rest of the three categories.
 
-4.  Sub markets to focus on based on the number of transactions could be the following lists. However, we should also note that we can prioritise the sub-market for analysis based on the total transactions in each category instead of just looking at volume of transactions. 
+4.  Sub markets to focus on based on the number of transactions could be the following lists. 
 
     -   For Land `Type of Sale`: Detached House, Semi-Detached House, and Terrace House.
 
     -   For Strata `Type of Sale`: Apartment, Condominium, and Executive Condominium.
+    
+5.  However, we should also note that we can prioritise the sub-market for analysis based on the total transactions in each category instead of just looking at volume of transactions. In the `Type of Area` with Total of `Transacted Price ($)` tibble above, we see that although Land type transaction low in volume, the total transactions in the 5 quarters are 2 times more than the total transactions of Stata type sales. 
     
 
 ### 2.4 Data Wrangling
@@ -230,7 +254,7 @@ This is achieved by:
 2.  Appropriate categorisation of variables
 3.  Additions of new variables to add new dimensions to analysis
 
-### 2.4.1 Removing the en bloc sales
+### 2.4.1 Removing the en bloc sales (irrelevant data)
 
 For the follow code chunk, we aim to remove all the enbloc sales, including the 5 transactions that we have found in section 2.3. While we have no idea if there are more than 5 cases of en bloc sales, the follow code chunk will effectively remove all the rows with the string "ENBLOC" in `Address` column.
 
@@ -273,7 +297,10 @@ df.c %>%
   geom_boxplot()+
   facet_grid(~`Property Type`) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  coord_cartesian(xlim=c(1,4))
+  coord_cartesian(xlim=c(1,4)) +
+  geom_label_repel(aes(label = `Project Name`),
+                   hjust = 0.5,
+                   vjust = 0.5)
 ```
 
 ```{r}
@@ -419,6 +446,10 @@ ggplot(data = df,
 
 ```
 
+```{r}
+df.c %>%
+  glimpse()
+```
 ## 4.0 References
 
 1\. T.S. Kam, R for Visual Analytics [Chapter 9](https://r4va.netlify.app/chap09) for visualisation of Ridgeline plots with quantile lines.
