@@ -117,11 +117,20 @@ Special Case: `Completion Date` is classified as chr, but a quick look at the da
 Some important observations: 1. `Transacted Price ($)` and `Nett Price($)` are similar. In this analysis, we will use `Transacted Price ($)` for simplicity, as `Nett Price($)` has fair amount of missing data, and it is prices after deducting the value of the indirect discounts or benefits, and not representive for all transactions. 1. `Area (SQFT)` and `Area (SQM)`, and `Unit Price ($ PSF)` and `Unit Price ($ PSM)` are similar measures in different unit. We will use `Area (SQFT)` and `Unit Price ($ PSF)`
 
 Next we look at the basic statistics of the current data using summary()
-
+::: panel-tabset
+## The Output
 ```{r}
+#| eval: False
 # data summary
 summary(df)
 ```
+## The Code
+```{r}
+#| echo: False
+# data summary
+summary(df)
+```
+:::
 
 From the continuous data above, we can conclude that there is a possibility of extreme outliers. The `Number of Units` has a max of 60, while the 3rd Quartile is 1.000. Let's examine the data by sorting it in descending order using `arrange(desc())` and take a look at data with `Number of Units`, as it greatly affect the analysis of `Transaction Price ($)`.
 
