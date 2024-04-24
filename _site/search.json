@@ -256,7 +256,7 @@
     "href": "Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html#creating-a-composite-figure-by-using-patchwork-and-ggtheme",
     "title": "Hands-on Ex 2: Beyond ggplot2 Fundamentals",
     "section": "Creating a composite figure by using patchwork and ggtheme",
-    "text": "Creating a composite figure by using patchwork and ggtheme\nFigure below is created by combining patchwork and theme_ft_rc() of ggthemes package discussed earlier.\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\npatchwork &lt;- (p1 + p2) / p3\npatchwork & theme_ft_rc()"
+    "text": "Creating a composite figure by using patchwork and ggtheme\nFigure below is created by combining patchwork and theme_ft_rc() of ggthemes package discussed earlier.\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\npatchwork &lt;- (p1 + p2) / p3\npatchwork & theme_ft_rc() +\n  theme(plot.title = element_text(size=10))"
   },
   {
     "objectID": "Take-home Exercise/Take-home_Ex01/Take-home_Ex01.html#section",
