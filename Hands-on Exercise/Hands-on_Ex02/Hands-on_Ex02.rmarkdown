@@ -10,6 +10,7 @@ execute:
   freeze: true
 ---
 
+
 ## 1 Overview
 
 This chapter / Hands-on exercise is an introduction to several ggplot2 extension. Key idea is to create more elegant and effective statistical graphics, pleasing to the eyes of the reader, and reducing the cognitive load of the reader.
@@ -36,11 +37,13 @@ In this exercise, beside tidyverse, four R packages will be used. They are:
 
 Code chunk below will be used to check if these packages have been installed and also will load them onto your working R environment.
 
+
 ```{r}
 pacman::p_load(ggrepel,patchwork,
                ggthemes,hrbrthemes,
                tidyverse)
 ```
+
 
 ## Importing data
 
@@ -48,15 +51,19 @@ For the purpose of this exercise, a data file called Exam_data will be used. It 
 
 The code chunk below imports exam_data.csv into R environment by using [read_csv()](https://readr.tidyverse.org/reference/read_delim.html) function of [**readr**](https://readr.tidyverse.org/) package. **readr** is one of the tidyverse package.
 
+
 ```{r}
 exam_data <- read_csv("data/Exam_data.csv")
 ```
 
+
 ## glimpse() the Data
+
 
 ```{r}
 glimpse(exam_data)
 ```
+
 
 There are a total of seven attributes in the exam_data tibble data frame. Four of them are categorical data type and the other three are in continuous data type.
 
@@ -71,6 +78,7 @@ Annotation for large number of data points is potentially challenging, as the an
 
 ::: panel-tabset
 ## The plot
+
 
 ```{r}
 #| echo: false
@@ -88,7 +96,9 @@ ggplot(data=exam_data,
   ggtitle("English scores versus Maths scores for Primary 3")
 ```
 
+
 ## The code
+
 
 ```{r}
 #| eval: false
@@ -105,6 +115,7 @@ ggplot(data=exam_data,
                   ylim=c(0,100)) +
   ggtitle("English scores versus Maths scores for Primary 3")
 ```
+
 :::
 
 [ggrepel](https://ggrepel.slowkow.com/) is an extension of **ggplot2** package which provides `geoms` for **ggplot2** to repel overlapping text as in our example above.
@@ -113,6 +124,7 @@ We simply replace `geom_text()` by [`geom_text_repel()`](https://ggrepel.slowkow
 
 ::: panel-tabset
 ## The plot
+
 
 ```{r}
 #| echo: False
@@ -131,7 +143,9 @@ ggplot(exam_data,
 
 ```
 
+
 ## The code
+
 
 ```{r}
 #| eval: False
@@ -149,6 +163,7 @@ ggplot(exam_data,
   ggtitle("English scores versus Maths scores for Primary 3")
 
 ```
+
 :::
 
 ## 4 Beyond ggplot2 Themes
@@ -159,6 +174,7 @@ There are eight [built-in themes](https://ggplot2.tidyverse.org/reference/ggthem
 ## 1. theme_gray() - Default
 
 -   <div>
+
 
     ```{r}
     #| echo: FALSE
@@ -174,9 +190,11 @@ There are eight [built-in themes](https://ggplot2.tidyverse.org/reference/ggthem
       theme_gray()
     ```
 
+
     </div>
 
 ## 2. theme_bw()
+
 
 ```{r}
 #| echo: FALSE
@@ -190,7 +208,9 @@ ggplot(exam_data,
   theme_bw()
 ```
 
+
 ## 3. theme_classic()
+
 
 ```{r}
 #| echo: FALSE
@@ -206,7 +226,9 @@ ggplot(exam_data,
   theme_classic()
 ```
 
+
 ## 4. theme_dark()
+
 
 ```{r}
 #| echo: FALSE
@@ -222,7 +244,9 @@ ggplot(exam_data,
   theme_dark()
 ```
 
+
 ## 5. theme_light()
+
 
 ```{r}
 #| echo: FALSE
@@ -238,7 +262,9 @@ ggplot(exam_data,
   theme_light()
 ```
 
+
 ## 6. theme_linedraw()
+
 
 ```{r}
 #| echo: FALSE
@@ -254,7 +280,9 @@ ggplot(exam_data,
   theme_linedraw()
 ```
 
+
 ## 7. theme_minimal()
+
 
 ```{r}
 #| echo: FALSE
@@ -270,7 +298,9 @@ ggplot(exam_data,
   theme_minimal()
 ```
 
+
 ## 8. theme_void()
+
 
 ```{r}
 #| echo: FALSE
@@ -285,6 +315,7 @@ ggplot(exam_data,
                    max.overlaps = 5) +  
   theme_void()
 ```
+
 :::
 
 ### Points to note
@@ -301,6 +332,7 @@ In the example below, *wsj* theme is used.
 ::: panel-tabset
 ## The plot
 
+
 ```{r}
 #| echo: FALSE
 ggplot(exam_data,
@@ -315,7 +347,9 @@ ggplot(exam_data,
   theme_wsj()
 ```
 
+
 ## The code
+
 
 ```{r}
 #| eval: FALSE
@@ -330,6 +364,7 @@ ggplot(exam_data,
                    max.overlaps = 5) +  
   theme_wsj()
 ```
+
 :::
 
 ::: callout-tip
@@ -345,6 +380,7 @@ The [hrbrthemes](https://cinc.rud.is/web/packages/hrbrthemes/) is a collection o
 ::: panel-tabset
 ## Original
 
+
 ```{r}
 #| echo: FALSE
 ggplot(exam_data,
@@ -358,7 +394,9 @@ ggplot(exam_data,
                    max.overlaps = 5)
 ```
 
+
 ## With FT Theme
+
 
 ```{r}
 #| echo: FALSE
@@ -375,6 +413,7 @@ ggplot(exam_data,
               base_size = 15,
               grid = "Y")
 ```
+
 :::
 
 ### What can we learn from the code chunk above?
@@ -390,6 +429,7 @@ It is not unusual that multiple graphs are required to tell a compelling visual 
 ::: panel-tabset
 ## The plot
 
+
 ```{r}
 #| echo: FALSE
 p1 <- ggplot(data=exam_data, 
@@ -405,7 +445,9 @@ p1 <- ggplot(data=exam_data,
               grid = "Y")
 ```
 
+
 ## The code
+
 
 ```{r}
 #| eval: FALSE
@@ -421,6 +463,7 @@ p1 <- ggplot(data=exam_data,
               base_size = 15,
               grid = "Y")
 ```
+
 :::
 
 Next, we create two more graphs.
@@ -428,6 +471,7 @@ Next, we create two more graphs.
 ::: panel-tabset
 ## The plot
 
+
 ```{r}
 #| echo: FALSE
 p2 <- ggplot(data=exam_data, 
@@ -443,7 +487,9 @@ p2 <- ggplot(data=exam_data,
               grid = "Y")
 ```
 
+
 ## The code
+
 
 ```{r}
 #| eval: FALSE
@@ -459,10 +505,12 @@ p2 <- ggplot(data=exam_data,
               base_size = 15,
               grid = "Y")
 ```
+
 :::
 
 ::: panel-tabset
 ## The plot
+
 
 ```{r}
 #| echo: FALSE
@@ -480,7 +528,9 @@ p3 <- ggplot(exam_data,
               grid = "Y")
 ```
 
+
 ## The code
+
 
 ```{r}
 #| echo: FALSE
@@ -498,6 +548,7 @@ p3 <-ggplot(exam_data,
               grid = "Y")
 
 ```
+
 :::
 
 ## 5.1 Creating Composite Graphics: patchwork methods
@@ -513,31 +564,39 @@ General syntax that combines: - Two-Column Layout using the Plus Sign `+`. - Par
 ::: panel-tabset
 ## The plot using `+`
 
+
 ```{r}
 #| echo: FALSE
 p1 + p2
 ```
+
 
 ## The code using `+`
 
+
 ```{r}
 #| eval: FALSE
 p1 + p2
 ```
 
+
 ## The plot using all 3 syntax
+
 
 ```{r}
 #| echo: FALSE
 (p1 + p2) / p3
 ```
 
+
 ## The code using all 3 syntax
+
 
 ```{r}
 #| eval: FALSE
 (p1 + p2) / p3
 ```
+
 :::
 
 Refer to [Plot Assembly](https://patchwork.data-imaginist.com/articles/guides/assembly.html) to learn more about nesting and wrapping of plots.
@@ -549,6 +608,7 @@ In order to identify subplots in text, *patchwork* also provides auto-tagging ca
 ::: panel-tabset
 ## The plot
 
+
 ```{r}
 #| echo: FALSE
 (p1 + p2) / p3 + 
@@ -556,7 +616,9 @@ In order to identify subplots in text, *patchwork* also provides auto-tagging ca
 
 ```
 
+
 ## The code
+
 
 ```{r}
 #| eval: FALSE
@@ -564,6 +626,7 @@ In order to identify subplots in text, *patchwork* also provides auto-tagging ca
   plot_annotation(tag_levels = 'I')
 
 ```
+
 :::
 
 ## 5.4 Creating figure with insert
@@ -573,6 +636,7 @@ Beside providing functions to place plots next to each other based on the provid
 ::: panel-tabset
 ## The plot
 
+
 ```{r}
 #| echo: FALSE
 p3 + inset_element(p2, 
@@ -583,7 +647,9 @@ p3 + inset_element(p2,
 
 ```
 
+
 ## The code
+
 
 ```{r}
 #| eval: FALSE
@@ -594,6 +660,7 @@ p3 + inset_element(p2,
                    top = 1)
 
 ```
+
 :::
 
 ## Creating a composite figure by using patchwork and ggtheme
@@ -603,6 +670,7 @@ Figure below is created by combining patchwork and theme_ft_rc() of ggthemes pac
 ::: panel-tabset
 ## The plot
 
+
 ```{r}
 #| echo: FALSE
 patchwork <- (p1 / p2) | p3
@@ -611,7 +679,9 @@ patchwork & theme_ft_rc() +
 
 ```
 
+
 ## The code
+
 
 ```{r}
 #| eval: FALSE
@@ -619,4 +689,6 @@ patchwork <- (p1 + p2) / p3
 patchwork & theme_ft_rc() +
   theme(plot.title = element_text(size=10))
 ```
+
 :::
+

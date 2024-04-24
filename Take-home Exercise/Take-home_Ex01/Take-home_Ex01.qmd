@@ -42,7 +42,7 @@ T he `pac::p_load()` function to load the required R packages in the working env
 
 ```{r}
 # load tidyverse from pacman
-pacman::p_load(tidyverse,dplyr,ggridges,ggthemes,colorspace,ggiraph,plotly,patchwork, ggrepel)
+pacman::p_load(tidyverse,dplyr,ggridges,ggthemes,colorspace,ggiraph,plotly,patchwork, lubridate, ggrepel)
 ```
 
 ### 2.2 Importing the data sets
