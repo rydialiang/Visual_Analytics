@@ -286,7 +286,13 @@ df.c
 
 In the df.c tibble, it showed that 5 rows had been removed. Now there is only 26,801 rows instead of the original 26,806 rows in the initial df. This confirm that there are only 5 en bloc sales in the data frame.
 
+### 2.4.2 Appropriate categorisation of variables
+Previously, we have identified the `Sale Date` as Ordinal quantitative variable largely because it is classified as chr type in R. However, when we apply the knowledge from [Fundamentals of Data Visualization Chapter 2](https://clauswilke.com/dataviz/aesthetic-mapping.html) and [R for Visual Analytics Chapter 17](https://r4va.netlify.app/chap17.html#plotting-calendar-heatmap) date or time in fact, can be treated as discrete or continuous data. 
+
+
 # XXX to continue from here XXX
+
+
 
 ## 3.0 Data Visualisation
 

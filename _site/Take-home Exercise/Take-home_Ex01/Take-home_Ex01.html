@@ -284,6 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#identifying-sub-markets" id="toc-identifying-sub-markets" class="nav-link" data-scroll-target="#identifying-sub-markets">2.3.1 Identifying Sub-markets</a></li>
   <li><a href="#data-wrangling" id="toc-data-wrangling" class="nav-link" data-scroll-target="#data-wrangling">2.4 Data Wrangling</a></li>
   <li><a href="#removing-the-en-bloc-sales-irrelevant-data" id="toc-removing-the-en-bloc-sales-irrelevant-data" class="nav-link" data-scroll-target="#removing-the-en-bloc-sales-irrelevant-data">2.4.1 Removing the en bloc sales (irrelevant data)</a></li>
+  <li><a href="#appropriate-categorisation-of-variables" id="toc-appropriate-categorisation-of-variables" class="nav-link" data-scroll-target="#appropriate-categorisation-of-variables">2.4.2 Appropriate categorisation of variables</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#xxx-to-continue-from-here-xxx" id="toc-xxx-to-continue-from-here-xxx" class="nav-link" data-scroll-target="#xxx-to-continue-from-here-xxx">XXX to continue from here XXX</a>
@@ -745,6 +746,10 @@ $ Quarter                       &lt;chr&gt; "23Q1", "23Q1", "23Q1", "23Q1", "23Q
 </div>
 </div>
 <p>In the df.c tibble, it showed that 5 rows had been removed. Now there is only 26,801 rows instead of the original 26,806 rows in the initial df. This confirm that there are only 5 en bloc sales in the data frame.</p>
+</section>
+<section id="appropriate-categorisation-of-variables" class="level3">
+<h3 class="anchored" data-anchor-id="appropriate-categorisation-of-variables">2.4.2 Appropriate categorisation of variables</h3>
+<p>Previously, we have identified the <code>Sale Date</code> as Ordinal quantitative variable largely because it is classified as chr type in R. However, when we apply the knowledge from <a href="https://clauswilke.com/dataviz/aesthetic-mapping.html">Fundamentals of Data Visualization Chapter 2</a> and <a href="https://r4va.netlify.app/chap17.html#plotting-calendar-heatmap">R for Visual Analytics Chapter 17</a> date or time in fact, can be treated as discrete or continuous data.</p>
 </section>
 </section>
 </section>
