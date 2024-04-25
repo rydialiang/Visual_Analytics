@@ -333,8 +333,8 @@ girafe(
   )                                        
 )    
 ```
-*Note* 
-Different from previous example, in this example the ccs customisation request are encoded directly.
+
+*Note* Different from previous example, in this example the ccs customisation request are encoded directly.
 
 ### 2.5.5 Combining tooltip and hover effect
 
@@ -396,29 +396,133 @@ girafe(
 
 The code chunk below shown an example of `onclick`.
 
+```{r}
+#| eval: False
+exam_data$onclick <- sprintf("window.open(\"%s%s\")",
+"https://www.moe.gov.sg/schoolfinder?journey=Primary%20school",
+as.character(exam_data$ID))
 
+p <- ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_dotplot_interactive(              
+    aes(onclick = onclick),              
+    stackgroups = TRUE,                  
+    binwidth = 1,                        
+    method = "histodot") +               
+  scale_y_continuous(NULL,               
+                     breaks = NULL)
+girafe(                                  
+  ggobj = p,                             
+  width_svg = 6,                         
+  height_svg = 6*0.618)                                 
+```
 
+Interactivity: Web document link with a data object will be displayed on the web browser upon mouse click.
 
+```{r}
+#| echo: False
+exam_data$onclick <- sprintf("window.open(\"%s%s\")",
+"https://www.moe.gov.sg/schoolfinder?journey=Primary%20school",
+as.character(exam_data$ID))
 
+p <- ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_dotplot_interactive(              
+    aes(onclick = onclick),              
+    stackgroups = TRUE,                  
+    binwidth = 1,                        
+    method = "histodot") +               
+  scale_y_continuous(NULL,               
+                     breaks = NULL)
+girafe(                                  
+  ggobj = p,                             
+  width_svg = 6,                         
+  height_svg = 6*0.618)                                 
+```
 
+### 2.5.7 Coordinated Multiple Views with ggiraph
 
+Coordinated multiple views methods has been implemented in the data visualisation below.
 
+```{r}
+#| eval: False
+p1 <- ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_dotplot_interactive(              
+    aes(data_id = ID),              
+    stackgroups = TRUE,                  
+    binwidth = 1,                        
+    method = "histodot") +  
+  coord_cartesian(xlim=c(0,100)) + 
+  scale_y_continuous(NULL,               
+                     breaks = NULL)
 
+p2 <- ggplot(data=exam_data, 
+       aes(x = ENGLISH)) +
+  geom_dotplot_interactive(              
+    aes(data_id = ID),              
+    stackgroups = TRUE,                  
+    binwidth = 1,                        
+    method = "histodot") + 
+  coord_cartesian(xlim=c(0,100)) + 
+  scale_y_continuous(NULL,               
+                     breaks = NULL)
 
+girafe(code = print(p1 + p2), 
+       width_svg = 6,
+       height_svg = 3,
+       options = list(
+         opts_hover(css = "fill: #202020;"),
+         opts_hover_inv(css = "opacity:0.2;")
+         )
+       ) 
+```
 
+Notice that when a data point of one of the dotplot is selected, the corresponding data point ID on the second data visualisation will be highlighted too.
 
+In order to build a coordinated multiple views as shown in the example above, the following programming strategy will be used:
 
+1.  Appropriate interactive functions of ggiraph will be used to create the multiple views.
 
+2.  `*patchwork*` function of [`patchwork`](https://patchwork.data-imaginist.com/) package will be used inside girafe function to create the interactive coordinated multiple views.
 
+```{r}
+#| echo: False
+p1 <- ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_dotplot_interactive(              
+    aes(data_id = ID),              
+    stackgroups = TRUE,                  
+    binwidth = 1,                        
+    method = "histodot") +  
+  coord_cartesian(xlim=c(0,100)) + 
+  scale_y_continuous(NULL,               
+                     breaks = NULL)
 
+p2 <- ggplot(data=exam_data, 
+       aes(x = ENGLISH)) +
+  geom_dotplot_interactive(              
+    aes(data_id = ID),              
+    stackgroups = TRUE,                  
+    binwidth = 1,                        
+    method = "histodot") + 
+  coord_cartesian(xlim=c(0,100)) + 
+  scale_y_continuous(NULL,               
+                     breaks = NULL)
 
+girafe(code = print(p1 + p2), 
+       width_svg = 6,
+       height_svg = 3,
+       options = list(
+         opts_hover(css = "fill: #202020;"),
+         opts_hover_inv(css = "opacity:0.2;")
+         )
+       ) 
+```
 
+The *data_id* aesthetic is critical to link observations between plots and the tooltip aesthetic is optional but nice to have when mouse over a point.
 
-
-
-
-
-
+# 2.6 Interactive Data Visualisation - plotly methods!
 
 
 
