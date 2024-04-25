@@ -522,14 +522,170 @@ girafe(code = print(p1 + p2),
 
 The *data_id* aesthetic is critical to link observations between plots and the tooltip aesthetic is optional but nice to have when mouse over a point.
 
-# 2.6 Interactive Data Visualisation - plotly methods!
+## 2.6 Interactive Data Visualisation - plotly methods!
 
+Plotly’s R graphing library create interactive web graphics from ggplot2 graphs and/or a custom interface to the (MIT-licensed) JavaScript library [plotly.js](https://plotly.com/javascript/) inspired by the grammar of graphics. Different from other plotly platform, plot.R is free and open source.
 
+![](image2.jpg)
 
+There are two ways to create interactive graph by using plotly, they are:
 
+-   by using *plot_ly()*, and
 
+-   by using *ggplotly()*
 
+### 2.6.1 Creating an interactive scatter plot: plot_ly() method
 
+Here's an example a basic interactive plot created by using *plot_ly()*.
 
+::: panel-tabset
+## The Plot
+
+```{r}
+#| echo: False
+plot_ly(data = exam_data, 
+             x = ~MATHS, 
+             y = ~ENGLISH)
+```
+
+## The Code
+
+```{r}
+#| eval: False
+plot_ly(data = exam_data, 
+             x = ~MATHS, 
+             y = ~ENGLISH)
+```
+:::
+
+2.6.2 Working with visual variable: plot_ly() method
+
+In the code chunk below, color argument is mapped to a qualitative visual variable (i.e. RACE).
+
+::: panel-tabset \## The Plot
+
+```{r}
+#| echo: False
+plot_ly(exam_data, 
+        x = ~MATHS, 
+        y = ~ENGLISH,
+        color = ~RACE)
+```
+
+## The Code
+
+```{r}
+#| eval: False
+plot_ly(exam_data, 
+        x = ~MATHS, 
+        y = ~ENGLISH,
+        color = ~RACE)
+```
+
+### 2.6.3 Creating an interactive scatter plot: ggplotly() method
+
+The code chunk below plots an interactive scatter plot by using *ggplotly()*.
+
+::: panel-tabset
+## The Plot
+
+```{r}
+#| echo: False
+p <- ggplot(data=exam_data, 
+            aes(x = MATHS,
+                y = ENGLISH,
+                color = RACE)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+ggplotly(p)
+```
+
+## The Code
+
+```{r}
+#| eval: False
+p <- ggplot(data=exam_data, 
+            aes(x = MATHS,
+                y = ENGLISH,
+                color = RACE)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+ggplotly(p)
+```
+
+Notice that the only extra line you need to include in the code chunk is *ggplotly()*.
+:::
+
+### 2.6.4 Coordinated Multiple Views with plotly
+
+The creation of a coordinated linked plot by using plotly involves three steps:
+
+-   `highlight_key()` of plotly package is used as shared data.
+
+-   two scatterplots will be created by using ggplot2 functions.
+
+-   lastly, `subplot()` of plotly package is used to place them next to each other side-by-side.
+
+::: panel-tabset
+## The Plot
+
+```{r}
+#| echo: False
+ex <- highlight_key(exam_data)
+p1 <- ggplot(ex, 
+            aes(x = MATHS,
+                y = ENGLISH,
+                color = RACE)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+
+p2 <- ggplot(ex, 
+            aes(x = MATHS,
+                y = SCIENCE,
+                color = RACE)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+subplot(ggplotly(p1),
+        ggplotly(p2))
+```
+
+Click on a data point of one of the scatterplot and see how the corresponding point on the other scatterplot is selected.
+
+## The Code
+
+```{r}
+#| echo: False
+ex <- highlight_key(exam_data)
+p1 <- ggplot(ex, 
+            aes(x = MATHS,
+                y = ENGLISH,
+                color = RACE)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+
+p2 <- ggplot(ex, 
+            aes(x = MATHS,
+                y = SCIENCE,
+                color = RACE)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+subplot(ggplotly(p1),
+        ggplotly(p2))
+```
+:::
+
+Thing to learn from the code:
+
+-   highlight_key() simply creates an object of class crosstalk::SharedData.
+
+-   Visit this link to learn more about crosstalk
+
+## 2.7 Interactive Data Visualisation - crosstalk methods!
 
 
