@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Ex 03: Beyond ggplot2 Fundamentals"
+title: "Hands-on Ex 03: Interactivity in Visual Analytics: Principles and Methods"
 author: "Liang Xiuhao Rydia"
 date: "April 20, 2024"
 date-modified: "last-modified"
