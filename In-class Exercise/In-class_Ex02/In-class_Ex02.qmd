@@ -1,5 +1,5 @@
 ---
-title: "In-class_Ex02 - Visualising Distribution "
+title: "In-class Ex02 - Visualising Distribution "
 author: "Liang Xiuhao Rydia"
 date: "20 April 2024"
 date-modified: "last-modified"
