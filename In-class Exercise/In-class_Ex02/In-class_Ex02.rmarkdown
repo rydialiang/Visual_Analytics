@@ -10,12 +10,14 @@ execute:
   freeze: true
 ---
 
+
 ## 1.0 Learning Outcome
 
 This In-class Exercise is a walk-through of [Chapter 9 - Visualising Distribution](https://r4va.netlify.app/chap09) in R4VA. The learning outcome of this chapter is learning the following two distribution by using ggplot and its extension:
 
 1\. Ridgeline plot
 2\. Raincloud plot
+
 
 ```{r}
 pacman::p_load(tidyverse,ggdist,ggthemes,colorspaces,ggridges)
@@ -25,27 +27,33 @@ pacman::p_load(tidyverse,ggdist,ggthemes,colorspaces,ggridges)
 exam_df <- read_csv("data/Exam_data.csv")
 ```
 
+
 ## Histogram
 
 ::: panel-tabset
 ## The Plot
 
+
 ```{r}
 #| echo: False
 ggplot(exam_df,
        aes(x = ENGLISH)) +
   geom_histogram()
 ```
+
 
 ## The Code
 
+
 ```{r}
 #| eval: False
 ggplot(exam_df,
        aes(x = ENGLISH)) +
   geom_histogram()
 ```
+
 :::
+
 
 ```{r}
 #| echo: False
@@ -58,7 +66,9 @@ ggplot(exam_df,
   )
 ```
 
+
 :::
+
 
 ```{r}
 #| eval: False
@@ -71,7 +81,9 @@ ggplot(exam_df,
   )
 ```
 
+
 ## The alternative design
+
 
 ```{r}
 median_eng <- median(exam_df$ENGLISH)
@@ -106,3 +118,4 @@ ggplot(exam_df,
   )
   
 ```
+
