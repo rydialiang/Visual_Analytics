@@ -65,11 +65,9 @@ ggplot(exam,
   geom_density_ridges()
 ```
 
-**Note**
--   Ridgeline plots make sense when the number of group to represent is medium to high, and thus a classic window separation would take to much space. Indeed, the fact that groups overlap each other allows to use space more efficiently. If you have less than 5 groups, dealing with other distribution plots is probably better.
+**Note** - Ridgeline plots make sense when the number of group to represent is medium to high, and thus a classic window separation would take to much space. Indeed, the fact that groups overlap each other allows to use space more efficiently. If you have less than 5 groups, dealing with other distribution plots is probably better.
 
 -   It works well when there is a clear pattern in the result, like if there is an obvious ranking in groups. Otherwise group will tend to overlap each other, leading to a messy plot not providing any insight.
-
 
 ## 1.3.1 Plotting ridgeline graph: ggridges method
 
@@ -81,6 +79,7 @@ The ridgeline plot below is plotted by using geom_density_ridges().
 
 ::: panel-tabset
 ## The Plot
+
 ```{r}
 #| echo: False
 ggplot(exam,
@@ -100,7 +99,9 @@ ggplot(exam,
   scale_y_discrete(name = NULL, expand = expansion(add = c(3,3))) +
   theme_ridges()
 ```
+
 ## The Code
+
 ```{r}
 #| eval: False
 ggplot(exam,
@@ -128,6 +129,7 @@ Sometimes we would like to have the area under a ridgeline not filled with a sin
 
 ::: panel-tabset
 ## The Plot
+
 ```{r}
 #| echo: False
 ggplot(exam,
@@ -145,7 +147,9 @@ ggplot(exam,
   scale_y_discrete(name = NULL, expand = expansion(add = c(0.2, 2.6))) +
   theme_ridges()
 ```
+
 ## The Code
+
 ```{r}
 #| eval: False
 ggplot(exam,
@@ -163,6 +167,7 @@ ggplot(exam,
   scale_y_discrete(name = NULL, expand = expansion(add = c(0.2, 2.6))) +
   theme_ridges()
 ```
+:::
 
 ### 1.3.3 Mapping the probabilities directly onto colour
 
@@ -170,8 +175,9 @@ Beside providing additional geom objects to support the need to plot ridgeline p
 
 Figure below is plotted by mapping the probabilities calculated by using `stat(ecdf)` which represent the empirical cumulative density function for the distribution of English score.
 
-::: panel-tabset 
+::: panel-tabset
 ## The Plot
+
 ```{r}
 #| echo: False
 ggplot(exam,
@@ -184,7 +190,9 @@ ggplot(exam,
                        direction = -1) +
   theme_ridges()
 ```
+
 ## The Code
+
 ```{r}
 #| eval: False
 ggplot(exam,
@@ -199,10 +207,7 @@ ggplot(exam,
 ```
 :::
 
-**Note**
-It is important include the argument calc_ecdf = TRUE in `stat_density_ridges()`.
-
-
+**Note** It is important include the argument calc_ecdf = TRUE in `stat_density_ridges()`.
 
 ## 5.0 Archival of In-class Ex_02 done in class
 
