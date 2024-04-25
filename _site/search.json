@@ -375,13 +375,27 @@
     "href": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html#getting-started",
     "title": "Hands-on Ex 03: Interactivity in Visual Analytics: Principles and Methods",
     "section": "2.1 Getting Started",
-    "text": "2.1 Getting Started\nFirst, write a code chunk to check, install and launch the following R packages:\n\nDT: provides an R interface to the JavaScript library DataTables that create interactive table on html page.\nggiraph: for making ‘ggplot’ graphics interactive.\npatchwork: for combining multiple ggplot2 graphs into one figure.\nplotly: R library for plotting interactive statistical graphs.\ntidyverse: a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs.\n\nThe code chunk below will be used to accomplish the task.\n\npacman::p_load(DT, ggiraph, \n               patchwork, plotly, \n               tidyverse) \n\n2.2 Importing Data\nIn this section, Exam_data.csv provided will be used. Using read_csv() of readr package, import Exam_data.csv into R.\nThe code chunk below read_csv() of readr package is used to import Exam_data.csv data file into R and save it as an tibble data frame called exam_data.\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")"
+    "text": "2.1 Getting Started\nFirst, write a code chunk to check, install and launch the following R packages:\n\nDT: provides an R interface to the JavaScript library DataTables that create interactive table on html page.\nggiraph: for making ‘ggplot’ graphics interactive.\npatchwork: for combining multiple ggplot2 graphs into one figure.\nplotly: R library for plotting interactive statistical graphs.\ntidyverse: a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs.\n\nThe code chunk below will be used to accomplish the task.\n\npacman::p_load(DT, ggiraph, \n               patchwork, plotly, \n               tidyverse)"
   },
   {
     "objectID": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html#interactive-data-visualisation---ggiraph-methods",
     "href": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html#interactive-data-visualisation---ggiraph-methods",
     "title": "Hands-on Ex 03: Interactivity in Visual Analytics: Principles and Methods",
-    "section": "3.4 Interactive Data Visualisation - ggiraph methods",
-    "text": "3.4 Interactive Data Visualisation - ggiraph methods"
+    "section": "2.3 Interactive Data Visualisation - ggiraph methods",
+    "text": "2.3 Interactive Data Visualisation - ggiraph methods\n\n2.3.1 Tooltip effect with tooltip aesthetic\nBelow shows a typical code chunk to plot an interactive statistical graph by using ggiraph package. Notice that the code chunk consists of two parts. First, an ggplot object will be created. Next, girafe() of ggiraph will be used to create an interactive svg object.\n\np &lt;- ggplot(exam_data,\n            aes(x = MATHS)) +\n  geom_dotplot_interactive(\n    aes(tooltip = ID),\n    stackgroups = TRUE,\n    binwidth = 1,\n    method = \"histodot\") +\n  scale_y_continuous(NULL,\n                     breaks = NULL)\n\ngirafe(\n  ggobj = p,\n  width_svg = 6,\n  height_svg = 6*0.618\n)\n\n\n\n\n\nNotice that two steps are involved. First, an interactive version of ggplot2 geom i.e. geom_dotplot_interactive() will be used to create the basic graph. Then, girafe() will be used to generate an svg object to be displayed on an html page."
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html#importing-data",
+    "href": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html#importing-data",
+    "title": "Hands-on Ex 03: Interactivity in Visual Analytics: Principles and Methods",
+    "section": "2.2 Importing Data",
+    "text": "2.2 Importing Data\nIn this section, Exam_data.csv provided will be used. Using read_csv() of readr package, import Exam_data.csv into R.\nThe code chunk below read_csv() of readr package is used to import Exam_data.csv data file into R and save it as an tibble data frame called exam_data.\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")"
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html#interactivity",
+    "href": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html#interactivity",
+    "title": "Hands-on Ex 03: Interactivity in Visual Analytics: Principles and Methods",
+    "section": "2.4 Interactivity",
+    "text": "2.4 Interactivity\nBy hovering the mouse pointer on an data point of interest, the student’s ID will be displayed."
   }
 ]

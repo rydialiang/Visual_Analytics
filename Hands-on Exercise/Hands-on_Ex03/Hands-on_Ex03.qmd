@@ -38,7 +38,7 @@ pacman::p_load(DT, ggiraph,
                tidyverse) 
 ```
 
-2.2 Importing Data
+## 2.2 Importing Data
 
 In this section, Exam_data.csv provided will be used. Using read_csv() of readr package, import Exam_data.csv into R.
 
@@ -48,5 +48,42 @@ The code chunk below read_csv() of readr package is used to import Exam_data.csv
 exam_data <- read_csv("data/Exam_data.csv")
 ```
 
-## 3.4 Interactive Data Visualisation - ggiraph methods
+## 2.3 Interactive Data Visualisation - ggiraph methods
+
+### 2.3.1 Tooltip effect with tooltip aesthetic
+
+Below shows a typical code chunk to plot an interactive statistical graph by using *ggiraph* package. Notice that the code chunk consists of two parts. First, an ggplot object will be created. Next, `girafe()` of *ggiraph* will be used to create an interactive svg object.
+
+```{r}
+p <- ggplot(exam_data,
+            aes(x = MATHS)) +
+  geom_dotplot_interactive(
+    aes(tooltip = ID),
+    stackgroups = TRUE,
+    binwidth = 1,
+    method = "histodot") +
+  scale_y_continuous(NULL,
+                     breaks = NULL)
+
+girafe(
+  ggobj = p,
+  width_svg = 6,
+  height_svg = 6*0.618
+)
+```
+
+Notice that two steps are involved. First, an interactive version of ggplot2 geom [i.e. `geom_dotplot_interactive()`](https://davidgohel.github.io/ggiraph/reference/geom_dotplot_interactive.html) will be used to create the basic graph. Then, [`girafe()`](https://davidgohel.github.io/ggiraph/reference/girafe.html) will be used to generate an svg object to be displayed on an html page.
+
+## 2.4 Interactivity
+
+By hovering the mouse pointer on an data point of interest, the student’s ID will be displayed.
+
+
+
+
+
+
+
+
+
 
