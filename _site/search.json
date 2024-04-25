@@ -268,21 +268,21 @@
   {
     "objectID": "In-class Exercise/In-class_Ex02/In-class_Ex02.html",
     "href": "In-class Exercise/In-class_Ex02/In-class_Ex02.html",
-    "title": "In-class_Ex02",
+    "title": "In-class_Ex02 - Visualising Distribution",
     "section": "",
-    "text": "pacman::p_load(tidyverse,ggdist,ggthemes,colorspaces,ggridges)\nexam_df &lt;- read_csv(\"data/Exam_data.csv\")"
+    "text": "This In-class Exercise is a walk-through of Chapter 9 - Visualising Distribution in R4VA. The learning outcome of this chapter is learning the following two distribution by using ggplot and its extension:\n1. Ridgeline plot 2. Raincloud plot\n\npacman::p_load(tidyverse,ggdist,ggthemes,colorspaces,ggridges)\n\n\nexam_df &lt;- read_csv(\"data/Exam_data.csv\")"
   },
   {
     "objectID": "In-class Exercise/In-class_Ex02/In-class_Ex02.html#histogram",
     "href": "In-class Exercise/In-class_Ex02/In-class_Ex02.html#histogram",
-    "title": "In-class_Ex02",
+    "title": "In-class_Ex02 - Visualising Distribution",
     "section": "Histogram",
     "text": "Histogram\n\nThe PlotThe Code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot(exam_df,\n       aes(x = ENGLISH)) +\n  geom_histogram()\n\n\n\n\n\n\n\n\n\n\n\n\n\n:::\n\nggplot(exam_df,\n       aes(x = ENGLISH)) +\n  geom_density(\n    color = \"#1696d2\",\n    adjust = .65,\n    alpha = .6\n  )"
   },
   {
     "objectID": "In-class Exercise/In-class_Ex02/In-class_Ex02.html#the-alternative-design",
     "href": "In-class Exercise/In-class_Ex02/In-class_Ex02.html#the-alternative-design",
-    "title": "In-class_Ex02",
+    "title": "In-class_Ex02 - Visualising Distribution",
     "section": "The alternative design",
     "text": "The alternative design\n\nmedian_eng &lt;- median(exam_df$ENGLISH)\nmean_eng &lt;- mean(exam_df$ENGLISH)\nstd_eng &lt;- sd(exam_df$ENGLISH)\n\nggplot(exam_df,\n       aes(x= ENGLISH)) +\n  geom_density(\n    color = \"#1696d2\",\n    adjust = .65,\n    alpha = .6) +\n  stat_function(\n    fun = dnorm,\n    args = list(mean = mean_eng,\n                sd = std_eng),\n    col = \"grey30\",\n    linewidth = .8) +\n  geom_vline(\n    aes(xintercept = mean_eng),\n    color = \"#4d5887\",\n    linewidth = .6,\n    linetype = \"dashed\") +\n  annotate(geom = \"text\",\n           x = mean_eng - 8,\n           y = 0.04,\n           label = paste0(\"Mean ENGLISH: \",\n                          round((mean_eng), 2)),\n           color = \"#4d5887\") +\n  geom_vline(\n    aes(xintercept = median_eng)\n  )"
   },
@@ -299,5 +299,12 @@
     "title": "Take-home Ex 01",
     "section": "4.0 References",
     "text": "4.0 References\n1. T.S. Kam, R for Visual Analytics Chapter 9 for visualisation of Ridgeline plots with quantile lines.\n2. Claus O. Wilke, Fundamentals of Data Visualization Chapter 2 for understanding and classification of variables.\n3. Stack Overflow, “Filter rows which contain a certain string” for removing en bloc sales from the data frame."
+  },
+  {
+    "objectID": "In-class Exercise/In-class_Ex02/In-class_Ex02.html#learning-outcome",
+    "href": "In-class Exercise/In-class_Ex02/In-class_Ex02.html#learning-outcome",
+    "title": "In-class_Ex02 - Visualising Distribution",
+    "section": "",
+    "text": "This In-class Exercise is a walk-through of Chapter 9 - Visualising Distribution in R4VA. The learning outcome of this chapter is learning the following two distribution by using ggplot and its extension:\n1. Ridgeline plot 2. Raincloud plot\n\npacman::p_load(tidyverse,ggdist,ggthemes,colorspaces,ggridges)\n\n\nexam_df &lt;- read_csv(\"data/Exam_data.csv\")"
   }
 ]

@@ -9,7 +9,7 @@
 <meta name="author" content="Liang Xiuhao Rydia">
 <meta name="dcterms.date" content="2024-04-20">
 
-<title>Visual Analytics - In-class_Ex02</title>
+<title>Visual Analytics - In-class_Ex02 - Visualising Distribution</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -269,7 +269,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#histogram" id="toc-histogram" class="nav-link active" data-scroll-target="#histogram">Histogram</a></li>
+  <li><a href="#learning-outcome" id="toc-learning-outcome" class="nav-link active" data-scroll-target="#learning-outcome">1.0 Learning Outcome</a></li>
+  <li><a href="#histogram" id="toc-histogram" class="nav-link" data-scroll-target="#histogram">Histogram</a></li>
   <li><a href="#the-alternative-design" id="toc-the-alternative-design" class="nav-link" data-scroll-target="#the-alternative-design">The alternative design</a></li>
   </ul>
 </nav>
@@ -279,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">In-class_Ex02</h1>
+<h1 class="title">In-class_Ex02 - Visualising Distribution</h1>
 </div>
 
 
@@ -303,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">April 20, 2024</p>
+      <p class="date-modified">April 25, 2024</p>
     </div>
   </div>
     
@@ -314,12 +315,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="learning-outcome" class="level2">
+<h2 class="anchored" data-anchor-id="learning-outcome">1.0 Learning Outcome</h2>
+<p>This In-class Exercise is a walk-through of <a href="https://r4va.netlify.app/chap09">Chapter 9 - Visualising Distribution</a> in R4VA. The learning outcome of this chapter is learning the following two distribution by using ggplot and its extension:</p>
+<p>1. Ridgeline plot 2. Raincloud plot</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse,ggdist,ggthemes,colorspaces,ggridges)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>exam_df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/Exam_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
 <section id="histogram" class="level2">
 <h2 class="anchored" data-anchor-id="histogram">Histogram</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
