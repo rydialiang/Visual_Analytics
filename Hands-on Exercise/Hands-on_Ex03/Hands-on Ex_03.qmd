@@ -9,3 +9,7 @@ execute:
   warning: false
   freeze: true
 ---
+
+## 1.0 Overview
+
+In this hands on exercise 3, we will be learning Chapter 3 and 4 of R for Visual Analytics. For the first part we will focus on creating interactive data visualisation by using functions provided by *ggiraph* and *plotly* packages
