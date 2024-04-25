@@ -202,6 +202,8 @@ ggplot(exam,
 
 
 
+
+
 ## 5.0 Archival of In-class Ex_02 done in class
 
 ## Histogram
