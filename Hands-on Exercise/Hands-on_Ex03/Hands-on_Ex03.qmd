@@ -55,6 +55,7 @@ exam_data <- read_csv("data/Exam_data.csv")
 Below shows a typical code chunk to plot an interactive statistical graph by using *ggiraph* package. Notice that the code chunk consists of two parts. First, an ggplot object will be created. Next, `girafe()` of *ggiraph* will be used to create an interactive svg object.
 
 ```{r}
+#| eval: False
 p <- ggplot(exam_data,
             aes(x = MATHS)) +
   geom_dotplot_interactive(
@@ -78,12 +79,101 @@ Notice that two steps are involved. First, an interactive version of ggplot2 geo
 
 By hovering the mouse pointer on an data point of interest, the student’s ID will be displayed.
 
+```{r}
+#| echo: False
+p <- ggplot(exam_data,
+            aes(x = MATHS)) +
+  geom_dotplot_interactive(
+    aes(tooltip = ID),
+    stackgroups = TRUE,
+    binwidth = 1,
+    method = "histodot") +
+  scale_y_continuous(NULL,
+                     breaks = NULL)
 
+girafe(
+  ggobj = p,
+  width_svg = 6,
+  height_svg = 6*0.618
+)
+```
 
+### 2.4.1 Displaying multiple information on tooltip
 
+The content of the tooltip can be customised by including a list object as shown in the code chunk below.
 
+```{r}
+#| eval: False
+exam_data$tooltip <- c(paste0(     
+  "Name = ", exam_data$ID,         
+  "\n Class = ", exam_data$CLASS)) 
 
+p <- ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_dotplot_interactive(
+    aes(tooltip = exam_data$tooltip), 
+    stackgroups = TRUE,
+    binwidth = 1,
+    method = "histodot") +
+  scale_y_continuous(NULL,               
+                     breaks = NULL)
+girafe(
+  ggobj = p,
+  width_svg = 8,
+  height_svg = 8*0.618
+)
+```
 
+The first three lines of codes in the code chunk create a new field called tooltip. At the same time, it populates text in ID and CLASS fields into the newly created field. Next, this newly created field is used as tooltip field as shown in the code of line 7.
 
+## 2.5 Interactivity
 
+By hovering the mouse pointer on an data point of interest, the student’s ID, Class, and Gender will be displayed.
 
+```{r}
+#| echo: False
+exam_data$tooltip <- c(paste0(     
+  "Name = ", exam_data$ID,         
+  "\n Class = ", exam_data$CLASS,
+  "\n Gender = ", exam_data$GENDER)) 
+
+p <- ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_dotplot_interactive(
+    aes(tooltip = exam_data$tooltip), 
+    stackgroups = TRUE,
+    binwidth = 1,
+    method = "histodot") +
+  scale_y_continuous(NULL,               
+                     breaks = NULL)
+girafe(
+  ggobj = p,
+  width_svg = 8,
+  height_svg = 8*0.618
+)
+```
+
+### 2.5.1 Customising Tooltip style
+
+Code chunk below uses [`opts_tooltip()`](https://davidgohel.github.io/ggiraph/reference/opts_tooltip.html) of *ggiraph* to customize tooltip rendering by add css declarations.
+
+```{r}
+#| eval: False
+p <- ggplot(data=exam_data, 
+       aes(x = MATHS)) +
+  geom_dotplot_interactive(              
+    aes(tooltip = ID),                   
+    stackgroups = TRUE,                  
+    binwidth = 1,                        
+    method = "histodot") +               
+  scale_y_continuous(NULL,               
+                     breaks = NULL)
+girafe(                                  
+  ggobj = p,                             
+  width_svg = 6,                         
+  height_svg = 6*0.618,
+  options = list(    #<<
+    opts_tooltip(    #<<
+      css = tooltip_css)) #<<
+)
+```
