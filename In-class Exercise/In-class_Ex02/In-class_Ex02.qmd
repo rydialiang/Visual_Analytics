@@ -65,11 +65,11 @@ ggplot(exam,
   geom_density_ridges()
 ```
 
-::: callout-note
+**Note**
 -   Ridgeline plots make sense when the number of group to represent is medium to high, and thus a classic window separation would take to much space. Indeed, the fact that groups overlap each other allows to use space more efficiently. If you have less than 5 groups, dealing with other distribution plots is probably better.
 
 -   It works well when there is a clear pattern in the result, like if there is an obvious ranking in groups. Otherwise group will tend to overlap each other, leading to a messy plot not providing any insight.
-:::
+
 
 ## 1.3.1 Plotting ridgeline graph: ggridges method
 
@@ -173,7 +173,7 @@ Figure below is plotted by mapping the probabilities calculated by using `stat(e
 ::: panel-tabset 
 ## The Plot
 ```{r}
-#| echo:False
+#| echo: False
 ggplot(exam,
        aes(x = MATHS, 
            y = CLASS, 
@@ -199,8 +199,8 @@ ggplot(exam,
 ```
 :::
 
-
-
+**Note**
+It is important include the argument calc_ecdf = TRUE in `stat_density_ridges()`.
 
 
 
