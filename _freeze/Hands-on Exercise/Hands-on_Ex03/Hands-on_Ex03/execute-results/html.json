@@ -1,0 +1,15 @@
+{
+  "hash": "2f93f9e66bbdce221d92bdede3611419",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Hands-on Ex 03: Interactivity in Visual Analytics: Principles and Methods\"\nauthor: \"Liang Xiuhao Rydia\"\ndate: \"April 27, 2024\"\ndate-modified: \"last-modified\"\nexecute:\n  eval: true\n  echo: true\n  warning: false\n  freeze: true\n---\n\n\n## 1.0 Overview\n\nIn this hands on exercise 3, we will be learning Chapter 3 and 4 of R for Visual Analytics. For Part I, we will focus on creating interactive data visualisation by using functions provided by *ggiraph* and *plotly* packages. For Part II, we will focus on learning how to create animated data visualisation by using gganimate and plotly r packages. At the same time, we will also learn how to (i) reshape data by using tidyr package, and (ii) process, wrangle and transform data by using dplyr package.\n\n# 2.0 Part I - Programming Interactive Data Visualisation with R\n\n## 2.1 Getting Started\n\nFirst, write a code chunk to check, install and launch the following R packages:\n\n-   DT: provides an R interface to the JavaScript library DataTables that create interactive table on html page.\n\n-   ggiraph: for making ‘ggplot’ graphics interactive.\n\n-   patchwork: for combining multiple ggplot2 graphs into one figure.\n\n-   plotly: R library for plotting interactive statistical graphs.\n\n-   tidyverse: a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs.\n\nThe code chunk below will be used to accomplish the task.\n\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(DT, ggiraph, \n               patchwork, plotly, \n               tidyverse) \n```\n:::\n\n\n2.2 Importing Data\n\nIn this section, Exam_data.csv provided will be used. Using read_csv() of readr package, import Exam_data.csv into R.\n\nThe code chunk below read_csv() of readr package is used to import Exam_data.csv data file into R and save it as an tibble data frame called exam_data.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nexam_data <- read_csv(\"data/Exam_data.csv\")\n```\n:::\n\n\n## 3.4 Interactive Data Visualisation - ggiraph methods\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

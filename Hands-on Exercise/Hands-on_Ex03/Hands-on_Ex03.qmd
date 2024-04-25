@@ -12,4 +12,41 @@ execute:
 
 ## 1.0 Overview
 
-In this hands on exercise 3, we will be learning Chapter 3 and 4 of R for Visual Analytics. For the first part we will focus on creating interactive data visualisation by using functions provided by *ggiraph* and *plotly* packages
+In this hands on exercise 3, we will be learning Chapter 3 and 4 of R for Visual Analytics. For Part I, we will focus on creating interactive data visualisation by using functions provided by *ggiraph* and *plotly* packages. For Part II, we will focus on learning how to create animated data visualisation by using gganimate and plotly r packages. At the same time, we will also learn how to (i) reshape data by using tidyr package, and (ii) process, wrangle and transform data by using dplyr package.
+
+# 2.0 Part I - Programming Interactive Data Visualisation with R
+
+## 2.1 Getting Started
+
+First, write a code chunk to check, install and launch the following R packages:
+
+-   DT: provides an R interface to the JavaScript library DataTables that create interactive table on html page.
+
+-   ggiraph: for making ‘ggplot’ graphics interactive.
+
+-   patchwork: for combining multiple ggplot2 graphs into one figure.
+
+-   plotly: R library for plotting interactive statistical graphs.
+
+-   tidyverse: a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs.
+
+The code chunk below will be used to accomplish the task.
+
+```{r}
+pacman::p_load(DT, ggiraph, 
+               patchwork, plotly, 
+               tidyverse) 
+```
+
+2.2 Importing Data
+
+In this section, Exam_data.csv provided will be used. Using read_csv() of readr package, import Exam_data.csv into R.
+
+The code chunk below read_csv() of readr package is used to import Exam_data.csv data file into R and save it as an tibble data frame called exam_data.
+
+```{r}
+exam_data <- read_csv("data/Exam_data.csv")
+```
+
+## 3.4 Interactive Data Visualisation - ggiraph methods
+

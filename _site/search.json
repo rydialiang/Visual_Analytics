@@ -355,5 +355,33 @@
     "title": "Hands-on Ex 03: Interactivity in Visual Analytics: Principles and Methods",
     "section": "",
     "text": "In this hands on exercise 3, we will be learning Chapter 3 and 4 of R for Visual Analytics. For the first part we will focus on creating interactive data visualisation by using functions provided by ggiraph and plotly packages"
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html",
+    "href": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html",
+    "title": "Hands-on Ex 03: Interactivity in Visual Analytics: Principles and Methods",
+    "section": "",
+    "text": "In this hands on exercise 3, we will be learning Chapter 3 and 4 of R for Visual Analytics. For Part I, we will focus on creating interactive data visualisation by using functions provided by ggiraph and plotly packages. For Part II, we will focus on learning how to create animated data visualisation by using gganimate and plotly r packages. At the same time, we will also learn how to (i) reshape data by using tidyr package, and (ii) process, wrangle and transform data by using dplyr package."
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html#overview",
+    "href": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html#overview",
+    "title": "Hands-on Ex 03: Interactivity in Visual Analytics: Principles and Methods",
+    "section": "",
+    "text": "In this hands on exercise 3, we will be learning Chapter 3 and 4 of R for Visual Analytics. For Part I, we will focus on creating interactive data visualisation by using functions provided by ggiraph and plotly packages. For Part II, we will focus on learning how to create animated data visualisation by using gganimate and plotly r packages. At the same time, we will also learn how to (i) reshape data by using tidyr package, and (ii) process, wrangle and transform data by using dplyr package."
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html#getting-started",
+    "href": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html#getting-started",
+    "title": "Hands-on Ex 03: Interactivity in Visual Analytics: Principles and Methods",
+    "section": "2.1 Getting Started",
+    "text": "2.1 Getting Started\nFirst, write a code chunk to check, install and launch the following R packages:\n\nDT: provides an R interface to the JavaScript library DataTables that create interactive table on html page.\nggiraph: for making ‘ggplot’ graphics interactive.\npatchwork: for combining multiple ggplot2 graphs into one figure.\nplotly: R library for plotting interactive statistical graphs.\ntidyverse: a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs.\n\nThe code chunk below will be used to accomplish the task.\n\npacman::p_load(DT, ggiraph, \n               patchwork, plotly, \n               tidyverse) \n\n2.2 Importing Data\nIn this section, Exam_data.csv provided will be used. Using read_csv() of readr package, import Exam_data.csv into R.\nThe code chunk below read_csv() of readr package is used to import Exam_data.csv data file into R and save it as an tibble data frame called exam_data.\n\nexam_data &lt;- read_csv(\"data/Exam_data.csv\")"
+  },
+  {
+    "objectID": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html#interactive-data-visualisation---ggiraph-methods",
+    "href": "Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.html#interactive-data-visualisation---ggiraph-methods",
+    "title": "Hands-on Ex 03: Interactivity in Visual Analytics: Principles and Methods",
+    "section": "3.4 Interactive Data Visualisation - ggiraph methods",
+    "text": "3.4 Interactive Data Visualisation - ggiraph methods"
   }
 ]
