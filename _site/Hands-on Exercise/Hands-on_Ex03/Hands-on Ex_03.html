@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Liang Xiuhao Rydia">
+<meta name="dcterms.date" content="2024-04-20">
 
-<title>Visual Analytics - My Visual Analytics Learning Journey</title>
+<title>Visual Analytics - Hands-on Ex 03: Interactivity in Visual Analytics: Principles and Methods</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -78,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Visual Analytics</span>
     </a>
   </div>
@@ -89,15 +91,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./journey.html" aria-current="page"> 
+    <a class="nav-link" href="../../journey.html"> 
 <span class="menu-text">Learning Journey</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -106,43 +108,43 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
         <li>
-    <a class="dropdown-item" href="./Hands-on Exercise/Hands-on_Ex01/Hands-on_Ex01.html">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex01/Hands-on_Ex01.html">
  <span class="dropdown-text">Hands-on Exercise 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex02/Hands-on_Ex02.html">
  <span class="dropdown-text">Hands-on Exercise 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex03/Hands-on_Ex03.qmd">
  <span class="dropdown-text">Hands-on Exercise 3</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on Exercise/Hands-on_Ex04/Hands-on_Ex04.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex04/Hands-on_Ex04.qmd">
  <span class="dropdown-text">Hands-on Exercise 4</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on Exercise/Hands-on_Ex05/Hands-on_Ex05.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex05/Hands-on_Ex05.qmd">
  <span class="dropdown-text">Hands-on Exercise 5</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on Exercise/Hands-on_Ex06/Hands-on_Ex06.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex06/Hands-on_Ex06.qmd">
  <span class="dropdown-text">Hands-on Exercise 6</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on Exercise/Hands-on_Ex07/Hands-on_Ex07.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex07/Hands-on_Ex07.qmd">
  <span class="dropdown-text">Hands-on Exercise 7</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on Exercise/Hands-on_Ex08/Hands-on_Ex08.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex08/Hands-on_Ex08.qmd">
  <span class="dropdown-text">Hands-on Exercise 8</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on Exercise/Hands-on_Ex09/Hands-on_Ex09.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex09/Hands-on_Ex09.qmd">
  <span class="dropdown-text">Hands-on Exercise 9</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on Exercise/Hands-on_Ex10/Hands-on_Ex10.qmd">
+    <a class="dropdown-item" href="../../Hands-on Exercise/Hands-on_Ex10/Hands-on_Ex10.qmd">
  <span class="dropdown-text">Hands-on Exercise 10</span></a>
   </li>  
     </ul>
@@ -153,43 +155,43 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-in-class-exercise">    
         <li>
-    <a class="dropdown-item" href="./In-class Exercise/In-class_Ex01/In-class_Ex01.html">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex01/In-class_Ex01.html">
  <span class="dropdown-text">In-class Exercise 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class Exercise/In-class_Ex02/In-class_Ex02.html">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex02/In-class_Ex02.html">
  <span class="dropdown-text">In-class Exercise 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class Exercise/In-class_Ex03/In-class_Ex03.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex03/In-class_Ex03.qmd">
  <span class="dropdown-text">In-class Exercise 3</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class Exercise/In-class_Ex04/In-class_Ex04.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex04/In-class_Ex04.qmd">
  <span class="dropdown-text">In-class Exercise 4</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class Exercise/In-class_Ex05/In-class_Ex05.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex05/In-class_Ex05.qmd">
  <span class="dropdown-text">In-class Exercise 5</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class Exercise/In-class_Ex06/In-class_Ex06.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex06/In-class_Ex06.qmd">
  <span class="dropdown-text">In-class Exercise 6</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class Exercise/In-class_Ex07/In-class_Ex07.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex07/In-class_Ex07.qmd">
  <span class="dropdown-text">In-class Exercise 7</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class Exercise/In-class_Ex08/In-class_Ex08.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex08/In-class_Ex08.qmd">
  <span class="dropdown-text">In-class Exercise 8</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class Exercise/In-class_Ex09/In-class_Ex09.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex09/In-class_Ex09.qmd">
  <span class="dropdown-text">In-class Exercise 9</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class Exercise/In-class_Ex10/In-class_Ex10.qmd">
+    <a class="dropdown-item" href="../../In-class Exercise/In-class_Ex10/In-class_Ex10.qmd">
  <span class="dropdown-text">In-class Exercise 10</span></a>
   </li>  
     </ul>
@@ -200,19 +202,19 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
         <li>
-    <a class="dropdown-item" href="./Take-home Exercise/Take-home_Ex01/Take-home_Ex01.html">
+    <a class="dropdown-item" href="../../Take-home Exercise/Take-home_Ex01/Take-home_Ex01.html">
  <span class="dropdown-text">Take-home Exercise 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Take-home Exercise/Take-home_Ex02/Take-home_Ex02.qmd">
+    <a class="dropdown-item" href="../../Take-home Exercise/Take-home_Ex02/Take-home_Ex02.qmd">
  <span class="dropdown-text">Take-home Exercise 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Take-home Exercise/Take-home_Ex03/Take-home_Ex03.qmd">
+    <a class="dropdown-item" href="../../Take-home Exercise/Take-home_Ex03/Take-home_Ex03.qmd">
  <span class="dropdown-text">Take-home Exercise 3</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Take-home Exercise/Take-home_Ex04/Take-home_Ex04.qmd">
+    <a class="dropdown-item" href="../../Take-home Exercise/Take-home_Ex04/Take-home_Ex04.qmd">
  <span class="dropdown-text">Take-home Exercise 4</span></a>
   </li>  
     </ul>
@@ -236,14 +238,26 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">My Visual Analytics Learning Journey</h1>
+<h1 class="title">Hands-on Ex 03: Interactivity in Visual Analytics: Principles and Methods</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Liang Xiuhao Rydia </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 20, 2024</p>
+    </div>
+  </div>
   
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
@@ -259,28 +273,6 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Lesson 1 on 13 Apr 2024:</p>
-<ol type="1">
-<li>Setting up my github and netlify account</li>
-<li>Linking git and Quarto.</li>
-<li>Learning to construct website using Quarto in R.</li>
-<li>Tried Hands-on Ex01 for visualisation foundation.</li>
-<li>Tried In-class Ex01
-<ul>
-<li>how to set up html link in-text, using [<em>text hyperlink</em>](insert html link)</li>
-</ul></li>
-</ol>
-<p>Lesson 2 on 20 Apr 2024:</p>
-<ol type="1">
-<li>Using panel-tabset + <a href="https://quarto.org/docs/authoring/callouts.html">callout blocks</a></li>
-<li>R4VA Chapter 2, 9</li>
-<li>Tableau introduction</li>
-</ol>
-<p>Lesson 3 on 27 April:</p>
-<ol type="1">
-<li>R4VA chapter 3 and 4</li>
-</ol>
-<p><img src="images/coming soon.jpeg" class="img-fluid"></p>
 
 
 
