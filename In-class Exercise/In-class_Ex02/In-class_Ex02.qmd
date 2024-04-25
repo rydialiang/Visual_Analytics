@@ -83,7 +83,7 @@ The ridgeline plot below is plotted by using geom_density_ridges().
 ```{r}
 #| echo: False
 ggplot(exam,
-       aes(x = ENGLISH,
+       aes(x = MATHS,
            y = CLASS)) +
   geom_density_ridges(
     scale = 3,
@@ -93,7 +93,7 @@ ggplot(exam,
     color = "black"
   ) +
   scale_x_continuous(
-    name = "English grades",
+    name = "Maths grades",
     expand = c(0,0)
     ) +
   scale_y_discrete(name = NULL, expand = expansion(add = c(3,3))) +
@@ -105,7 +105,7 @@ ggplot(exam,
 ```{r}
 #| eval: False
 ggplot(exam,
-       aes(x = ENGLISH,
+       aes(x = MATHS,
            y = CLASS)) +
   geom_density_ridges(
     scale = 3,
@@ -115,7 +115,7 @@ ggplot(exam,
     color = "black"
   ) +
   scale_x_continuous(
-    name = "English grades",
+    name = "Maths grades",
     expand = c(0,0)
     ) +
   scale_y_discrete(name = NULL, expand = expansion(add = c(3,3))) +
@@ -133,7 +133,7 @@ Sometimes we would like to have the area under a ridgeline not filled with a sin
 ```{r}
 #| echo: False
 ggplot(exam,
-       aes(x = ENGLISH,
+       aes(x = MATHS,
            y = CLASS,
            fill = stat(x))) +
   geom_density_ridges_gradient(
@@ -141,7 +141,7 @@ ggplot(exam,
     rel_min_height = 0.01) +
   scale_fill_continuous(name = "Scores") +
   scale_x_continuous(
-    name = "English grades",
+    name = "Maths grades",
     expand = c(0,0)
   ) +
   scale_y_discrete(name = NULL, expand = expansion(add = c(0.2, 2.6))) +
@@ -153,7 +153,7 @@ ggplot(exam,
 ```{r}
 #| eval: False
 ggplot(exam,
-       aes(x = ENGLISH,
+       aes(x = MATHS,
            y = CLASS,
            fill = stat(x))) +
   geom_density_ridges_gradient(
@@ -161,7 +161,7 @@ ggplot(exam,
     rel_min_height = 0.01) +
   scale_fill_continuous(name = "Scores") +
   scale_x_continuous(
-    name = "English grades",
+    name = "Maths grades",
     expand = c(0,0)
   ) +
   scale_y_discrete(name = NULL, expand = expansion(add = c(0.2, 2.6))) +
@@ -207,9 +207,7 @@ ggplot(exam,
 ```
 :::
 
-
-**Note**
-It is important include the argument calc_ecdf = TRUE in `stat_density_ridges()`.
+**Note** It is important include the argument calc_ecdf = TRUE in `stat_density_ridges()`.
 
 ### 3.4 Ridgeline plots with quantile lines
 
@@ -231,7 +229,9 @@ ggplot(exam,
   scale_fill_viridis_d(name = "Quartiles") +
   theme_ridges()
 ```
+
 ## The Code
+
 ```{r}
 #| eval: False
 ggplot(exam,
@@ -251,13 +251,13 @@ ggplot(exam,
 
 Instead of using number to define the quantiles, we can also specify quantiles by cut points such as 5% and 95% tails to colour the ridgeline plot as shown in the figure below.
 
-
 ::: panel-tabset
 ## The Plot
+
 ```{r}
-#| echo:False
+#| echo: False
 ggplot(exam,
-       aes(x = ENGLISH, 
+       aes(x = MATHS, 
            y = CLASS, 
            fill = factor(stat(quantile))
            )) +
@@ -273,11 +273,13 @@ ggplot(exam,
   ) +
   theme_ridges()
 ```
+
 ## The Code
+
 ```{r}
 #| eval: False
 ggplot(exam,
-       aes(x = ENGLISH, 
+       aes(x = MATHS, 
            y = CLASS, 
            fill = factor(stat(quantile))
            )) +
@@ -297,10 +299,171 @@ ggplot(exam,
 
 ## 4.0 Visualising Distribution with Raincloud Plot
 
+Raincloud Plot is a data visualisation techniques that produces a half-density to a distribution plot. It gets the name because the density plot is in the shape of a “raincloud”. The raincloud (half-density) plot enhances the traditional box-plot by highlighting multiple modalities (an indicator that groups may exist). The boxplot does not show where densities are clustered, but the raincloud plot does!
 
+In this section, you will learn how to create a raincloud plot to visualise the distribution of Maths score by race. It will be created by using functions provided by `ggdist` and `ggplot2` packages.
 
+### 4.1 Plotting a Half Eye graph
 
+First, we will plot a Half-Eye graph by using [`stat_halfeye()`](https://mjskay.github.io/ggdist/reference/stat_halfeye.html) of ggdist package.
 
+This produces a Half Eye visualisation, which is contains a half-density and a slab-interval.
+
+::: panel-tabset
+## The Plot
+
+```{r}
+#| echo: False
+ggplot(exam, 
+       aes(x = RACE, 
+           y = MATHS)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA)
+```
+
+## The code
+
+```{r}
+#| eval: False
+ggplot(exam, 
+       aes(x = RACE, 
+           y = MATHS)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA)
+```
+:::
+
+### 4.2 Adding the boxplot with `geom_boxplot()`
+
+Next, we will add the second geometry layer using `geom_boxplot()` of ggplot2. This produces a narrow boxplot. We reduce the width and adjust the opacity.
+
+::: panel-tabset
+## The Plot
+
+```{r}
+#| echo: False
+ggplot(exam, 
+       aes(x = RACE, 
+           y = MATHS)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA)
+```
+
+## The Code
+
+```{r}
+#| eval: False
+ggplot(exam, 
+       aes(x = RACE, 
+           y = MATHS)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA)
+```
+:::
+
+### 4.3 Adding the Dot Plots with `stat_dots()`
+
+Next, we will add the third geometry layer using stat_dots() of ggdist package. This produces a half-dotplot, which is similar to a histogram that indicates the number of samples (number of dots) in each bin. We select side = “left” to indicate we want it on the left-hand side.
+
+::: panel-tabset
+## The Plot
+
+```{r}
+#| echo: False
+ggplot(exam, 
+       aes(x = RACE, 
+           y = MATHS)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = .5,
+            dotsize = 2)
+```
+
+## The Code
+
+```{r}
+#| eval: False
+ggplot(exam, 
+       aes(x = RACE, 
+           y = MATHS)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = .5,
+            dotsize = 2)
+```
+:::
+
+### 4.4 Finishing Touch
+
+Lastly, `coord_flip()` of ggplot2 package will be used to flip the raincloud chart horizontally to give it the raincloud appearance. At the same time, `theme_wsj()` of ggthemes package is used to give the raincloud chart a professional publishing standard look.
+
+::: panel-tabset
+## The Plot
+
+```{r}
+#| echo: False
+ggplot(exam, 
+       aes(x = RACE, 
+           y = MATHS)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = .5,
+            dotsize = 2) +
+  coord_flip() +
+  theme_wsj()
+```
+
+## The Code
+
+```{r}
+#| eval: False
+ggplot(exam, 
+       aes(x = RACE, 
+           y = MATHS)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = .5,
+            dotsize = 2) +
+  coord_flip() +
+  theme_wsj()
+```
+:::
 
 ## 5.0 Archival of In-class Ex_02 done in class
 
@@ -385,3 +548,7 @@ ggplot(exam,
   )
   
 ```
+
+**Reference**
+
+-   T.S Kam, R for Visual Analytics [Chapter 9](https://r4va.netlify.app/chap09#visualising-distribution-with-raincloud-plot)
