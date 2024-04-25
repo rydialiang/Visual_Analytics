@@ -39,10 +39,11 @@ T he `pac::p_load()` function to load the required R packages in the working env
 -   patchwork: specially designed for combining separate ggplot2 graphs into a single figure.
 -   lubridate: for easy and fast parsing of Date / Time
 -   ggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels.
+-   ggdist: a ggplot2 extension specially design for visualising distribution and uncertainty
 
 ```{r}
 # load tidyverse from pacman
-pacman::p_load(tidyverse,dplyr,ggridges,ggthemes,colorspace,ggiraph,plotly,patchwork, lubridate, ggrepel)
+pacman::p_load(tidyverse,dplyr,ggridges,ggthemes,colorspace,ggiraph,plotly,patchwork, lubridate, ggrepel,ggdist)
 ```
 
 ### 2.2 Importing the data sets
@@ -186,8 +187,6 @@ ggplot(data = df ,
 
 To lend some background context, you can refer to this link: [Landed vs. Strata Landed](https://plbinsights.com/landed-vs-strata-landed-whats-the-difference-how-have-they-performed-in-recent-years/#:~:text=According%20to%20the%20URA%20website,as%20a%20pure%20landed%20property.) Basically, `Strata` means you only owns the property build on this land, but do not own the land itself. `Land` means you own the land and have more freedom and responsibility in terms of the constructions etc. The application of this knowledge for analysis is that `Strata` and `Land` classification can be identify as the sub-markets as owning a piece of land is likely to be more expensive for the purchaser compared to `Strata` title.
 
-
-
 ```{r}
 df %>%
   filter(`Type of Area` == 'Land') %>%
@@ -287,20 +286,18 @@ df.c
 In the df.c tibble, it showed that 5 rows had been removed. Now there is only 26,801 rows instead of the original 26,806 rows in the initial df. This confirm that there are only 5 en bloc sales in the data frame.
 
 ### 2.4.2 Appropriate categorisation of variables
-Previously, we have identified the `Sale Date` as Ordinal quantitative variable largely because it is classified as chr type in R. However, when we apply the knowledge from [Fundamentals of Data Visualization Chapter 2](https://clauswilke.com/dataviz/aesthetic-mapping.html) and [R for Visual Analytics Chapter 17](https://r4va.netlify.app/chap17.html#plotting-calendar-heatmap) date or time in fact, can be treated as discrete or continuous data. 
 
+Previously, we have identified the `Sale Date` as Ordinal quantitative variable largely because it is classified as chr type in R. However, when we apply the knowledge from [Fundamentals of Data Visualization Chapter 2](https://clauswilke.com/dataviz/aesthetic-mapping.html) and [R for Visual Analytics Chapter 17](https://r4va.netlify.app/chap17.html#plotting-calendar-heatmap) date or time in fact, can be treated as discrete or continuous data.
 
 # XXX to continue from here XXX
-
-
 
 ## 3.0 Data Visualisation
 
 ```{r}
 df.c %>%
-  filter(`Type of Area` == 'Land') %>%
+  filter(`Type of Area` == 'Land', `Quarter` == '24Q1') %>%
   ggplot(aes(x = `Transacted Price ($)`,
-           y = Quarter,
+           y = `Planning Region`,
            fill = factor(stat(quantile))
            )) +
   stat_density_ridges(
@@ -310,10 +307,161 @@ df.c %>%
     quantile_lines = TRUE) +
   scale_fill_viridis_d(name = "Quartiles") +
   theme_ridges()+
-  facet_grid(~`Property Type`,scales = "free") +
-  scale_x_continuous(labels = NULL) +
-  theme_economist()
-  
+  scale_x_continuous(labels = scales::comma) +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  ggtitle("24Q1 Distribution of Transacted Price by Planning Region")
+```
+
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land', `Quarter` == '24Q1', `Planning Region` == "North Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 10000,
+            dotsize = 1) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 North Region by Property Type (Land)")
+```
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land', `Quarter` == '24Q1', `Planning Region` == "North East Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 100000,
+            dotsize = 1) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 North East Region by Property Type (Land)")
+```
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land', `Quarter` == '24Q1', `Planning Region` == "West Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 10000,
+            dotsize = 1) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 West Region by Property Type (Land)")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land', `Quarter` == '24Q1', `Planning Region` == "East Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 500000,
+            dotsize = 0.2) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 East Region by Property Type (Land)")
+```
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 1000000,
+            dotsize = 0.2) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 Central Region by Property Type (Land)")
+```
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Quarter` == '24Q1', `Planning Region` == "North Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 10000,
+            dotsize = 1) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 North Region by Property Type (Strata)")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Quarter` == '24Q1', `Planning Region` == "North East Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 10000,
+            dotsize = 1) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 North East Region by Property Type (Strata)")
 ```
 
 ```{r}
@@ -452,8 +600,6 @@ ggplot(aes(y=`Transacted Price ($)`,
            x=`Quarter`)
        )+
   geom_violin()+
-  coord_cartesian(xlim=c(1,5),
-                  ylim=c(min(df$`Transacted Price ($)`),7500000)) +
   geom_point(data = quarter_means, 
              aes(y = mean_tprice), 
              color = "red", 
