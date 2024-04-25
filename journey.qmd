@@ -14,7 +14,7 @@ Lesson 1 on 13 Apr 2024:
 
 Lesson 2 on 20 Apr 2024:
 
-1.  Using panel-tabset + calltip
+1.  Using panel-tabset + [callout blocks](https://quarto.org/docs/authoring/callouts.html)
 2.  R4VA Chapter 2, 9
 3.  Tableau introduction
 
