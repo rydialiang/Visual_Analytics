@@ -296,6 +296,7 @@ For the visualisation below, we will attempt to answer the following questions:
 
 ### 3.2.1 The Pricing across Planning Regions
 
+
 **Apartment Tenure(Lease vs Freehold)**
 ```{r}
 #| echo: False
@@ -317,7 +318,7 @@ df.c %>%
                      breaks = c(2000000,4000000,6000000,8000000),
                      limits = c(0,8000000)) +
   theme_economist() + 
-  ggtitle("24Q1 Distribution of Transacted Price by Planning Region") +
+  ggtitle("24Q1 (Lease): Distribution of Transacted Price by Planning Region") +
   theme(plot.title = element_text(size=12))
 ```
 
@@ -341,7 +342,7 @@ df.c %>%
                      breaks = c(2000000,4000000,6000000,8000000),
                      limits = c(0,8000000)) +
   theme_economist() + 
-  ggtitle("24Q1 Distribution of Transacted Price by Planning Region") +
+  ggtitle("24Q1 (Freehold): Distribution of Transacted Price by Planning Region") +
   theme(plot.title = element_text(size=12))
 ```
 
