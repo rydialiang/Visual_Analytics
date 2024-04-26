@@ -797,7 +797,7 @@ globalPop <- read_xls("data/GlobalPopulation.xls",
 
 -   `ease_aes()` defines how different aesthetics should be eased during transitions.
 
-### **3.3.1 Building a static population bubble plot**
+### 3.3.1 Building a static population bubble plot
 
 In the code chunk below, the basic ggplot2 functions are used to create a static bubble plot.
 
@@ -814,7 +814,7 @@ ggplot(globalPop, aes(x = Old, y = Young,
        y = '% Young')
 ```
 
-### **3.3.2 Building the animated bubble plot**
+### 3.3.2 Building the animated bubble plot
 
 In the code chunk below,
 
@@ -839,11 +839,11 @@ ggplot(globalPop, aes(x = Old, y = Young,
 
 The animated bubble chart
 
-## **4.4 Animated Data Visualisation: plotly**
+## 3.4 Animated Data Visualisation: plotly
 
 In **Plotly R** package, both `ggplotly()` and `plot_ly()` support key frame animations through the `frame` argument/aesthetic. They also support an `ids` argument/aesthetic to ensure smooth transitions between objects with the same id (which helps facilitate object constancy).
 
-### **4.4.1 Building an animated bubble plot: `ggplotly()` method**
+### 3.4.1 Building an animated bubble plot: `ggplotly()` method
 
 In this sub-section, you will learn how to create an animated bubble plot by using `ggplotly()` method.
 
@@ -945,12 +945,13 @@ ggplotly(animate)
 ```
 :::
 
-### **4.4.2 Building an animated bubble plot: `plot_ly()` method**
+### 3.4.2 Building an animated bubble plot: `plot_ly()` method
 
 In this sub-section, you will learn how to create an animated bubble plot by using `plot_ly()` method.
 
 ::: panel-tabset
 ## The Bubble Plot
+
 ```{r}
 #| echo: False
 bubble <- globalPop %>%
@@ -968,7 +969,9 @@ bubble <- globalPop %>%
   layout(showlegend = FALSE)
 bubble
 ```
+
 ## The Code
+
 ```{r}
 #| echo: False
 bubble <- globalPop %>%
@@ -987,5 +990,3 @@ bubble <- globalPop %>%
 bubble
 ```
 :::
-
-
