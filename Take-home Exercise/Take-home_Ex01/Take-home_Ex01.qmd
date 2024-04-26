@@ -229,17 +229,40 @@ df %>%
   summarise(`Median Transaction Price ($)` = median(`Transacted Price ($)`))
 ```
 
+::: panel-tabset
+## The Plot
 ```{r}
+#| echo: False
 df %>%
-  select(`Transacted Price ($)`,`Type of Area`, `Property Type`) %>%
-  group_by(`Property Type`,`Type of Area`) %>%
+  select(`Transacted Price ($)`, `Type of Area`, `Property Type`) %>%
+  group_by(`Property Type`, `Type of Area`) %>%
   summarise(`Median Transaction Price ($)` = median(`Transacted Price ($)`, .groups = 'drop')) %>%
-  ggplot(aes(y = `Median Transaction Price ($)`,
-             x = `Property Type`)) +
+  ggplot(aes(x = `Property Type`, 
+             y = `Median Transaction Price ($)`, 
+             color = `Type of Area`)) +  # Adding color aesthetic based on Type of Area
   geom_point() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  scale_y_continuous(labels = scales::comma)
+  theme_economist() +
+  theme(axis.text.x = element_text(size = 8, angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) +
+  labs(color = "Type of Area")
 ```
+## The Code
+```{r}
+#| eval: False
+df %>%
+  select(`Transacted Price ($)`, `Type of Area`, `Property Type`) %>%
+  group_by(`Property Type`, `Type of Area`) %>%
+  summarise(`Median Transaction Price ($)` = median(`Transacted Price ($)`, .groups = 'drop')) %>%
+  ggplot(aes(x = `Property Type`, 
+             y = `Median Transaction Price ($)`, 
+             color = `Type of Area`)) +  # Adding color aesthetic based on Type of Area
+  geom_point() +
+  theme_economist() +
+  theme(axis.text.x = element_text(size = 8, angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) +
+  labs(color = "Type of Area")
+```
+:::
 
 Some learning points from these plots and tibbles:
 
@@ -291,6 +314,8 @@ Previously, we have identified the `Sale Date` as Ordinal quantitative variable 
 
 
 ## 3.0 Data Visualisation
+
+In this section, we will focus on the condominium sub market in Singapore. 
 
 ::: panel-tabset
 ## The Plot
