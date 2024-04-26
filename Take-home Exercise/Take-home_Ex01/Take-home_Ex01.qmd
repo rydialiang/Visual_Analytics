@@ -256,7 +256,7 @@ df.c %>%
 
 ```{r}
 #| eval: False
-df %>%
+df.c %>%
   select(`Transacted Price ($)`, `Type of Area`, `Property Type`) %>%
   group_by(`Property Type`, `Type of Area`) %>%
   summarise(`Median Transaction Price ($)` = median(`Transacted Price ($)`, .groups = 'drop')) %>%
@@ -264,6 +264,7 @@ df %>%
              y = `Median Transaction Price ($)`, 
              color = `Type of Area`)) +  # Adding color aesthetic based on Type of Area
   geom_point() +
+  theme_economist() +
   theme(axis.text.x = element_text(size = 8, angle = 90, vjust = 0.5, hjust=1)) +
   scale_y_continuous(labels = scales::comma) +
   labs(color = "Type of Area")
