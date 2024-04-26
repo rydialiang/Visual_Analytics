@@ -1,0 +1,979 @@
+---
+title: "Visualisation Trial"
+author: "Liang Xiuhao Rydia"
+---
+
+
+```{r}
+#| echo: False
+df.c %>%
+  filter(`Type of Area`== 'Strata',`Property Type` == 'Condominium', `Quarter` == '24Q1', `Tenure` == 'Freehold') %>%
+  ggplot(aes(x = `Transacted Price ($)`,
+           y = `Planning Region`,
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE,
+    quantiles = 4,
+    quantile_lines = TRUE) +
+  scale_fill_viridis_d(name = "Quartiles",
+                       option = "H") +
+  scale_x_continuous(name = "Transacted Price in million ($)",
+    labels = c(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15), 
+    breaks = c(0,1000000,2000000,3000000,4000000,5000000,6000000,7000000,8000000,9000000,10000000,11000000, 12000000, 13000000, 14000000, 15000000)) +
+  theme_economist() + 
+  ggtitle("24Q1 (Freehold): Distribution of Transacted Price by Planning Region") +
+  theme(plot.title = element_text(size=12))
+```
+
+```{r}
+df %>%
+  filter(`Type of Area` == 'Land') %>%
+  ggplot(aes(x= `Quarter`,
+           fill = `Purchaser Address Indicator`)) +
+  geom_bar() +
+  facet_grid(~`Property Type`) +
+  theme_economist() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle("Land: No. of Transactions by Property Type")
+```
+
+```{r}
+df %>%
+  filter(`Type of Area` == 'Strata') %>%
+  ggplot(aes(x= `Quarter`,
+           fill = `Purchaser Address Indicator`)) +
+  geom_bar() +
+  facet_wrap(~`Property Type`) +
+  theme_economist() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  ggtitle("Strata: No. of Transactions by 'Property Type'")
+```
+
+To understand which `Type of Area` has high market value by `Transacted Price ($)`:
+
+```{r}
+df %>%
+  select(`Transacted Price ($)`,`Type of Area`) %>%
+  group_by(`Type of Area`) %>%
+  summarise(`Total Transaction Price ($)` = sum(`Transacted Price ($)`), `Mean Transaction Price ($)` = mean(`Transacted Price ($)`), `Median Transaction Price ($)` = median(`Transacted Price ($)`))
+```
+
+Diving a bit deeper.We segregate them by `Property Type`
+
+```{r}
+df %>%
+  select(`Transacted Price ($)`,`Type of Area`, `Property Type`) %>%
+  group_by(`Property Type`, `Type of Area`) %>%
+  summarise(`Median Transaction Price ($)` = median(`Transacted Price ($)`))
+```
+
+
+Let's take a quick look at distribution before any data wrangling:
+
+```{r}
+df %>%
+  ggplot(aes(y = `Transacted Price ($)`,            
+           x = `Property Type`)) +
+  geom_boxplot()+
+  facet_grid(~Quarter) +
+  coord_cartesian(xlim=c(1,6)) +
+  scale_y_continuous(labels = scales::comma) +
+  theme_economist() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+```
+
+```{r}
+ggplot(data = df ,
+       aes(x = `Transacted Price ($)`,
+           y = Quarter,
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE,
+    quantiles = 4,
+    quantile_lines = TRUE) +
+  scale_fill_economist(name = "Quartiles") +
+  theme_ridges() +
+  facet_wrap(~`Property Type`,scales = "free") +
+  theme_economist() +
+  scale_x_continuous(labels = NULL)
+```
+
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 1000000,
+            dotsize = 0.2) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 Central Region by Property Type (Land)")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 1000000,
+            dotsize = 0.2) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 Central Region by Property Type (Land)")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Property Type` == 'Condominium') %>%
+ggplot(aes(x = `Quarter`, 
+           y = `Unit Price ($ PSF)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = NA,
+            dotsize = 1,
+            overflow = "compress") +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("XXX")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Quarter` == '24Q1', `Planning Region` == "North East Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 10000,
+            dotsize = 1) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 North East Region by Property Type (Strata)")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Quarter` == '24Q1', `Planning Region` == "West Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 10000,
+            dotsize = 1) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 West Region by Property Type (Strata)")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Quarter` == '24Q1', `Planning Region` == "East Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 50000,
+            dotsize = 0.5) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 East Region by Property Type (Strata)")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 100000,
+            dotsize = 0.1) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 Central Region by Property Type (Strata)")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land') %>%
+  ggplot(aes(y = `Transacted Price ($)`,
+           x = `Quarter`)) +
+  geom_boxplot()+
+  facet_grid(~`Property Type`) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  coord_cartesian(xlim=c(1,4)) +
+  geom_label_repel(aes(label = `Project Name`),
+                   hjust = 0.5,
+                   vjust = 0.5)
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
+  ggplot(aes(x = `Transacted Price ($)`, 
+           y = `Purchaser Address Indicator`, 
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE, 
+    quantiles = c(0.05, 0.95)
+    ) +
+  scale_fill_manual(
+    name = "Probability",
+    values = c("#FF00FFA0", "#FFE4E1A0", "#0000ffA0"),
+    labels = c("(0, 0.05]", "(0.05, 0.95]", "(0.95, 1]")
+  ) +
+  theme_ridges()+
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_x_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 Central Region by Purchaser Address Indicator for Land Type")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Quarter` == '24Q1', `Planning Region` == "West Region") %>%
+  ggplot(aes(x = `Transacted Price ($)`, 
+           y = `Purchaser Address Indicator`, 
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE, 
+    quantiles = c(0.05, 0.95)
+    ) +
+  scale_fill_manual(
+    name = "Probability",
+    values = c("#FF00FFA0", "#FFE4E1A0", "#0000ffA0"),
+    labels = c("(0, 0.05]", "(0.05, 0.95]", "(0.95, 1]")
+  ) +
+  theme_ridges()+
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_x_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 West Region by Purchaser Address Indicator for Strata Type")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
+  ggplot(aes(x = `Transacted Price ($)`, 
+           y = `Purchaser Address Indicator`, 
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE, 
+    quantiles = c(0.05, 0.95)
+    ) +
+  scale_fill_manual(
+    name = "Probability",
+    values = c("#FF00FFA0", "#FFE4E1A0", "#0000ffA0"),
+    labels = c("(0, 0.05]", "(0.05, 0.95]", "(0.95, 1]")
+  ) +
+  theme_ridges()+
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_x_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 Central Region by Purchaser Address Indicator for Land Type")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land', `Quarter` == '24Q1', `Planning Region` == "North East Region") %>%
+  ggplot(aes(x = `Transacted Price ($)`, 
+           y = `Purchaser Address Indicator`, 
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE, 
+    quantiles = c(0.05, 0.95)
+    ) +
+  scale_fill_manual(
+    name = "Probability",
+    values = c("#FF00FFA0", "#FFE4E1A0", "#0000ffA0"),
+    labels = c("(0, 0.05]", "(0.05, 0.95]", "(0.95, 1]")
+  ) +
+  theme_ridges()+
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_x_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 North East Region by Purchaser Address Indicator for Land Type")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata') %>%
+  ggplot(aes(y = `Transacted Price ($)`,            
+           x = Quarter)) +
+  geom_boxplot()+
+  facet_grid(~`Property Type`) +
+  coord_cartesian(xlim=c(1,6)) +
+  scale_y_continuous(labels = scales::comma) +
+  theme_economist()  +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+```{r}
+mean_strata_by_property_type <- df.c %>%
+  filter(`Type of Area` == 'Strata') %>%
+  group_by(`Property Type`) %>%
+  summarise(mean_price = mean(`Transacted Price ($)`))
+
+df.c %>%
+  filter(`Type of Area` == 'Strata') %>%
+  ggplot(aes(x=`Area (SQM)`, 
+           y = `Transacted Price ($)`,
+           color = `Property Type`)) +
+  geom_point() +
+  coord_cartesian(xlim=c(0,1000),
+                  ylim=c(0,50000000)) +
+  geom_smooth(method = lm, se = FALSE) +
+  facet_wrap(~`Property Type`, scales = "free")
+  
+```
+
+```{r}
+mean_land_by_property_type <-  df.c %>%
+  filter(`Type of Area` == 'Land') %>%
+  group_by(`Property Type`) %>%
+  summarise(mean_price = mean(`Transacted Price ($)`))
+
+df.c %>%
+filter(`Type of Area` == 'Land') %>%
+ggplot(aes(x=`Area (SQM)`, 
+           y = `Transacted Price ($)`,
+           color = `Property Type`)) +
+  geom_point() +
+  coord_cartesian(xlim=c(0,1000),
+                  ylim=c(0,50000000)) +
+  geom_smooth(method = lm, se = FALSE) +
+  facet_wrap(~`Property Type`, scales = "free")
+  
+```
+
+```{r}
+
+df.c %>%
+  filter(`Type of Area` == 'Strata') %>%
+  ggplot(aes(x = `Transacted Price ($)`,
+           y = Quarter,
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE,
+    quantiles = 4,
+    quantile_lines = TRUE) +
+  scale_fill_viridis_d(name = "Quartiles") +
+  theme_ridges()+
+  facet_grid(~`Planning Region`, scales = "free")+
+  scale_x_continuous(labels = scales::comma) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) 
+
+```
+
+## 
+
+```{r}
+quarter_means <- df.c %>%
+  group_by(Quarter) %>%
+  summarise(mean_tprice = mean(`Transacted Price ($)`))
+
+df.c %>%
+ggplot(aes(y=`Transacted Price ($)`,
+           x=`Quarter`)
+       )+
+  geom_violin()+
+  geom_point(data = quarter_means, 
+             aes(y = mean_tprice), 
+             color = "red", 
+             size = 3)+
+  scale_y_continuous(labels = scales::comma)+
+  ggtitle("Distribution of Transacted Prices by Quarter with mean")
+```
+
+```{r}
+quarter_means <- df.c %>%
+  filter(`Type of Area` == 'Land') %>%
+  group_by(Quarter) %>%
+  summarise(mean_tprice = mean(`Transacted Price ($)`))
+
+df.c %>% 
+  ggplot(aes(y=`Transacted Price ($)`,
+             x=`Quarter`))+
+  geom_violin()+
+  geom_point(data = quarter_means, 
+             aes(y = mean_tprice), 
+             color = "red", 
+             size = 3)+
+  scale_y_continuous(labels = scales::comma)+
+  ggtitle("Distribution of Transacted Prices by Quarter with mean for Land")
+
+```
+
+```{r}
+quarter_means <- df.c %>%
+  filter(`Type of Area` == 'Strata') %>%
+  group_by(Quarter) %>%
+  summarise(mean_tprice = mean(`Transacted Price ($)`))
+
+df.c %>%
+ggplot(aes(y=`Transacted Price ($)`,
+           x=`Quarter`)
+       )+
+  geom_violin()+
+  geom_point(data = quarter_means, 
+             aes(y = mean_tprice), 
+             color = "red", 
+             size = 3)+
+  scale_y_continuous(labels = scales::comma)+
+  ggtitle("Distribution of Transacted Prices by Quarter with mean for Strata")
+
+```
+
+```{r}
+ggplot(data = df.c, 
+       aes(x=`Property Type`,
+           fill = `Type of Sale`)) +
+  geom_bar() +
+  facet_grid(~Quarter, scales = "free") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Property Type` == 'Condominium') %>%
+ggplot(aes(x = `Quarter`, 
+           y = `Unit Price ($ PSF)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = NA,
+            dotsize = 1,
+            overflow = "compress") +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("XXX")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Quarter` == '24Q1', `Planning Region` == "North East Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 10000,
+            dotsize = 1) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 North East Region by Property Type (Strata)")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Quarter` == '24Q1', `Planning Region` == "West Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 10000,
+            dotsize = 1) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 West Region by Property Type (Strata)")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Quarter` == '24Q1', `Planning Region` == "East Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 50000,
+            dotsize = 0.5) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 East Region by Property Type (Strata)")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Transacted Price ($)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = 100000,
+            dotsize = 0.1) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 Central Region by Property Type (Strata)")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land') %>%
+  ggplot(aes(y = `Transacted Price ($)`,
+           x = `Quarter`)) +
+  geom_boxplot()+
+  facet_grid(~`Property Type`) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  coord_cartesian(xlim=c(1,4)) +
+  geom_label_repel(aes(label = `Project Name`),
+                   hjust = 0.5,
+                   vjust = 0.5)
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
+  ggplot(aes(x = `Transacted Price ($)`, 
+           y = `Purchaser Address Indicator`, 
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE, 
+    quantiles = c(0.05, 0.95)
+    ) +
+  scale_fill_manual(
+    name = "Probability",
+    values = c("#FF00FFA0", "#FFE4E1A0", "#0000ffA0"),
+    labels = c("(0, 0.05]", "(0.05, 0.95]", "(0.95, 1]")
+  ) +
+  theme_ridges()+
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_x_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 Central Region by Purchaser Address Indicator for Land Type")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Quarter` == '24Q1', `Planning Region` == "West Region") %>%
+  ggplot(aes(x = `Transacted Price ($)`, 
+           y = `Purchaser Address Indicator`, 
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE, 
+    quantiles = c(0.05, 0.95)
+    ) +
+  scale_fill_manual(
+    name = "Probability",
+    values = c("#FF00FFA0", "#FFE4E1A0", "#0000ffA0"),
+    labels = c("(0, 0.05]", "(0.05, 0.95]", "(0.95, 1]")
+  ) +
+  theme_ridges()+
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_x_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 West Region by Purchaser Address Indicator for Strata Type")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
+  ggplot(aes(x = `Transacted Price ($)`, 
+           y = `Purchaser Address Indicator`, 
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE, 
+    quantiles = c(0.05, 0.95)
+    ) +
+  scale_fill_manual(
+    name = "Probability",
+    values = c("#FF00FFA0", "#FFE4E1A0", "#0000ffA0"),
+    labels = c("(0, 0.05]", "(0.05, 0.95]", "(0.95, 1]")
+  ) +
+  theme_ridges()+
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_x_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 Central Region by Purchaser Address Indicator for Land Type")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Land', `Quarter` == '24Q1', `Planning Region` == "North East Region") %>%
+  ggplot(aes(x = `Transacted Price ($)`, 
+           y = `Purchaser Address Indicator`, 
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE, 
+    quantiles = c(0.05, 0.95)
+    ) +
+  scale_fill_manual(
+    name = "Probability",
+    values = c("#FF00FFA0", "#FFE4E1A0", "#0000ffA0"),
+    labels = c("(0, 0.05]", "(0.05, 0.95]", "(0.95, 1]")
+  ) +
+  theme_ridges()+
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_x_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 North East Region by Purchaser Address Indicator for Land Type")
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata') %>%
+  ggplot(aes(y = `Transacted Price ($)`,            
+           x = Quarter)) +
+  geom_boxplot()+
+  facet_grid(~`Property Type`) +
+  coord_cartesian(xlim=c(1,6)) +
+  scale_y_continuous(labels = scales::comma) +
+  theme_economist()  +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+```{r}
+mean_strata_by_property_type <- df.c %>%
+  filter(`Type of Area` == 'Strata') %>%
+  group_by(`Property Type`) %>%
+  summarise(mean_price = mean(`Transacted Price ($)`))
+
+df.c %>%
+  filter(`Type of Area` == 'Strata') %>%
+  ggplot(aes(x=`Area (SQM)`, 
+           y = `Transacted Price ($)`,
+           color = `Property Type`)) +
+  geom_point() +
+  coord_cartesian(xlim=c(0,1000),
+                  ylim=c(0,50000000)) +
+  geom_smooth(method = lm, se = FALSE) +
+  facet_wrap(~`Property Type`, scales = "free")
+  
+```
+
+```{r}
+mean_land_by_property_type <-  df.c %>%
+  filter(`Type of Area` == 'Land') %>%
+  group_by(`Property Type`) %>%
+  summarise(mean_price = mean(`Transacted Price ($)`))
+
+df.c %>%
+filter(`Type of Area` == 'Land') %>%
+ggplot(aes(x=`Area (SQM)`, 
+           y = `Transacted Price ($)`,
+           color = `Property Type`)) +
+  geom_point() +
+  coord_cartesian(xlim=c(0,1000),
+                  ylim=c(0,50000000)) +
+  geom_smooth(method = lm, se = FALSE) +
+  facet_wrap(~`Property Type`, scales = "free")
+  
+```
+
+```{r}
+
+df.c %>%
+  filter(`Type of Area` == 'Strata') %>%
+  ggplot(aes(x = `Transacted Price ($)`,
+           y = Quarter,
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE,
+    quantiles = 4,
+    quantile_lines = TRUE) +
+  scale_fill_viridis_d(name = "Quartiles") +
+  theme_ridges()+
+  facet_grid(~`Planning Region`, scales = "free")+
+  scale_x_continuous(labels = scales::comma) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) 
+
+```
+
+## 
+
+```{r}
+quarter_means <- df.c %>%
+  group_by(Quarter) %>%
+  summarise(mean_tprice = mean(`Transacted Price ($)`))
+
+df.c %>%
+ggplot(aes(y=`Transacted Price ($)`,
+           x=`Quarter`)
+       )+
+  geom_violin()+
+  geom_point(data = quarter_means, 
+             aes(y = mean_tprice), 
+             color = "red", 
+             size = 3)+
+  scale_y_continuous(labels = scales::comma)+
+  ggtitle("Distribution of Transacted Prices by Quarter with mean")
+```
+
+```{r}
+quarter_means <- df.c %>%
+  filter(`Type of Area` == 'Land') %>%
+  group_by(Quarter) %>%
+  summarise(mean_tprice = mean(`Transacted Price ($)`))
+
+df.c %>% 
+  ggplot(aes(y=`Transacted Price ($)`,
+             x=`Quarter`))+
+  geom_violin()+
+  geom_point(data = quarter_means, 
+             aes(y = mean_tprice), 
+             color = "red", 
+             size = 3)+
+  scale_y_continuous(labels = scales::comma)+
+  ggtitle("Distribution of Transacted Prices by Quarter with mean for Land")
+
+```
+
+```{r}
+quarter_means <- df.c %>%
+  filter(`Type of Area` == 'Strata') %>%
+  group_by(Quarter) %>%
+  summarise(mean_tprice = mean(`Transacted Price ($)`))
+
+df.c %>%
+ggplot(aes(y=`Transacted Price ($)`,
+           x=`Quarter`)
+       )+
+  geom_violin()+
+  geom_point(data = quarter_means, 
+             aes(y = mean_tprice), 
+             color = "red", 
+             size = 3)+
+  scale_y_continuous(labels = scales::comma)+
+  ggtitle("Distribution of Transacted Prices by Quarter with mean for Strata")
+
+```
+
+```{r}
+df.c %>%
+  filter(`Property Type` == 'Condominium', `Type of Sale` == 'Resale') %>%
+ggplot(aes(x = `Quarter`, 
+           y = `Unit Price ($ PSF)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = NA,
+            dotsize = 0.2,
+            overflow = "compress") +
+  coord_flip() +
+  theme_economist() +
+  facet_grid(~`Purchaser Address Indicator`) +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) + 
+  ggtitle("24Q1 Condominium")
+
+```
+
+Some learning points from these plots and tibbles:
+
+1.  Apartment, Condominium and Terrace House seems to be affected most by outliers. There are two extreme outliers for transactions in 23Q1 and they are the two en bloc sales with 60 and 47 units of condominium each. As mention, the 5 en bloc sales will be removed from the data set to enable meaningful analysis.
+
+2.  No. of transactions for Apartment classified under `Type of Area` as Land is low.There is no transaction of Condominium and Executive Condominium as these categories of Property Type are always strata for `Type of Sale`. The URA [Methodology](https://www.ura.gov.sg/reis/coverageandMethodology) Miscellaneous tab explains some of the terminologies.
+
+3.  No. of transactions for Detached House, Semi-Detached House and Terrace House are low compared to the rest of the three categories.
+
+4.  Sub markets to focus on based on the number of transactions could be the following lists.
+
+    -   For Land `Type of Sale`: Detached House, Semi-Detached House, and Terrace House.
+
+    -   For Strata `Type of Sale`: Apartment, Condominium, and Executive Condominium.
+
+5.  However, we should also note that we can prioritise the sub-market for analysis based on the total, mean and median `Transaction Price ($)` in each category (Land and Strata) instead of just looking at volume of transactions. In the `Type of Area` with Total of `Transacted Price ($)` tibbles above, we see that Land type transaction low in volume, the total transactions in the 5 quarters is about 1/5 the total transactions of Stata type sales. However, when we look at the mean and median `Transacted Price ($)`, we observe that mean and median `Transaction Price ($)` Land type is roughly 3 times of Strata type.
+
+    -   This mean that Land type has low volume for number of transactions but generally higher average `Transacted Price ($)`.
+
+    -   For Strata type, it has high volume but lower average `Transacted Price ($)`.
+
+6.  Lastly, the scatter plot of median `Transaction Price ($)` suggest that there is a difference in the median price for the same `Property Type` with different `Type of Area`. Hence, the should study each of this sub-markets individually.
+
+
+### 2.4 Data Wrangling
+
+In this section, we aim to clean the data set to ensure the usefulness and accuracy of the visualisation.
+
+This is achieved by:
+
+1.  Removing irrelevant data and outliers
+2.  Appropriate categorisation of variables
+3.  Additions of new variables to add new dimensions to analysis
+
+### 2.4.1 Removing the en bloc sales (irrelevant data)
+
+For the follow code chunk, we aim to remove all the enbloc sales, including the 5 transactions that we have found in section 2.3. While we have no idea if there are more than 5 cases of en bloc sales, the follow code chunk will effectively remove all the rows with the string "ENBLOC" in `Address` column.
+
+```{r}
+df.c <- df %>%
+  filter(!grepl('ENBLOC', df$Address))
+df.c
+```
+
+In the df.c tibble, it showed that 5 rows had been removed. Now there is only 26,801 rows instead of the original 26,806 rows in the initial df. This confirm that there are only 5 en bloc sales in the data frame.
+
+### 2.4.2 Appropriate categorisation of variables
+
+Previously, we have identified the `Sale Date` as Ordinal quantitative variable largely because it is classified as chr type in R. However, when we apply the knowledge from [Fundamentals of Data Visualization Chapter 2](https://clauswilke.com/dataviz/aesthetic-mapping.html) and [R for Visual Analytics Chapter 17](https://r4va.netlify.app/chap17.html#plotting-calendar-heatmap) date or time in fact, can be treated as discrete or continuous data.
+
+```{r}
+geom_dotplot(stackgroups = TRUE,
+               binpositions = "all",
+               binwidth = 100000,
+               dotsize = 1
+```
+
+```{r}
+
+df.c %>%
+  filter(`Type of Area`== 'Strata',`Property Type` == 'Apartment', `Quarter` == '24Q1') %>%
+ggplot(aes(x =`Transacted Price ($)`,
+           fill = `Purchaser Address Indicator`)) +
+  geom_dotplot(stackgroups = TRUE,
+               binpositions = "all",
+               binwidth = 100000,
+               dotsize = 1) +
+  scale_x_continuous(labels = scales::comma)
+```
+
+```{r}
+df.c %>%
+  filter(`Type of Area` == 'Strata', `Property Type` %in% c('Apartment', 'Condominium','Executive Condominium'), `Quarter` == '24Q1', `Planning Region` == "Central Region", , `Tenure` != 'Freehold') %>%
+ggplot(aes(x = `Property Type`, 
+           y = `Area (SQFT)`)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = NA,
+            dotsize = 0.2) +
+  coord_flip() +
+  theme_economist() +
+  theme(plot.title = element_text(size=14), axis.text.x = element_text(vjust = 3), axis.text.y = element_text(hjust = 1)) +
+  scale_y_continuous(n.breaks = 10) + 
+  ggtitle("24Q1 Central Region - Size of Property")
+```

@@ -292,9 +292,11 @@ Assumptions and considerations for the selecting the sub-markets to visualise:
 
 ### 3.2.1 The Pricing across Planning Regions
 
-These two plots 
+**Plot 1: Pricing for non-freehold Condominium**
+This first plot focus on Condominium that are not of Freehold Tenure. Compared to freehold property, these non-freehold Condominiums are relatively lower price. The plot below shows the distribution of `Transacted Price ($)` in the five `Planning Region` in Singapore, and reveal the median price of each region varies from 1 to 2 million, with North Region with a tighter spread at a lower price than the other four regions. The Central Region has the highest median at 2 million, with a widest spread. The 4th quantile of the Central Region consists of `Transacted Price ($)` between 2.5 to just after 9 million. This shows that the Condominiums with Lease are more affordable in the North and East Region in Singapore, with North East and West Region next, and finally the most expensive Condominium would be the ones found in Central Region. 
 
-**Condominium Tenure(Lease vs Freehold)**
+::: panel-tabset
+## The Plot
 ```{r}
 #| echo: False
 df.c %>%
@@ -317,11 +319,11 @@ df.c %>%
   ggtitle("24Q1 (Lease): Transacted Price by Planning Region") +
   theme(plot.title = element_text(size=12))
 ```
-
+## The Code
 ```{r}
-#| echo: False
+#| eval: False
 df.c %>%
-  filter(`Type of Area`== 'Strata',`Property Type` == 'Condominium', `Quarter` == '24Q1', `Tenure` == 'Freehold') %>%
+  filter(`Type of Area` == 'Strata',`Property Type` == 'Condominium', `Quarter` == '24Q1', `Tenure`!= 'Freehold') %>%
   ggplot(aes(x = `Transacted Price ($)`,
            y = `Planning Region`,
            fill = factor(stat(quantile))
@@ -332,31 +334,32 @@ df.c %>%
     quantiles = 4,
     quantile_lines = TRUE) +
   scale_fill_viridis_d(name = "Quartiles",
-                       option = "H") +
+                       option = "A") +
   scale_x_continuous(name = "Transacted Price in million ($)",
-    labels = c(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15), 
-    breaks = c(0,1000000,2000000,3000000,4000000,5000000,6000000,7000000,8000000,9000000,10000000,11000000, 12000000, 13000000, 14000000, 15000000)) +
+    labels = c(0,1,2,3,4,5,6,7,8,9,10), 
+    breaks = c(0,1000000,2000000,3000000,4000000,5000000,6000000,7000000,8000000,9000000,10000000)) +
   theme_economist() + 
-  ggtitle("24Q1 (Freehold): Distribution of Transacted Price by Planning Region") +
+  ggtitle("24Q1 (Lease): Transacted Price by Planning Region") +
   theme(plot.title = element_text(size=12))
 ```
+:::
 
+### 3.2.2 The Median Unit Price ($ PSF) in Past 5 Quarters
 
-
-
+**Plot 2: Mean and Median Unit Price for non-freehold Condominium**
+Plot 2 focus on the mean and median `Unit Price ($ PSF)` for the non-freehold Condominium in the Central Region. The Mean `Unit Price ($ PSF)` is represented by the red dot in each of the violin plot and boxplot. While we see a slight rise in the mean and median `Unit Price ($ PSF)` in 23Q2, where there are more transactions with `Unit Price ($ PSF)` in the \$2,500 range, represented by the bulge at the top of the violin plot. For the rest of the quarters, the mean and median `Unit Price ($ PSF)` hovers around the range of \$2,000. Despite the mean and median are at \$2,000 for the 24Q1, there is also a sizable transaction of `Unit Price ($ PSF)` of \$3,000 happening in 24Q1, as represented by the slight bulge at the top of the violin plot. 
 
 ::: panel-tabset
 ## The Plot
-
 ```{r}
 #| echo: False
 quarter_means <- df.c %>%
-  filter(`Property Type` == 'Condominium',`Planning Region` == "Central Region") %>%
+  filter(`Property Type` == 'Condominium',`Planning Region` == "Central Region", `Tenure`!= 'Freehold') %>%
   group_by(Quarter) %>%
   summarise(mean_uprice = mean(`Unit Price ($ PSF)`))
 
 df.c %>%
-  filter(`Property Type` == 'Condominium', `Planning Region` == "Central Region") %>%
+  filter(`Property Type` == 'Condominium', `Planning Region` == "Central Region",`Tenure`!= 'Freehold') %>%
   ggplot(aes(y=`Unit Price ($ PSF)`,
            x=`Quarter`)
        )+
@@ -371,18 +374,16 @@ df.c %>%
   theme_economist() +
   ggtitle("Condominium Unit Price ($ PSF) for Central Region") 
 ```
-
 ## The Code
-
 ```{r}
 #| eval: False
 quarter_means <- df.c %>%
-  filter(`Property Type` == 'Condominium',`Planning Region` == "Central Region") %>%
+  filter(`Property Type` == 'Condominium',`Planning Region` == "Central Region", `Tenure`!= 'Freehold') %>%
   group_by(Quarter) %>%
   summarise(mean_uprice = mean(`Unit Price ($ PSF)`))
 
 df.c %>%
-  filter(`Property Type` == 'Condominium', `Planning Region` == "Central Region") %>%
+  filter(`Property Type` == 'Condominium', `Planning Region` == "Central Region",`Tenure`!= 'Freehold') %>%
   ggplot(aes(y=`Unit Price ($ PSF)`,
            x=`Quarter`)
        )+
@@ -392,20 +393,24 @@ df.c %>%
   geom_point(data = quarter_means, 
              aes(y = mean_uprice), 
              color = "red", 
-             size = 3)+
-  scale_y_continuous(labels = scales::comma) +
+             size = 3) +
+    scale_y_continuous(labels = scales::comma) +
   theme_economist() +
   ggtitle("Condominium Unit Price ($ PSF) for Central Region") 
 ```
 :::
 
+### 3.2.3 Purchaser Address Indicator
+
+**Plot 3: Purchaser Address Indicator for non-freehold Condominium**
+Plot 3 focus on the top and bottom 5% of the different types of purchasers for non-freehold Condominium in the Central Region. We assume that the N.A type are purchasers who do not own any property in Singapore. The top 5% of the purchasers with Private Address purchase the units that are priced from \$4.5-\$9 million unit. For HDB and N.A categories, the top 5% are purchasing units that is priced between \$3 to 4 million. Both bottom 5% Private and HDB categories purchase price of \$1 million, while the bottom 5% N.A category purchasers are buying unit just above \$1 million. The plausible reason is that purchaser in N.A. category may want to buy a unit for their own stay since they do not own any other properties. Hence, they are paying slightly more for a larger unit relative to other two types of purchasers, who might be buying studio units for rental income. 
+
 ::: panel-tabset
 ## The Plot
-
 ```{r}
 #| echo: False
 df.c %>%
-  filter(`Property Type` == 'Condominium', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
+  filter(`Property Type` == 'Condominium', `Quarter` == '24Q1', `Planning Region` == "Central Region", `Tenure` != 'Freehold') %>%
   ggplot(aes(x = `Transacted Price ($)`, 
            y = `Purchaser Address Indicator`, 
            fill = factor(stat(quantile))
@@ -428,13 +433,11 @@ df.c %>%
     breaks = c(0,1000000,2000000,3000000,4000000,5000000,6000000,7000000,8000000,9000000,10000000,11000000, 12000000, 13000000, 14000000, 15000000)) + 
   ggtitle("Central Region Condominium: Purchaser Address Indicator 24Q1")
 ```
-
 ## The Code
-
 ```{r}
 #| eval: False
 df.c %>%
-  filter(`Property Type` == 'Condominium', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
+  filter(`Property Type` == 'Condominium', `Quarter` == '24Q1', `Planning Region` == "Central Region", `Tenure` != 'Freehold') %>%
   ggplot(aes(x = `Transacted Price ($)`, 
            y = `Purchaser Address Indicator`, 
            fill = factor(stat(quantile))
@@ -458,31 +461,6 @@ df.c %>%
   ggtitle("Central Region Condominium: Purchaser Address Indicator 24Q1")
 ```
 :::
-
-```{r}
-df.c %>%
-  filter(`Type of Area` == 'Strata', `Property Type` %in% c('Apartment', 'Condominium','Executive Condominium'), `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
-ggplot(aes(x = `Property Type`, 
-           y = `Area (SQFT)`)) +
-  stat_halfeye(adjust = 0.5,
-               justification = -0.2,
-               .width = 0,
-               point_colour = NA) +
-  geom_boxplot(width = .20,
-               outlier.shape = NA) +
-  stat_dots(side = "left", 
-            justification = 1.2, 
-            binwidth = NA,
-            dotsize = 0.2) +
-  coord_flip() +
-  theme_economist() +
-  theme(plot.title = element_text(size=14), axis.text.x = element_text(vjust = 3), axis.text.y = element_text(hjust = 1)) +
-  scale_y_continuous(n.breaks = 10) + 
-  ggtitle("24Q1 Central Region - Size of Property")
-```
-
-
-
 
 ## 4.0 References
 
