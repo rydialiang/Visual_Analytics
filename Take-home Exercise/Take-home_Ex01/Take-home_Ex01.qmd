@@ -294,7 +294,7 @@ Previously, we have identified the `Sale Date` as Ordinal quantitative variable 
 
 ```{r}
 df.c %>%
-  filter(`Type of Area` == 'Land', `Quarter` == '24Q1') %>%
+  filter(`Property Type` == 'Condominium', `Quarter` == '24Q1') %>%
   ggplot(aes(x = `Transacted Price ($)`,
            y = `Planning Region`,
            fill = factor(stat(quantile))
@@ -310,6 +310,29 @@ df.c %>%
   theme_economist() +
   theme(plot.title = element_text(size=12), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
   ggtitle("24Q1 Distribution of Transacted Price by Planning Region")
+```
+
+```{r}
+quarter_means <- df.c %>%
+  filter(`Property Type` == 'Condominium',`Planning Region` == "Central Region") %>%
+  group_by(Quarter) %>%
+  summarise(mean_uprice = mean(`Unit Price ($ PSF)`))
+
+df.c %>%
+  filter(`Property Type` == 'Condominium', `Planning Region` == "Central Region") %>%
+  ggplot(aes(y=`Unit Price ($ PSF)`,
+           x=`Quarter`)
+       )+
+  geom_violin() +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  geom_point(data = quarter_means, 
+             aes(y = mean_uprice), 
+             color = "red", 
+             size = 3)+
+  scale_y_continuous(labels = scales::comma) +
+  theme_economist() +
+  ggtitle("Condominium Unit Price ($ PSF) for Central Region")
 ```
 ```{r}
 df.c %>%
@@ -334,54 +357,9 @@ df.c %>%
   scale_x_continuous(labels = scales::comma) + 
   ggtitle("Central Region Condominium: Purchaser Address Indicator 24Q1")
 ```
-```{r}
-quarter_means <- df.c %>%
-  filter(`Property Type` == 'Condominium',`Planning Region` == "Central Region") %>%
-  group_by(Quarter) %>%
-  summarise(mean_uprice = mean(`Unit Price ($ PSF)`))
-
-df.c %>%
-  filter(`Property Type` == 'Condominium', `Planning Region` == "Central Region") %>%
-  ggplot(aes(y=`Unit Price ($ PSF)`,
-           x=`Quarter`)
-       )+
-  geom_violin() +
-  geom_boxplot(width = .20,
-               outlier.shape = NA) +
-  geom_point(data = quarter_means, 
-             aes(y = mean_uprice), 
-             color = "red", 
-             size = 3)+
-  scale_y_continuous(labels = scales::comma) +
-  theme_economist() +
-  ggtitle("Condominium Unit Price ($ PSF) for Central Region")
-```
 
 
 
-```{r}
-df.c %>%
-  filter(`Property Type` == 'Condominium', `Type of Sale` == 'Resale') %>%
-ggplot(aes(x = `Quarter`, 
-           y = `Unit Price ($ PSF)`)) +
-  stat_halfeye(adjust = 0.5,
-               justification = -0.2,
-               .width = 0,
-               point_colour = NA) +
-  geom_boxplot(width = .20,
-               outlier.shape = NA) +
-  stat_dots(side = "left", 
-            justification = 1.2, 
-            binwidth = NA,
-            dotsize = 0.2,
-            overflow = "compress") +
-  coord_flip() +
-  theme_economist() +
-  facet_grid(~`Purchaser Address Indicator`) +
-  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  scale_y_continuous(labels = scales::comma) + 
-  ggtitle("24Q1 Condominium")
-```
 
 
 ## 4.0 References
