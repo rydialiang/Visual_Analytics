@@ -463,6 +463,25 @@ ggplot(exam,
   coord_flip() +
   theme_wsj()
 ```
+
+```{r}
+#| eval: False
+ggplot(exam, 
+       aes(x = RACE, 
+           y = MATHS)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  stat_dots(side = "left", 
+            justification = 1.2, 
+            binwidth = .5,
+            dotsize = 2) +
+  coord_flip() +
+  theme_wsj()
+```
 :::
 
 ## 5.0 Archival of In-class Ex_02 done in class
