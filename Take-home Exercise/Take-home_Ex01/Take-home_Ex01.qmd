@@ -12,13 +12,17 @@ execute:
 
 # **Building Elegant and yet Informative Data Visualisation**
 
-For the final product, you can use the table of content to the right to navigate straight to [**3.0 Data Visualisation**](https://va24-ry.netlify.app/take-home%20exercise/take-home_ex01/take-home_ex01#data-visualisation). If not, you can proceed to enjoy reading the step by step thought process for this visualisation.
+For the identification of sub-market, you can navigate straight to [2.3.3 Identifying the sub-market](https://va24-ry.netlify.app/take-home%20exercise/take-home_ex01/take-home_ex01#identifying-sub-markets)
+
+For the final product, you can navigate straight to [**3.0 Data Visualisation**](https://va24-ry.netlify.app/take-home%20exercise/take-home_ex01/take-home_ex01#data-visualisation).
+
+If not, you can proceed to enjoy reading the step by step thought process for this visualisation.
 
 ## 1.0 Overview
 
 ### 1.1 Setting the scene
 
-There are two major residential property market in Singapore, namely public and private housing. Public housing aims to meet the basic need of the general public with monthly \$14,000 for families/couples buying a new HDB flat. Singapore is a city-state with limited land resource. Housing, on the other hand, is one of the basic need of people of this city-state. In order to ensure that all citizen in the country can access to affordable housing, the government have initiated massive public housing programme since independent.
+There are two major residential property market in Singapore, namely public and private housing. Public housing aims to meet the basic need of the general public with monthly household income less than or equal to S\$14,000. For families with monthly household income more than S\$14,000, they need to turn to the private residential market.
 
 ### 1.2 The Task
 
@@ -117,7 +121,7 @@ glimpse(df)
 On top of the data types that is automatically assigned by R to help the program know how to process it, we can split the data into 4 types of data category to help ourselves for future analytics application. You can refer to the FAQ, Data Dictionary and Methodology in [URA website](https://www.ura.gov.sg/reis/dataDictionary).
 
 | Variable                      | Type                               | Appropriate Scale | Remarks                                                      |
-|------------------|-------------------|-----------------|-------------------|
+|------------------|-------------------|------------------|-------------------|
 | `Project Name`                | Qualitative / Nominal              | Discrete          |                                                              |
 | `Transacted Price ($)`        | Quantitative/ Numerical Continuous | Continuous        |                                                              |
 | `Area (SQFT)`                 | Quantitative/ Numerical Continuous | Continuous        |                                                              |
@@ -198,14 +202,14 @@ In the df.c tibble, it showed that 5 rows had been removed. Now there is only 26
 
 ### 2.3.2 Treatment for multiple units Transactions
 
-After removing the 5 en bloc sales, we are still left with 7 transactions that has between 2 to 4 units sold per transaction. This has caused the `Transacted Price ($)` to be greatly inflated. In dealing with this, we can (1) choose to divide the `Transacted Price ($)` by the number of units sold, or (2) remove them from the analysis. In this analysis, we will be using method (2), to remove these transactions from the data set for further analysis. The reason to do so is that since we cannot determine at this stage that each unit in the sales are equally priced, or whether each unit has the same `Area` size. 
+After removing the 5 en bloc sales, we are still left with 7 transactions that has between 2 to 4 units sold per transaction. This has caused the `Transacted Price ($)` to be greatly inflated. In dealing with this, we can (1) choose to divide the `Transacted Price ($)` by the number of units sold, or (2) remove them from the analysis. In this analysis, we will be using method (2), to remove these transactions from the data set for further analysis. The reason to do so is that we cannot determine at this stage that each unit in the sales are equally priced, or whether each unit has the same `Area` size.
 
 ```{r}
 df.c <- df.c %>%
   filter(`Number of Units` <= 1)
 ```
 
-### 2.3.3 Identifying Sub-markets
+### 2.3.3 Identifying the sub-markets
 
 **Land vs. Strata**
 
@@ -260,24 +264,67 @@ df %>%
              y = `Median Transaction Price ($)`, 
              color = `Type of Area`)) +  # Adding color aesthetic based on Type of Area
   geom_point() +
-  theme_economist() +
   theme(axis.text.x = element_text(size = 8, angle = 90, vjust = 0.5, hjust=1)) +
   scale_y_continuous(labels = scales::comma) +
   labs(color = "Type of Area")
 ```
 :::
 
+**Conclusion**
+
+From the Median Transacted Price plot above, we observe that the 10 sub-markets are distinct in pricing, with `Land` `Type of Area` generally priced a lot higher than `Strata`, especially in the `Apartment` and `Detached House` categories.
+
 ## 3.0 Data Visualisation
 
-In this section, we will focus on the condominium sub-market in Singapore.
+### 3.1.1 Selection of Sub-markets
 
-::: panel-tabset
-## The Plot
+In this section, we will focus on the Apartment(Strata) Condominium and Executive Condominium sub-market in Singapore, out of the 10 sub-markets identified in section 2.3.3. As stated in section [1.1 Setting the scene](https://va24-ry.netlify.app/take-home%20exercise/take-home_ex01/take-home_ex01#setting-the-scene), for families with monthly household income more than S\$14,000, they need to turn to the private residential market. 
+
+Assumptions and considerations for the selecting the sub-markets to visualise:
+
+1.    Affordability - According to the this [article](https://www.propertyguru.com.sg/property-guides/the-different-types-of-housing-in-singapore-9916), apartment(Strata), Executive Condominium and Condominium are the next most affordable type of private housing if the family is not eligible to purchase public housing. This corroborate with the Median Transaction Price plot above. 
+
+2.    
+
+### 3.1.2  Questions for the visualisation to answer
+
+For the visualisation below, we will attempt to answer the following questions:
+
+1.    What is the pricing for these 3 sub-markets?
+
+## 3.2 The Plots 
+
+### 3.2.1 The Pricing across Planning Regions
+
+**Apartment Tenure(Lease vs Freehold)**
+```{r}
+#| echo: False
+df.c %>%
+  filter(`Type of Area`== 'Strata',`Property Type` == 'Apartment', `Quarter` == '24Q1', `Tenure`!= 'Freehold') %>%
+  ggplot(aes(x = `Transacted Price ($)`,
+           y = `Planning Region`,
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE,
+    quantiles = 4,
+    quantile_lines = TRUE) +
+  scale_fill_viridis_d(name = "Quartiles",
+                       option = "A") +
+  theme_ridges()+
+  scale_x_continuous(labels = scales::comma, 
+                     breaks = c(2000000,4000000,6000000,8000000),
+                     limits = c(0,8000000)) +
+  theme_economist() + 
+  ggtitle("24Q1 Distribution of Transacted Price by Planning Region") +
+  theme(plot.title = element_text(size=12))
+```
 
 ```{r}
 #| echo: False
 df.c %>%
-  filter(`Property Type` == 'Condominium', `Quarter` == '24Q1') %>%
+  filter(`Type of Area`== 'Strata',`Property Type` == 'Apartment', `Quarter` == '24Q1', `Tenure` == 'Freehold') %>%
   ggplot(aes(x = `Transacted Price ($)`,
            y = `Planning Region`,
            fill = factor(stat(quantile))
@@ -287,20 +334,28 @@ df.c %>%
     calc_ecdf = TRUE,
     quantiles = 4,
     quantile_lines = TRUE) +
-  scale_fill_viridis_d(name = "Quartiles") +
+  scale_fill_viridis_d(name = "Quartiles",
+                       option = "H") +
   theme_ridges()+
-  scale_x_continuous(labels = scales::comma) +
-  theme_economist() +
-  theme(plot.title = element_text(size=12), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
-  ggtitle("24Q1 Distribution of Transacted Price by Planning Region")
+  scale_x_continuous(labels = scales::comma, 
+                     breaks = c(2000000,4000000,6000000,8000000),
+                     limits = c(0,8000000)) +
+  theme_economist() + 
+  ggtitle("24Q1 Distribution of Transacted Price by Planning Region") +
+  theme(plot.title = element_text(size=12))
 ```
 
-## The Code
 
+```{r}
+#| echo: False
+Lease / Freehold 
+```
+
+## Tenure(Lease) Code
 ```{r}
 #| eval: False
 df.c %>%
-  filter(`Property Type` == 'Condominium', `Quarter` == '24Q1') %>%
+  filter(`Type of Area`== 'Strata',`Property Type` %in% c('Apartment','Condominium','Executive Condominium'), `Quarter` == '24Q1', `Tenure`!= 'Freehold') %>%
   ggplot(aes(x = `Transacted Price ($)`,
            y = `Planning Region`,
            fill = factor(stat(quantile))
@@ -317,6 +372,9 @@ df.c %>%
   theme(plot.title = element_text(size=12), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
   ggtitle("24Q1 Distribution of Transacted Price by Planning Region")
 ```
+## Tenure(Freehold) Plot
+
+
 :::
 
 ::: panel-tabset
