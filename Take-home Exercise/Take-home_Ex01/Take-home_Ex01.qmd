@@ -196,7 +196,16 @@ df.c
 
 In the df.c tibble, it showed that 5 rows had been removed. Now there is only 26,801 rows instead of the original 26,806 rows in the initial df. This confirm that there are only 5 en bloc sales in the data frame.
 
-### 2.3.2 Identifying Sub-markets
+### 2.3.2 Treatment for multiple units Transactions
+
+After removing the 5 en bloc sales, we are still left with 7 transactions that has between 2 to 4 units sold per transaction. This has caused the `Transacted Price ($)` to be greatly inflated. In dealing with this, we can (1) choose to divide the `Transacted Price ($)` by the number of units sold, or (2) remove them from the analysis. In this analysis, we will be using method (2), to remove these transactions from the data set for further analysis. The reason to do so is that since we cannot determine at this stage that each unit in the sales are equally priced, or whether each unit has the same `Area` size. 
+
+```{r}
+df.c <- df.c %>%
+  filter(`Number of Units` <= 1)
+```
+
+### 2.3.3 Identifying Sub-markets
 
 **Land vs. Strata**
 
