@@ -43,7 +43,10 @@ T he `pac::p_load()` function to load the required R packages in the working env
 
 ```{r}
 # load tidyverse from pacman
-pacman::p_load(tidyverse,dplyr,ggridges,ggthemes,colorspace,ggiraph,plotly,patchwork, lubridate, ggrepel,ggdist)
+pacman::p_load(tidyverse,dplyr,ggridges,
+               ggthemes,colorspace,ggiraph,
+               plotly,patchwork,lubridate, 
+               ggrepel,ggdist)
 ```
 
 ### 2.2 Importing the data sets
@@ -91,34 +94,67 @@ To have a basic understanding of all 22 variables, `glimpse()` is used with 2024
 
 Interestingly, `Nett Price` is classified as characters, as it contains `-` character, although the rest of the columns should return doubles like `Transacted Price ($)`
 
+::: panel-tabset
+## The Code
+
 ```{r}
+#| eval: False
 # have a basic understanding for all 22 variables
 glimpse(df)
 ```
+
+## The Output
+
+```{r}
+#| echo: False
+# have a basic understanding for all 22 variables
+glimpse(df)
+```
+:::
 
 ### 2.3 Understanding the data
 
 On top of the data types that is automatically assigned by R to help the program know how to process it, we can split the data into 4 types of data category to help ourselves for future analytics application. You can refer to the FAQ, Data Dictionary and Methodology in [URA website](https://www.ura.gov.sg/reis/dataDictionary).
 
-*Qualitative*
+| Variable                      | Type                               | Appropriate Scale | Remarks                                                      |
+|------------------|-------------------|-----------------|-------------------|
+| `Project Name`                | Qualitative / Nominal              | Discrete          |                                                              |
+| `Transacted Price ($)`        | Quantitative/ Numerical Continuous | Continuous        |                                                              |
+| `Area (SQFT)`                 | Quantitative/ Numerical Continuous | Continuous        |                                                              |
+| `Unit Price ($ PSF)`          | Quantitative/ Numerical Continuous | Continuous        |                                                              |
+| `Sales Date`                  | Date / Ordinal                     | Discrete          |                                                              |
+| `Address`                     | Qualitative / Nominal              | Discrete          |                                                              |
+| `Type of Sale`                | Qualitative / Nominal              | Discrete          |                                                              |
+| `Type of Area`                | Qualitative / Nominal              | Discrete          |                                                              |
+| `Area (SQM)`                  | Quantitative/ Numerical Continuous | Continuous        |                                                              |
+| `Unit Price ($ PSF)`          | Quantitative/ Numerical Continuous | Continuous        |                                                              |
+| `Nett Price($)`               | Quantitative/ Numerical Continuous | Continuous        |                                                              |
+| `Property Type`               | Qualitative/ Nominal               | Discrete          |                                                              |
+| `Number of Units`             | Quantitative/ Numerical Discrete   | Discrete          |                                                              |
+| `Tenure`                      | Nominal + Date / Ordinal           | None + Discrete   | Mixture of remaining lease date and tenure type and duration |
+| `Completion Date`             | Nominal + Date / Ordinal           | None + Discrete   | Mixture of "Uncomplete" status and completion date.          |
+| `Purchaser Address Indicator` | Qualitative / Nominal              | Discrete          |                                                              |
+| `Postal Code`                 | Qualitative / Nominal              | Discrete          |                                                              |
+| `Postal District`             | Qualitative / Nominal              | Discrete          |                                                              |
+| `Postal Sector`               | Qualitative / Nominal              | Discrete          |                                                              |
+| `Planning Region`             | Qualitative / Nominal              | Discrete          |                                                              |
+| `Planning Area`               | Qualitative / Nominal              | Discrete          |                                                              |
+| `Quarter`                     | Date / Ordinal                     | Discrete          | Created for ease of data analysis                            |
 
-1\. Nominal: `Project Name`, `Address`, `Type of Sale`,
+[**Notes**]{.underline}
 
-2\. Ordinal: `Type of Area`, `Property Type`, `Sales Date`, `Purchaser Address Indicator`, `Postal Code`, `Postal District`, `Postal Sector`, `Planning Region`, `Planning Area` and `Quarter`.
+1.  Contextually, some of the variables could be classified under ordinal. For example, I can choose to fill in the order for `Purchaser Address Indicator` as `Private` category is higher order than `HDB` category. The context is purchaser that address is `Private` is likely to be a person with higher Social Economic Status (SES) compared to a purchaser with `HDB` as address. Same could be applied to `Postal Code`, `Postal District`, `Postal Sector`, `Planning Region` and `Planning Area`.
+2.  Special Case: `Tenure` is still a character data type as of now. If we choose to use this column for analysis, we do need to do data preparation on this. `Tenure` date could also be classified under continuous data for more granularity. This variable will be a mixture of nominal data type with categories like "Freehold", and also quantitative data type using its `Tenure` date.
+3.  `Nett Price($)` is still a character data type as of now. If we choose to use this column for analysis, we do need to do data preparation on this.
+4.  Special Case: `Completion Date` is classified as character, but a quick look at the data `df`, we will realise that this variable is a mix of quantitative and qualitative data type of `Uncomplete` and actual date of completion, which could be converted and analyse as doubles.
 
-Some of the variables I have classified under ordinal are contextual. For example, I can choose to fill in the order for `Purchaser Address Indicator` as `Private` category is higher order than `HDB` category. The context is purchaser that address is `Private` is likely to be a person with higher Social Economic Status (SES) compared to a purchaser with `HDB` as address. Same could be applied to `Postal Code`, `Postal District`, `Postal Sector`, `Planning Region` and `Planning Area`.
+[**For simplicity of data analysis**]{.underline}
 
-*Quantitative*
+1\. `Transacted Price ($)` and `Nett Price($)` are similar. In this analysis, we will use `Transacted Price ($)` for simplicity, as `Nett Price($)` has fair amount of missing data, and it is prices after deducting the value of the indirect discounts or benefits, and not representative for all transactions.
 
-3\. Discrete: `Number of Units` and `Tenure`. Note that `Tenure` is still a chr data type as of now. If we choose to use this column for analysis, we do need to do data preparation on this. `Tenure` could also be classified under continuous data for more granularity.
+2.  `Area (SQFT)` and `Area (SQM)`, and `Unit Price ($ PSF)` and `Unit Price ($ PSM)` are similar measures in different unit. We will use `Area (SQFT)` and `Unit Price ($ PSF)`
 
-4\. Continuous: `Transacted Price ($)`,`Area (SQFT)`, `Unit Price ($ PSF)`, `Area (SQM)`, `Unit Price ($ PSM)`, and `Nett Price($)`. Note that `Nett Price($)` is still a chr data type as of now. If we choose to use this column for analysis, we do need to do data preparation on this.
-
-Special Case: `Completion Date` is classified as chr, but a quick look at the data `df`, we will realise that this variable is a mix of quantitative and qualitative data type of `Uncomplete` and actual date of completion, which could be converted and analyse as doubles.
-
-Some important observations: 1. `Transacted Price ($)` and `Nett Price($)` are similar. In this analysis, we will use `Transacted Price ($)` for simplicity, as `Nett Price($)` has fair amount of missing data, and it is prices after deducting the value of the indirect discounts or benefits, and not representive for all transactions. 1. `Area (SQFT)` and `Area (SQM)`, and `Unit Price ($ PSF)` and `Unit Price ($ PSM)` are similar measures in different unit. We will use `Area (SQFT)` and `Unit Price ($ PSF)`
-
-Next we look at the basic statistics of the current data using summary()
+Next we look at the basic statistics of the current data using `summary()`
 
 ::: panel-tabset
 ### The Output
@@ -148,155 +184,7 @@ df %>%
 
 We have 12 rows that have transactions containing more than 1 unit sold, and a check on the `Address` shows that there are 5 sales that are en bloc cases which should be remove from the analysis. These en bloc cases are likely sales to companies for purpose of redevelopment rather than individual purchasers. See this [link](https://www.businesstimes.com.sg/companies-markets/meyer-park-sold-uol-singapore-land-group-jv-s39218-million-third-en-bloc-attempt) on the Meyer Park en bloc transaction. Otherwise, those 7 cases of transactions with more than one unit sold should be included as are likely the cases of purchase of multiple units or the purchase of multiple adjacent plots of land.
 
-Let's take a quick look at distribution before any data wrangling:
-
-```{r}
-df %>%
-  ggplot(aes(y = `Transacted Price ($)`,            
-           x = `Property Type`)) +
-  geom_boxplot()+
-  facet_grid(~Quarter) +
-  coord_cartesian(xlim=c(1,6)) +
-  scale_y_continuous(labels = scales::comma) +
-  theme_wsj() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-
-```
-
-```{r}
-ggplot(data = df ,
-       aes(x = `Transacted Price ($)`,
-           y = Quarter,
-           fill = factor(stat(quantile))
-           )) +
-  stat_density_ridges(
-    geom = "density_ridges_gradient",
-    calc_ecdf = TRUE,
-    quantiles = 4,
-    quantile_lines = TRUE) +
-  scale_fill_economist(name = "Quartiles") +
-  theme_ridges() +
-  facet_wrap(~`Property Type`,scales = "free") +
-  theme_economist() +
-  scale_x_continuous(labels = NULL)
-```
-
-### 2.3.1 Identifying Sub-markets
-
-**Land vs. Strata**
-
-To lend some background context, you can refer to this link: [Landed vs. Strata Landed](https://plbinsights.com/landed-vs-strata-landed-whats-the-difference-how-have-they-performed-in-recent-years/#:~:text=According%20to%20the%20URA%20website,as%20a%20pure%20landed%20property.) Basically, `Strata` means you only owns the property build on this land, but do not own the land itself. `Land` means you own the land and have more freedom and responsibility in terms of the constructions etc. The application of this knowledge for analysis is that `Strata` and `Land` classification can be identify as the sub-markets as owning a piece of land is likely to be more expensive for the purchaser compared to `Strata` title.
-
-```{r}
-df %>%
-  filter(`Type of Area` == 'Land') %>%
-  ggplot(aes(x= `Quarter`,
-           fill = `Purchaser Address Indicator`)) +
-  geom_bar() +
-  facet_grid(~`Property Type`) +
-  theme_economist() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  ggtitle("Land: No. of Transactions by Property Type")
-```
-
-```{r}
-df %>%
-  filter(`Type of Area` == 'Strata') %>%
-  ggplot(aes(x= `Quarter`,
-           fill = `Purchaser Address Indicator`)) +
-  geom_bar() +
-  facet_wrap(~`Property Type`) +
-  theme_economist() +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-  ggtitle("Strata: No. of Transactions by 'Property Type'")
-```
-
-To understand which `Type of Area` has high market value by `Transacted Price ($)`:
-
-```{r}
-df %>%
-  select(`Transacted Price ($)`,`Type of Area`) %>%
-  group_by(`Type of Area`) %>%
-  summarise(`Total Transaction Price ($)` = sum(`Transacted Price ($)`), `Mean Transaction Price ($)` = mean(`Transacted Price ($)`), `Median Transaction Price ($)` = median(`Transacted Price ($)`))
-```
-
-Diving a bit deeper.We segregate them by `Property Type`
-
-```{r}
-df %>%
-  select(`Transacted Price ($)`,`Type of Area`, `Property Type`) %>%
-  group_by(`Property Type`, `Type of Area`) %>%
-  summarise(`Median Transaction Price ($)` = median(`Transacted Price ($)`))
-```
-
-::: panel-tabset
-## The Plot
-```{r}
-#| echo: False
-df %>%
-  select(`Transacted Price ($)`, `Type of Area`, `Property Type`) %>%
-  group_by(`Property Type`, `Type of Area`) %>%
-  summarise(`Median Transaction Price ($)` = median(`Transacted Price ($)`, .groups = 'drop')) %>%
-  ggplot(aes(x = `Property Type`, 
-             y = `Median Transaction Price ($)`, 
-             color = `Type of Area`)) +  # Adding color aesthetic based on Type of Area
-  geom_point() +
-  theme_economist() +
-  theme(axis.text.x = element_text(size = 8, angle = 90, vjust = 0.5, hjust=1)) +
-  scale_y_continuous(labels = scales::comma) +
-  labs(color = "Type of Area")
-```
-## The Code
-```{r}
-#| eval: False
-df %>%
-  select(`Transacted Price ($)`, `Type of Area`, `Property Type`) %>%
-  group_by(`Property Type`, `Type of Area`) %>%
-  summarise(`Median Transaction Price ($)` = median(`Transacted Price ($)`, .groups = 'drop')) %>%
-  ggplot(aes(x = `Property Type`, 
-             y = `Median Transaction Price ($)`, 
-             color = `Type of Area`)) +  # Adding color aesthetic based on Type of Area
-  geom_point() +
-  theme_economist() +
-  theme(axis.text.x = element_text(size = 8, angle = 90, vjust = 0.5, hjust=1)) +
-  scale_y_continuous(labels = scales::comma) +
-  labs(color = "Type of Area")
-```
-:::
-
-Some learning points from these plots and tibbles:
-
-1.  Apartment, Condominium and Terrace House seems to be affected most by outliers. There are two extreme outliers for transactions in 23Q1 and they are the two en bloc sales with 60 and 47 units of condominium each. As mention, the 5 en bloc sales will be removed from the data set to enable meaningful analysis.
-
-2.  No. of transactions for Apartment classified under `Type of Area` as Land is low.There is no transaction of Condominium and Executive Condominium as these categories of Property Type are always strata for `Type of Sale`. The URA [Methodology](https://www.ura.gov.sg/reis/coverageandMethodology) Miscellaneous tab explains some of the terminologies.
-
-3.  No. of transactions for Detached House, Semi-Detached House and Terrace House are low compared to the rest of the three categories.
-
-4.  Sub markets to focus on based on the number of transactions could be the following lists.
-
-    -   For Land `Type of Sale`: Detached House, Semi-Detached House, and Terrace House.
-
-    -   For Strata `Type of Sale`: Apartment, Condominium, and Executive Condominium.
-
-5.  However, we should also note that we can prioritise the sub-market for analysis based on the total, mean and median `Transaction Price ($)` in each category (Land and Strata) instead of just looking at volume of transactions. In the `Type of Area` with Total of `Transacted Price ($)` tibbles above, we see that Land type transaction low in volume, the total transactions in the 5 quarters is about 1/5 the total transactions of Stata type sales. However, when we look at the mean and median `Transacted Price ($)`, we observe that mean and median `Transaction Price ($)` Land type is roughly 3 times of Strata type.
-
-    -   This mean that Land type has low volume for number of transactions but generally higher average `Transacted Price ($)`.
-
-    -   For Strata type, it has high volume but lower average `Transacted Price ($)`.
-
-6.  Lastly, the scatter plot of median `Transaction Price ($)` suggest that there is a difference in the median price for the same `Property Type` with different `Type of Area`. Hence, the should study each of this sub-markets individually.
-
-### 2.4 Data Wrangling
-
-In this section, we aim to clean the data set to ensure the usefulness and accuracy of the visualisation.
-
-This is achieved by:
-
-1.  Removing irrelevant data and outliers
-2.  Appropriate categorisation of variables
-3.  Additions of new variables to add new dimensions to analysis
-
-### 2.4.1 Removing the en bloc sales (irrelevant data)
+### 2.3.1 Removing the en bloc sales (irrelevant data)
 
 For the follow code chunk, we aim to remove all the enbloc sales, including the 5 transactions that we have found in section 2.3. While we have no idea if there are more than 5 cases of en bloc sales, the follow code chunk will effectively remove all the rows with the string "ENBLOC" in `Address` column.
 
@@ -308,17 +196,75 @@ df.c
 
 In the df.c tibble, it showed that 5 rows had been removed. Now there is only 26,801 rows instead of the original 26,806 rows in the initial df. This confirm that there are only 5 en bloc sales in the data frame.
 
-### 2.4.2 Appropriate categorisation of variables
+### 2.3.2 Identifying Sub-markets
 
-Previously, we have identified the `Sale Date` as Ordinal quantitative variable largely because it is classified as chr type in R. However, when we apply the knowledge from [Fundamentals of Data Visualization Chapter 2](https://clauswilke.com/dataviz/aesthetic-mapping.html) and [R for Visual Analytics Chapter 17](https://r4va.netlify.app/chap17.html#plotting-calendar-heatmap) date or time in fact, can be treated as discrete or continuous data.
+**Land vs. Strata**
 
+To lend some background context, you can refer to this link: [Landed vs. Strata Landed](https://plbinsights.com/landed-vs-strata-landed-whats-the-difference-how-have-they-performed-in-recent-years/#:~:text=According%20to%20the%20URA%20website,as%20a%20pure%20landed%20property.) Basically, `Strata` means you only owns the property build on this land, but do not own the land itself. `Land` means you own the land and have more freedom and responsibility in terms of the constructions etc. The application of this knowledge for analysis is that `Strata` and `Land` classification can be identify as the sub-markets as owning a piece of land is likely to be more expensive for the purchaser compared to `Strata` title.
+
+The plot below shows the 10 sub-markets in Singapore private housing market.
+
+**Land**
+
+1.  Apartment
+2.  Detached House
+3.  Semi-Detached House
+4.  Terrace House
+
+**Strata**
+
+1.  Apartment
+2.  Condominium
+3.  Detached House
+4.  Executive Condominium
+5.  Semi-Detached House
+6.  Terrace House
+
+::: panel-tabset
+## The Plot
+
+```{r}
+#| echo: False
+df.c %>%
+  select(`Transacted Price ($)`, `Type of Area`, `Property Type`) %>%
+  group_by(`Property Type`, `Type of Area`) %>%
+  summarise(`Median Transaction Price ($)` = median(`Transacted Price ($)`, .groups = 'drop')) %>%
+  ggplot(aes(x = `Property Type`, 
+             y = `Median Transaction Price ($)`, 
+             color = `Type of Area`)) +  # Adding color aesthetic based on Type of Area
+  geom_point() +
+  theme_economist() +
+  theme(axis.text.x = element_text(size = 8, angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) +
+  labs(color = "Type of Area")
+```
+
+## The Code
+
+```{r}
+#| eval: False
+df %>%
+  select(`Transacted Price ($)`, `Type of Area`, `Property Type`) %>%
+  group_by(`Property Type`, `Type of Area`) %>%
+  summarise(`Median Transaction Price ($)` = median(`Transacted Price ($)`, .groups = 'drop')) %>%
+  ggplot(aes(x = `Property Type`, 
+             y = `Median Transaction Price ($)`, 
+             color = `Type of Area`)) +  # Adding color aesthetic based on Type of Area
+  geom_point() +
+  theme_economist() +
+  theme(axis.text.x = element_text(size = 8, angle = 90, vjust = 0.5, hjust=1)) +
+  scale_y_continuous(labels = scales::comma) +
+  labs(color = "Type of Area")
+```
+:::
 
 ## 3.0 Data Visualisation
 
-In this section, we will focus on the condominium sub market in Singapore. 
+In this section, we will focus on the condominium sub-market in Singapore.
 
 ::: panel-tabset
 ## The Plot
+
 ```{r}
 #| echo: False
 df.c %>%
@@ -339,7 +285,9 @@ df.c %>%
   theme(plot.title = element_text(size=12), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
   ggtitle("24Q1 Distribution of Transacted Price by Planning Region")
 ```
+
 ## The Code
+
 ```{r}
 #| eval: False
 df.c %>%
@@ -362,9 +310,9 @@ df.c %>%
 ```
 :::
 
-
-::: panel-tabset 
+::: panel-tabset
 ## The Plot
+
 ```{r}
 #| echo: False
 quarter_means <- df.c %>%
@@ -388,7 +336,9 @@ df.c %>%
   theme_economist() +
   ggtitle("Condominium Unit Price ($ PSF) for Central Region") 
 ```
+
 ## The Code
+
 ```{r}
 #| eval: False
 quarter_means <- df.c %>%
@@ -416,6 +366,7 @@ df.c %>%
 
 ::: panel-tabset
 ## The Plot
+
 ```{r}
 #| echo: False
 df.c %>%
@@ -440,7 +391,9 @@ df.c %>%
   scale_x_continuous(labels = scales::comma) + 
   ggtitle("Central Region Condominium: Purchaser Address Indicator 24Q1")
 ```
+
 ## The Code
+
 ```{r}
 #| eval: False
 df.c %>%
@@ -466,9 +419,6 @@ df.c %>%
   ggtitle("Central Region Condominium: Purchaser Address Indicator 24Q1")
 ```
 :::
-
-
-
 
 ## 4.0 References
 
