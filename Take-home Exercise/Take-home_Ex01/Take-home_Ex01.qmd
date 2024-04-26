@@ -292,7 +292,10 @@ Previously, we have identified the `Sale Date` as Ordinal quantitative variable 
 
 ## 3.0 Data Visualisation
 
+::: panel-tabset
+## The Plot
 ```{r}
+#| echo: False
 df.c %>%
   filter(`Property Type` == 'Condominium', `Quarter` == '24Q1') %>%
   ggplot(aes(x = `Transacted Price ($)`,
@@ -311,8 +314,36 @@ df.c %>%
   theme(plot.title = element_text(size=12), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
   ggtitle("24Q1 Distribution of Transacted Price by Planning Region")
 ```
-
+## The Code
 ```{r}
+#| eval: False
+df.c %>%
+  filter(`Property Type` == 'Condominium', `Quarter` == '24Q1') %>%
+  ggplot(aes(x = `Transacted Price ($)`,
+           y = `Planning Region`,
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE,
+    quantiles = 4,
+    quantile_lines = TRUE) +
+  scale_fill_viridis_d(name = "Quartiles") +
+  theme_ridges()+
+  scale_x_continuous(labels = scales::comma) +
+  theme_economist() +
+  theme(plot.title = element_text(size=12), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + 
+  ggtitle("24Q1 Distribution of Transacted Price by Planning Region")
+```
+:::
+
+
+::: panel-tabset 
+## The Plot
+
+## The Code
+```{r}
+#| echo: False
 quarter_means <- df.c %>%
   filter(`Property Type` == 'Condominium',`Planning Region` == "Central Region") %>%
   group_by(Quarter) %>%
@@ -332,9 +363,14 @@ df.c %>%
              size = 3)+
   scale_y_continuous(labels = scales::comma) +
   theme_economist() +
-  ggtitle("Condominium Unit Price ($ PSF) for Central Region")
+  ggtitle("Condominium Unit Price ($ PSF) for Central Region") 
 ```
+:::
+
+::: panel-tabset
+## The Plot
 ```{r}
+#| echo: False
 df.c %>%
   filter(`Property Type` == 'Condominium', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
   ggplot(aes(x = `Transacted Price ($)`, 
@@ -357,7 +393,32 @@ df.c %>%
   scale_x_continuous(labels = scales::comma) + 
   ggtitle("Central Region Condominium: Purchaser Address Indicator 24Q1")
 ```
-
+## The Code
+```{r}
+#| eval: False
+df.c %>%
+  filter(`Property Type` == 'Condominium', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
+  ggplot(aes(x = `Transacted Price ($)`, 
+           y = `Purchaser Address Indicator`, 
+           fill = factor(stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE, 
+    quantiles = c(0.05, 0.95)
+    ) +
+  scale_fill_manual(
+    name = "Percentage of Total",
+    values = c("#FF00FFA0", "#FFE4E1A0", "#0000ffA0"),
+    labels = c("Bottom 5%", "5-95%", "Top 5%")
+  ) +
+  theme_ridges()+
+  theme_economist() +
+  theme(plot.title = element_text(size=12), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  scale_x_continuous(labels = scales::comma) + 
+  ggtitle("Central Region Condominium: Purchaser Address Indicator 24Q1")
+```
+:::
 
 
 
