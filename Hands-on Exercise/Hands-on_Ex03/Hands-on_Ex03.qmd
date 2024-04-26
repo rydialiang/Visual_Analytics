@@ -703,7 +703,7 @@ DT::datatable(exam_data, class= "compact")
 ### 2.7.2 Linked brushing: crosstalk method
 
 ::: panel-tabset
-### The Plot
+## The Plot
 ```{r}
 #| echo: False
 d <- highlight_key(exam_data) 
@@ -739,7 +739,6 @@ crosstalk::bscols(gg,
                   DT::datatable(d), 
                   widths = 5) 
 ```
-:::
 
 Things to learn from the code chunk:
 
@@ -747,6 +746,7 @@ Things to learn from the code chunk:
 
 *bscols()* is a helper function of crosstalk package. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. **Warning**: This will bring in all of Bootstrap!.
 
+:::
 
 
 
