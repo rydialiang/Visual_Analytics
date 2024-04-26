@@ -12,7 +12,7 @@ execute:
 
 # **Building Elegant and yet Informative Data Visualisation**
 
-For the identification of sub-market, you can navigate straight to [2.3.3 Identifying the sub-market](https://va24-ry.netlify.app/take-home%20exercise/take-home_ex01/take-home_ex01#identifying-sub-markets)
+For the identification of sub-market, you can navigate straight to [**2.3.3 Identifying the sub-market**](https://va24-ry.netlify.app/take-home%20exercise/take-home_ex01/take-home_ex01#identifying-the-sub-markets)
 
 For the final product, you can navigate straight to [**3.0 Data Visualisation**](https://va24-ry.netlify.app/take-home%20exercise/take-home_ex01/take-home_ex01#data-visualisation).
 
