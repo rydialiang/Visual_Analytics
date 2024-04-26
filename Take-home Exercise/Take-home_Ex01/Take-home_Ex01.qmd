@@ -340,10 +340,32 @@ df.c %>%
 
 ::: panel-tabset 
 ## The Plot
-
-## The Code
 ```{r}
 #| echo: False
+quarter_means <- df.c %>%
+  filter(`Property Type` == 'Condominium',`Planning Region` == "Central Region") %>%
+  group_by(Quarter) %>%
+  summarise(mean_uprice = mean(`Unit Price ($ PSF)`))
+
+df.c %>%
+  filter(`Property Type` == 'Condominium', `Planning Region` == "Central Region") %>%
+  ggplot(aes(y=`Unit Price ($ PSF)`,
+           x=`Quarter`)
+       )+
+  geom_violin() +
+  geom_boxplot(width = .20,
+               outlier.shape = NA) +
+  geom_point(data = quarter_means, 
+             aes(y = mean_uprice), 
+             color = "red", 
+             size = 3)+
+  scale_y_continuous(labels = scales::comma) +
+  theme_economist() +
+  ggtitle("Condominium Unit Price ($ PSF) for Central Region") 
+```
+## The Code
+```{r}
+#| eval: False
 quarter_means <- df.c %>%
   filter(`Property Type` == 'Condominium',`Planning Region` == "Central Region") %>%
   group_by(Quarter) %>%
