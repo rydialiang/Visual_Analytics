@@ -12,7 +12,7 @@ execute:
 
 # **Building Elegant and yet Informative Data Visualisation**
 
-For the final product, you can use the table of content to the right to navigate straight to 3.0 Data Visualisation. If not, you can proceed to enjoy reading the step by step thought process for this visualisation.
+For the final product, you can use the table of content to the right to navigate straight to [**3.0 Data Visualisation**](https://va24-ry.netlify.app/take-home%20exercise/take-home_ex01/take-home_ex01#data-visualisation). If not, you can proceed to enjoy reading the step by step thought process for this visualisation.
 
 ## 1.0 Overview
 
