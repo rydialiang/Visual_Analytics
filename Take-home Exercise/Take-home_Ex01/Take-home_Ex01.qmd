@@ -313,7 +313,7 @@ df.c %>%
 ```
 ```{r}
 df.c %>%
-  filter(`Type of Area` == 'Land', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
+  filter(`Property Type` == 'Condominium', `Quarter` == '24Q1', `Planning Region` == "Central Region") %>%
   ggplot(aes(x = `Transacted Price ($)`, 
            y = `Purchaser Address Indicator`, 
            fill = factor(stat(quantile))
@@ -324,19 +324,19 @@ df.c %>%
     quantiles = c(0.05, 0.95)
     ) +
   scale_fill_manual(
-    name = "Probability",
+    name = "Percentage of Total",
     values = c("#FF00FFA0", "#FFE4E1A0", "#0000ffA0"),
-    labels = c("(0, 0.05]", "(0.05, 0.95]", "(0.95, 1]")
+    labels = c("Bottom 5%", "5-95%", "Top 5%")
   ) +
   theme_ridges()+
   theme_economist() +
-  theme(plot.title = element_text(size=14), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  theme(plot.title = element_text(size=12), axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   scale_x_continuous(labels = scales::comma) + 
-  ggtitle("24Q1 Central Region by Purchaser Address Indicator for Land Type")
+  ggtitle("Central Region Condominium: Purchaser Address Indicator 24Q1")
 ```
 ```{r}
 quarter_means <- df.c %>%
-  filter(`Type of Area` == 'Land', `Planning Region` == "Central Region") %>%
+  filter(`Property Type` == 'Condominium',`Planning Region` == "Central Region") %>%
   group_by(Quarter) %>%
   summarise(mean_uprice = mean(`Unit Price ($ PSF)`))
 
