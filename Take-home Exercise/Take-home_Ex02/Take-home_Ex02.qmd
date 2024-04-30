@@ -296,9 +296,9 @@ df_Aavg <- combined_ds %>%
   group_by(`Planning Region`) %>%
   summarise(avg_Aprice = median(`Unit Price ($ PSF)`))
 
-df_Aavg$p_z <- round((df_Aavg$avg_Aprice - median(combined_ds$`Unit Price ($ PSF)`)), 2)
-df_Aavg$p_ztype <- ifelse(df_Aavg$p_z < 0, "below", "above")
-df_Aavg <- df_Aavg[order(df_Aavg$p_z), ]
+p_z <- round((df_Aavg$avg_Aprice - median(combined_ds$`Unit Price ($ PSF)`)), 2)
+df_Aavg$p_ztype <- ifelse(p_z < 0, "below", "above")
+df_Aavg <- df_Aavg[order(p_z), ]
 
 df_Aavg$`Planning Region` <- factor(df_Aavg$`Planning Region`, levels = df_Aavg$`Planning Region`)
 
@@ -315,8 +315,8 @@ p2 <- ggplot(df_Aavg, aes(x = `Planning Region`, y = p_z, label = p_z)) +
         legend.key.height = unit(0.3, 'cm'),
         legend.key.width = unit(0.3, 'cm')) +
   geom_text(aes(x = `Planning Region`, 
-                y = df_Aavg$p_z, 
-                label = abs(df_Aavg$p_z)),
+                y = p_z, 
+                label = abs(p_z)),
             hjust = 0.5,
             vjust = -2.5,
             size = 3)
