@@ -6,7 +6,6 @@ This site is created as part my course work in [Visual Analytics](https://isss60
 
 Skills of a Data Scientists and my progress thus far:
 
-
 ```{r}
 #| echo: False
 # My Data
@@ -46,4 +45,3 @@ df <- rbind(max_min, skill_scores)
 ry_data <- df[c("Max", "Min", "Rydia"), ]
 radarchart(ry_data, vlcex = 0.5)
 ```
-
