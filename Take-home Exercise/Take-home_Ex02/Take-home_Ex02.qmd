@@ -178,7 +178,7 @@ ggplot(combined_ds, aes(x = `Unit Price ($ PSF)`, y = `Planning Region`, fill = 
 
 ## 3.1 Critics on Aesthetics
 
-1.  The distribution without the quantile lines is unable to let audience know where is the median and make it hard to conclude just using peak: "West Region has the lowest peak among all the regions and is positioned towards the far left of the plot. This indicates that the West Region is the most affordable in Singapore." While the peak of the respective region does indicate the highest frequency of data points, it does not reveal the overall median price and other aspect such as the the 4 quantiles. Hence, it might be easier for the audience if quantiles were included in the aesthetics of the plot. With this enhancement, it might be easier to define which Region is more affordable, rather than just saying that West is most affordable as it is "most far left". \
+1.  The distribution without the quantile lines is unable to let audience know where is the median and make it hard to conclude just using peak: "West Region has the lowest peak among all the regions and is positioned towards the far left of the plot. This indicates that the West Region is the most affordable in Singapore." While the peak of the respective region does indicate the highest frequency of data points, it does not reveal the overall median price and other aspect such as the the 4 quantiles. Hence, it might be easier for the audience if quantiles were included in the aesthetics of the plot. With this enhancement, it might be easier to define which Region is more affordable, rather than just saying that West is most affordable as it is "most far left".\
 
 2.  The legend for the Planning Region to the right of the plot is redundant, as it is very clear from the y-axis which plot belongs to which region. If we choose to retain the legend, perhaps it could be compressed slightly smaller to the top right corner of the plot (as there are ample empty space between the 4000-6000 mark along x-axis), and the free up spaces could be used to insert another plot that enhance the story-telling for this plot.\
 
@@ -228,8 +228,7 @@ The first sketch below shows the intended implementation of the enhancement as m
 
 2.  The distribution plot to the left must synchronised in the same sequence based on the Region, so that the price deviation on the right plot is correctly reflected as the same Region.
 
-![](Sketch%20-%20take%20home%20exercise%2002.jpg)
-### 4.3 The Makeover Result
+![](Sketch%20-%20take%20home%20exercise%2002.jpg) \### 4.3 The Makeover Result
 
 ```{r}
 # Calculate median values
