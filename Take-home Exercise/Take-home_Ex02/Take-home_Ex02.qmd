@@ -249,80 +249,61 @@ combined_ds <- combined_ds %>%
                                   "West Region" = "West"
                                   ))
 
-# Change order of the Region
 combined_ds <- combined_ds %>%
   mutate(`Planning Region` = factor(`Planning Region`, levels = median_values$`Planning Region`[order(median_values$median_value)]))
 
 
-p1 <-ggplot(combined_ds, 
+ggplot(combined_ds, 
        aes(x = `Unit Price ($ PSF)`, 
-           y = `Planning Region`, 
-           )) +
-   geom_density_ridges(scale = 0.9,
-                       alpha = 0.2, 
-                       quantile_lines = TRUE, 
-                       quantile_fun = function(x, ...) median(x)) +
-    geom_text(data = median_values, 
+           y = `Planning Region`,
+           fill = `Planning Region`)) +
+   geom_density_ridges(alpha = 0.2, quantile_lines = TRUE, quantile_fun = function(x, ...) median(x))  +
+  geom_text(data = median_values, 
             aes(x = median_value, 
                 y = `Planning Region`, 
-                label = paste("Median:", 
-                              round(median_value, 2))),
-            hjust = -0.2, vjust = -3, color = "black", size = 3) +
-  labs(title = "Unit Price ($ PSF) Distribution",
-       subtitle = "by Planning Region",
+                label = paste("Median:", round(median_value, 2))),
+            hjust = -0.2, 
+            vjust = -2.8, 
+            color = "black", 
+            size = 3) +
+  labs(title = "Unit Price ($ PSF) Distribution by Planning Region",
        x = "Unit Price ($ PSF)",
        y = "Planning Region") +
-  geom_vline(aes(xintercept = median(`Unit Price ($ PSF)`)), 
-             col="red", 
-             linewidth=0.5, linetype = "dashed") +
-  annotate("text", 
-           x=2800, 
-           y=0.7, 
-           label=paste0("Singapore's Median:",
-                        median(combined_ds$`Unit Price ($ PSF)`)), 
+  geom_vline(aes(xintercept = median(`Unit Price ($ PSF)`)), col="red", linewidth=0.5, linetype = "dashed") +
+  annotate("text", x=2700, y=0.7, label=paste0("Singapore's Median:",median(combined_ds$`Unit Price ($ PSF)`)), 
            size=3, color="red") +
-scale_x_continuous(name = "Unit Price ($ PSF) difference",breaks = c(0,1000,2000,3000,4000,5000,6000)) +
-  guides(fill = FALSE) +
-  xlim(0, 4000) +
-    theme(legend.position = "None", text = element_text(size = 8), plot.title = element_text(size = 10, face = "bold"))  +
+   guides(fill = FALSE)  # Remove legend for Planning Region
+```
+
+```{r}
+# Classifying the Median into Above and Below Singapore's Median
+df_Aavg <- combined_ds %>%
+  group_by(`Planning Region`) %>%
+  summarise(avg_Aprice = median(`Unit Price ($ PSF)`))
+df_Aavg$p_z <- round((df_Aavg$avg_Aprice - median(combined_ds$`Unit Price ($ PSF)`)), 2)
+df_Aavg$p_ztype <- ifelse(df_Aavg$p_z < 0, "below", "above")
+df_Aavg <- df_Aavg[order(df_Aavg$p_z), ]
+df_Aavg$`Planning Region` <- factor(df_Aavg$`Planning Region`, levels = df_Aavg$`Planning Region`)
+
+p2 <- ggplot(df_Aavg, aes(x = `Planning Region`, y = p_z, label = p_z)) +
+  geom_bar(stat = "identity", aes(fill = p_ztype), position = position_dodge2(width = 2), width = 0.8) +
+  scale_fill_manual(name = "Average Price", labels = c("Above Singapore's Median", "Below Singapore's Median"), values = c("below" = "#C83E4D", "above" = "#4A5859")) +
+  labs(title = "Unit Price ($PSF) Deviations", y = "", subtitle = "by Planning Region") +
+  coord_flip() +
+  theme(legend.position = "None", text = element_text(size = 8), plot.title = element_text(size = 10, face = "bold"))  +
   theme(text = element_text(size = 7),
         legend.title = element_blank(),
         legend.position = c(0.8, 0.2),
         legend.key.size = unit(0.3, 'cm'),
         legend.key.height = unit(0.3, 'cm'),
-        legend.key.width = unit(0.3, 'cm'))
-
-# Classifying the Median into Above and Below Singapore's Median
-df_Aavg <- combined_ds %>%
-  group_by(`Planning Region`) %>%
-  summarise(avg_Aprice = median(`Unit Price ($ PSF)`))
-
-p_z <- round((df_Aavg$avg_Aprice - median(combined_ds$`Unit Price ($ PSF)`)), 2)
-df_Aavg$p_ztype <- ifelse(p_z < 0, "below", "above")
-df_Aavg <- df_Aavg[order(p_z), ]
-
-df_Aavg$`Planning Region` <- factor(df_Aavg$`Planning Region`, levels = df_Aavg$`Planning Region`)
-
-p2 <- ggplot(df_Aavg, aes(x = `Planning Region`, y = p_z, label = p_z)) +
-  geom_bar(stat = "identity", aes(fill = factor(p_ztype)), position = position_dodge2(width = 2), width = 0.5) +
-  scale_fill_manual(name = "Price Deviation", labels = c("Above Singapore's Median", "Below Singapore's Median"), values = c("below" = "#FF6666", "above" = "#3333FF")) +
-  labs(title = "Unit Price ($PSF) Deviations", y = "Unit Price ($ PSF) Difference", subtitle = "by Planning Region") +
-  coord_flip() +
-  theme(legend.position = "None", text = element_text(size = 8), plot.title = element_text(size = 10, face = "bold"))  +
-  theme(text = element_text(size = 7),
-        legend.title = element_blank(),
-        legend.position = c(0.78, 0.2),
-        legend.key.size = unit(0.3, 'cm'),
-        legend.key.height = unit(0.3, 'cm'),
         legend.key.width = unit(0.3, 'cm')) +
   geom_text(aes(x = `Planning Region`, 
-                y = p_z, 
-                label = abs(p_z)),
+                y = df_Aavg$p_z, 
+                label = abs(df_Aavg$p_z)),
             hjust = 0.5,
-            vjust = -2.5,
+            vjust = -3.4,
             size = 3)
-
-p1+p2
+p2
 ```
 
 
