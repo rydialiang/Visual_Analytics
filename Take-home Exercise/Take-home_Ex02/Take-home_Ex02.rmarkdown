@@ -10,6 +10,7 @@ execute:
   freeze: true
 ---
 
+
 # **Data Visualisation Makeover**
 
 ## 1.0 Overview
@@ -60,6 +61,7 @@ T he `pac::p_load()` function to load the required R packages in the working env
 -   ggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels.
 -   ggdist: a ggplot2 extension specially design for visualising distribution and uncertainty
 
+
 ```{r}
 pacman::p_load(tidyverse, haven,
                ggrepel, ggthemes,
@@ -72,6 +74,7 @@ pacman::p_load(tidyverse, haven,
                ggstance)
 ```
 
+
 ### 2.2 Importing the data sets
 
 Identify the missing values in the data set and removed any missing elements. ‘Type of Sale’ and ‘Property type’ has been converted to factor format. ‘Transacted Price (\$)’ and ‘Area (SQFT)’ are converted to numeric data types. ‘Type of Sale’ has been group into three categories. ‘Sale Date’ has been converted to Date format.
@@ -80,6 +83,7 @@ The process had been repeated for all five data sets.
 
 ::: panel-tabset
 ## Import Data Set
+
 
 ```{r}
 
@@ -90,7 +94,9 @@ ds4 <- read_csv("data/ResidentialTransaction20240308161109.csv")
 ds5 <- read_csv("data/ResidentialTransaction20240414220633.csv")
 ```
 
+
 ## Converting Data
+
 
 ```{r}
 prepare_dataset <- function(ds) {
@@ -121,7 +127,9 @@ ds5 <- prepare_dataset(ds5)
 combined_ds <- rbind(ds1, ds2, ds3, ds4, ds5)
 ```
 
+
 ## Converting Dates
+
 
 ```{r}
 # Convert Sale Date to Date format
@@ -131,6 +139,7 @@ ds3$`Sale Date` <- dmy(ds3$`Sale Date`)
 ds4$`Sale Date` <- dmy(ds4$`Sale Date`)
 ds5$`Sale Date` <- dmy(ds5$`Sale Date`)
 ```
+
 :::
 
 ## 3.0 Critic on the EDA 3
@@ -139,6 +148,7 @@ The original plot and code is as below:
 
 ::: panel-tabset
 ## The Plot
+
 
 ```{r}
 #| echo: False
@@ -153,7 +163,9 @@ ggplot(combined_ds, aes(x = `Unit Price ($ PSF)`, y = `Planning Region`, fill = 
   theme_ridges()
 ```
 
+
 ## The Code
+
 
 ```{r}
 #| eval: False
@@ -167,6 +179,7 @@ ggplot(combined_ds, aes(x = `Unit Price ($ PSF)`, y = `Planning Region`, fill = 
        y = "Planning Region") +
   theme_ridges()
 ```
+
 :::
 
 **The Insights**
@@ -230,6 +243,7 @@ The first sketch below shows the intended implementation of the enhancement as m
 
 ![](Sketch%20-%20take%20home%20exercise%2002.jpg)
 ### 4.3 The Makeover Result
+
 
 ```{r}
 # Calculate median values
@@ -321,6 +335,7 @@ p2 <- ggplot(df_Aavg, aes(x = `Planning Region`, y = p_z, label = p_z)) +
 p1+p2
 ```
 
+
 ## 5.0 References
 
 1\. T.S. Kam, R for Visual Analytics [Chapter 9](https://r4va.netlify.app/chap09) for visualisation of Ridgeline plots with quantile lines.
@@ -328,3 +343,4 @@ p1+p2
 2\. Claus O. Wilke, Fundamentals of Data Visualization [Chapter 2](https://clauswilke.com/dataviz/aesthetic-mapping.html) for understanding and classification of variables.
 
 3\. Stack Overflow, ["Filter rows which contain a certain string"](https://stackoverflow.com/questions/22850026/filter-rows-which-contain-a-certain-string) for removing en bloc sales from the data frame.
+
