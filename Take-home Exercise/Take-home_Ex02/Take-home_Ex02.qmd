@@ -330,8 +330,6 @@ Alignment of Planning Region for the left and right plot is important for visual
 
 The two colors of the horizontal bar chart gives an immediate answer to which region is above and below the Singapore's average. 
 
-
-
 ## 5.0 References
 
 1\. T.S. Kam, R for Visual Analytics [Chapter 9](https://r4va.netlify.app/chap09) for visualisation of Ridgeline plots with quantile lines.

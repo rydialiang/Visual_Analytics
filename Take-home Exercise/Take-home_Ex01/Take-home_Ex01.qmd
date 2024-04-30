@@ -121,7 +121,7 @@ glimpse(df)
 On top of the data types that is automatically assigned by R to help the program know how to process it, we can split the data into 4 types of data category to help ourselves for future analytics application. You can refer to the FAQ, Data Dictionary and Methodology in [URA website](https://www.ura.gov.sg/reis/dataDictionary).
 
 | Variable                      | Type                               | Appropriate Scale | Remarks                                                      |
-|------------------|------------------|------------------|------------------|
+|-------------------------------|------------------------------------|-------------------|--------------------------------------------------------------|
 | `Project Name`                | Qualitative / Nominal              | Discrete          |                                                              |
 | `Transacted Price ($)`        | Quantitative/ Numerical Continuous | Continuous        |                                                              |
 | `Area (SQFT)`                 | Quantitative/ Numerical Continuous | Continuous        |                                                              |
