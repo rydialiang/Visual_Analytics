@@ -229,7 +229,6 @@ The first sketch below shows the intended implementation of the enhancement as m
 2.  The distribution plot to the left must synchronised in the same sequence based on the Region, so that the price deviation on the right plot is correctly reflected as the same Region.
 
 ![](Sketch%20-%20take%20home%20exercise%2002.jpg)
-
 ### 4.3 The Makeover Result
 
 ```{r}
@@ -300,7 +299,7 @@ df_Aavg$`Planning Region` <- factor(df_Aavg$`Planning Region`, levels = df_Aavg$
 
 p2 <- ggplot(df_Aavg, aes(x = `Planning Region`, y = p_z, label = p_z)) +
   geom_bar(stat = "identity", aes(fill = p_ztype), position = position_dodge2(width = 2), width = 0.8) +
-  scale_fill_manual(name = "Average Price", labels = c("Above Singapore's Median", "Below Singapore's Median"), values = c("below" = "#C83E4D", "above" = "#4A5859")) +
+  scale_fill_manual(name = "Average Price", labels = c("Above Singapore's Median", "Below Singapore's Median"), values = c("below" = "red", "above" = "black")) +
   labs(title = "Unit Price ($PSF) Deviations", y = "", subtitle = "by Planning Region") +
   coord_flip() +
   theme(legend.position = "None", text = element_text(size = 8), plot.title = element_text(size = 10, face = "bold"))  +
