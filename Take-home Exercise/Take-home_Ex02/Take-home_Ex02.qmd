@@ -1,5 +1,5 @@
 ---
-title: "Take-home Ex 01"
+title: "Take-home Ex 02"
 author: "Liang Xiuhao Rydia"
 date: "April 30, 2024"
 date-modified: "last-modified"
