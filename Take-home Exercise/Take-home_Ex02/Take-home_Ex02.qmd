@@ -251,9 +251,10 @@ combined_ds <- combined_ds %>%
 
 combined_ds <- combined_ds %>%
   mutate(`Planning Region` = factor(`Planning Region`, levels = median_values$`Planning Region`[order(median_values$median_value)]))
+```
 
-
-p1 <- ggplot(combined_ds, 
+```{r}
+ggplot(combined_ds, 
        aes(x = `Unit Price ($ PSF)`, 
            y = `Planning Region`,
            fill = `Planning Region`)) +
@@ -272,8 +273,8 @@ p1 <- ggplot(combined_ds,
   geom_vline(aes(xintercept = median(`Unit Price ($ PSF)`)), col="red", linewidth=0.5, linetype = "dashed") +
   annotate("text", x=2700, y=0.7, label=paste0("Singapore's Median:",median(combined_ds$`Unit Price ($ PSF)`)), 
            size=3, color="red") +
-   guides(fill = FALSE)  # Remove legend for Planning Region
-p1
+   guides(fill = FALSE) + # Remove legend for Planning Region
+  xlim(0, 4000)  # Limit x-axis to 4000
 ```
 
 ```{r}
@@ -307,9 +308,7 @@ p2 <- ggplot(df_Aavg, aes(x = `Planning Region`, y = p_z, label = p_z)) +
 p2
 ```
 
-```{r}
-p1 + p2
-```
+
 
 
 
