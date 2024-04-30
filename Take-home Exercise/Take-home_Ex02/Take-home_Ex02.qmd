@@ -273,7 +273,7 @@ p1 <-ggplot(combined_ds,
   geom_vline(aes(xintercept = median(`Unit Price ($ PSF)`)), col="red", linewidth=0.5, linetype = "dashed") +
   annotate("text", x=2800, y=0.7, label=paste0("Singapore's Median:",median(combined_ds$`Unit Price ($ PSF)`)), 
            size=3, color="red") +
-scale_x_continuous(breaks = c(0,1000,2000,3000,4000,5000,6000)) +
+scale_x_continuous(name = "Unit Price ($ PSF) difference",breaks = c(0,1000,2000,3000,4000,5000,6000)) +
   guides(fill = FALSE) +
   xlim(0, 4000) +
     theme(legend.position = "None", text = element_text(size = 8), plot.title = element_text(size = 10, face = "bold"))  +
@@ -299,14 +299,14 @@ df_Aavg <- df_Aavg[order(df_Aavg$p_z), ]
 df_Aavg$`Planning Region` <- factor(df_Aavg$`Planning Region`, levels = df_Aavg$`Planning Region`)
 
 p2 <- ggplot(df_Aavg, aes(x = `Planning Region`, y = p_z, label = p_z)) +
-  geom_bar(stat = "identity", aes(fill = p_ztype), position = position_dodge2(width = 2), width = 0.8) +
-  scale_fill_manual(name = "Average Price", labels = c("Above Singapore's Median", "Below Singapore's Median"), values = c("below" = "red", "above" = "black")) +
-  labs(title = "Unit Price ($PSF) Deviations", y = "", subtitle = "by Planning Region") +
+  geom_col(aes(fill = factor(p_ztype)), position = position_dodge2(width = 2), width = 0.5) +
+  scale_fill_colorblind(name = "Price Deviation", labels = c("Above Singapore's Median", "Below Singapore's Median")) +
+  labs(title = "Unit Price ($PSF) Deviations", y = "Unit Price ($ PSF) Difference", subtitle = "by Planning Region") +
   coord_flip() +
   theme(legend.position = "None", text = element_text(size = 8), plot.title = element_text(size = 10, face = "bold"))  +
   theme(text = element_text(size = 7),
         legend.title = element_blank(),
-        legend.position = c(0.8, 0.2),
+        legend.position = c(0.78, 0.2),
         legend.key.size = unit(0.3, 'cm'),
         legend.key.height = unit(0.3, 'cm'),
         legend.key.width = unit(0.3, 'cm')) +
@@ -314,13 +314,12 @@ p2 <- ggplot(df_Aavg, aes(x = `Planning Region`, y = p_z, label = p_z)) +
                 y = df_Aavg$p_z, 
                 label = abs(df_Aavg$p_z)),
             hjust = 0.5,
-            vjust = -3.4,
+            vjust = -2.5,
             size = 3)
 ```
 
-```{r}
-p1+p2
-```
+
+
 
 ## 4.4 Conclusion
 
