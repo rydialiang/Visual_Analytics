@@ -10,7 +10,7 @@ execute:
   freeze: true
 ---
 
-# **DataVisualisation Makeover**
+# **Data Visualisation Makeover**
 
 ## 1.0 Overview
 
@@ -34,13 +34,7 @@ In this take-home exercise, you are required to:
 
 The original visualisation can be found in this [link](https://isss608gj.netlify.app/take-home/take-home_ex1/tkx01). I will be using EDA 3 for this take home exercise. Below shows the original plot and the insights by the original creator:
 
-![](EDA 3.png)
-
-📈 **Insight:**\
-- The Central Region’s peak is the most pronounced and shifted towards the high, indicating that there is a high concentration of properties with higher unit prices.\
-- The East Region’s pea is lower and more towards the middle of the x-axis compared to the Central Region. This implies that while the East Region has properties with moderate unit prices, it does not reach as high of a price point as frequently as the Central Region.\
-- North East and North Regions peaks are less sharp and positioned towards the lower end of the price scale, suggesting a more affordable housing options and a wider distribution of unit prices. North Region appears to have a slightly broader distribution than North East.\
-- West Region has the lowest peak among all the regions and is positioned towards the far left of the plot. This indicates that the West Region is the most affordable in Singapore.
+![](EDA%203.png)
 
 ## 2.0 Set Up
 
@@ -80,6 +74,7 @@ The process had been repeated for all five data sets.
 
 ::: panel-tabset
 ## Import Data Set
+
 ```{r}
 
 ds1 <- read_csv("data/ResidentialTransaction20240308160536.csv")
@@ -88,7 +83,9 @@ ds3 <- read_csv("data/ResidentialTransaction20240308161009.csv")
 ds4 <- read_csv("data/ResidentialTransaction20240308161109.csv")
 ds5 <- read_csv("data/ResidentialTransaction20240414220633.csv")
 ```
+
 ## Converting Data
+
 ```{r}
 prepare_dataset <- function(ds) {
   colSums(is.na(ds))
@@ -117,7 +114,9 @@ ds5 <- prepare_dataset(ds5)
 # Combine the datasets
 combined_ds <- rbind(ds1, ds2, ds3, ds4, ds5)
 ```
+
 ## Converting Dates
+
 ```{r}
 # Convert Sale Date to Date format
 ds1$`Sale Date` <- dmy(ds1$`Sale Date`)
@@ -130,8 +129,11 @@ ds5$`Sale Date` <- dmy(ds5$`Sale Date`)
 
 ## 3.0 Critic on the EDA 3
 
+The original plot and code is as below:
+
 ::: panel-tabset
 ## The Plot
+
 ```{r}
 #| echo: False
 library(viridis)
@@ -144,7 +146,9 @@ ggplot(combined_ds, aes(x = `Unit Price ($ PSF)`, y = `Planning Region`, fill = 
        y = "Planning Region") +
   theme_ridges()
 ```
+
 ## The Code
+
 ```{r}
 #| eval: False
 library(viridis)
@@ -157,10 +161,36 @@ ggplot(combined_ds, aes(x = `Unit Price ($ PSF)`, y = `Planning Region`, fill = 
        y = "Planning Region") +
   theme_ridges()
 ```
+
+## The Insights
+
+-   The Central Region’s peak is the most pronounced and shifted towards the high, indicating that there is a high concentration of properties with higher unit prices.\
+-   The East Region’s pea is lower and more towards the middle of the x-axis compared to the Central Region. This implies that while the East Region has properties with moderate unit prices, it does not reach as high of a price point as frequently as the Central Region.\
+-   North East and North Regions peaks are less sharp and positioned towards the lower end of the price scale, suggesting a more affordable housing options and a wider distribution of unit prices. North Region appears to have a slightly broader distribution than North East.\
+-   West Region has the lowest peak among all the regions and is positioned towards the far left of the plot. This indicates that the West Region is the most affordable in Singapore.
 :::
 
+## 3.1 Critics on Aesthetics
 
-## 4.0 References
+1.  The overall color scheme is pleasing to the eyes, but having the whole distribution of the same region in the same color may not have captured the spread/distributed as mentioned in the insights: "West Region has the lowest peak among all the regions and is positioned towards the far left of the plot. This indicates that the West Region is the most affordable in Singapore." While the peak of the respective region does indicate the highest frequency of data points , it does not reveal the overall median price and other aspect such as the the 4 quantiles. Hence, it might be easier for the audience if quantiles were included in the aesthetics of the plot. With this enhancement, it might be easier to define which Region is more affordable, rather than just saying that West is most affordable as it is "most far left".\
+
+2.  The legend for the Planning Region to the right of the plot is redundant, as it is very clear from the y-axis which plot belongs to which region. If we choose to retain the legend, perhaps it could be compressed slightly smaller to the top right corner of the plot (as there are ample empty space between the 4000-6000 mark along x-axis), and the free up spaces could be used to insert another plot that enhance the story-telling for this plot.\
+
+3.  The current distribution is 100% opaque and parts of the North Region graph is overlapping the West Region. While the peak of the West Region is still visible, it could be better for audience if the distribution is slightly transparent to allow the audience to see the full distribution of the West Region. It will be complementing the enhancement with quantiles added, as by adjusting the transparency, we will be able to see all the quantiles without guessing through the overlapped areas.
+
+### 3.2 Critics on Clarity
+
+1.  As most of the distribution in this plot falls between the \$1,000-\$3,000 mark along the x-axis, the current axis ticks did not allow the audience to have a clear sense of where the peaks are, except for a rough sense of gauging the peak from the neares two x-axis ticks, which is 0 or 2000. To alleviate this issue, the frequency of the x-axis ticks could be increased. Also, visually the plot for the Central Region at the most right, seems to end at just below the 5,000 mark. Space could be saved by ending the x-axis ticks at 5,000 instead, without affecting the clarity and truthfulness of the plot.\
+
+2.  Instead of guessing from the distribution which Region is the most affordable and which is the highest priced, it would be clearer if we add in another plot with comparison of the exact mean and median price across the 5 regions using a horizontal bar chart to complement the existing plot.\
+
+3.  The plot is able to let audience understand the overall comparison of distribution against the other 4 regions, but did not provide any comparison of each region against the overall median Unit Price in Singapore. To help audience understand the distribution with respect to the overall median, an overall median line for the Unit Price could be added. In this way, not only we put perspective of region against region, we also include the perspective of each region against the overall market in Singapore.\
+
+## 4.0 The Data Visualisation Makeover
+
+
+
+## 5.0 References
 
 1\. T.S. Kam, R for Visual Analytics [Chapter 9](https://r4va.netlify.app/chap09) for visualisation of Ridgeline plots with quantile lines.
 
