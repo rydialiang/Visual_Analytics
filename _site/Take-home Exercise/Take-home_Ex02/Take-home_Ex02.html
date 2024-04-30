@@ -287,7 +287,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#critics-on-clarity" id="toc-critics-on-clarity" class="nav-link" data-scroll-target="#critics-on-clarity">3.2 Critics on Clarity</a></li>
   </ul></li>
-  <li><a href="#the-data-visualisation-makeover" id="toc-the-data-visualisation-makeover" class="nav-link" data-scroll-target="#the-data-visualisation-makeover">4.0 The Data Visualisation Makeover</a></li>
+  <li><a href="#the-data-visualisation-makeover" id="toc-the-data-visualisation-makeover" class="nav-link" data-scroll-target="#the-data-visualisation-makeover">4.0 The Data Visualisation Makeover</a>
+  <ul class="collapse">
+  <li><a href="#envisioned-enhancements" id="toc-envisioned-enhancements" class="nav-link" data-scroll-target="#envisioned-enhancements">4.1 Envisioned Enhancements</a></li>
+  <li><a href="#preparatory-sketch" id="toc-preparatory-sketch" class="nav-link" data-scroll-target="#preparatory-sketch">4.2 Preparatory Sketch</a></li>
+  <li><a href="#the-makeover-result" id="toc-the-makeover-result" class="nav-link" data-scroll-target="#the-makeover-result">4.3 The Makeover Result</a></li>
+  </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">5.0 References</a></li>
   </ul></li>
   </ul>
@@ -355,6 +360,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="the-original-data-visualisation">1.3 The Original Data Visualisation</h3>
 <p>The original visualisation can be found in this <a href="https://isss608gj.netlify.app/take-home/take-home_ex1/tkx01">link</a>. I will be using EDA 3 for this take home exercise. Below shows the original plot and the insights by the original creator:</p>
 <p><img src="EDA 3.png" class="img-fluid"></p>
+<p><strong>The Insights</strong> - The Central Region’s peak is the most pronounced and shifted towards the high, indicating that there is a high concentration of properties with higher unit prices.<br>
+- The East Region’s pea is lower and more towards the middle of the x-axis compared to the Central Region. This implies that while the East Region has properties with moderate unit prices, it does not reach as high of a price point as frequently as the Central Region.<br>
+- North East and North Regions peaks are less sharp and positioned towards the lower end of the price scale, suggesting a more affordable housing options and a wider distribution of unit prices. North Region appears to have a slightly broader distribution than North East.<br>
+- West Region has the lowest peak among all the regions and is positioned towards the far left of the plot. This indicates that the West Region is the most affordable in Singapore.</p>
 </section>
 </section>
 <section id="set-up" class="level2">
@@ -450,7 +459,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="critic-on-the-eda-3">3.0 Critic on the EDA 3</h2>
 <p>The original plot and code is as below:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">The Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">The Code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">The Insights</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">The Plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">The Code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
@@ -468,7 +477,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined_ds, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Unit Price ($ PSF)</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Planning Region</span><span class="st">`</span>, <span class="at">fill =</span> <span class="st">`</span><span class="at">Planning Region</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">scale =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density_ridges</span>(<span class="at">scale =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis</span>(<span class="at">discrete =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Unit Price ($ PSF) Distribution by Planning Region"</span>,</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Unit Price ($ PSF)"</span>,</span>
@@ -476,7 +485,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ridges</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+</div>
+</div>
+<p><strong>The Insights</strong></p>
 <ul>
 <li>The Central Region’s peak is the most pronounced and shifted towards the high, indicating that there is a high concentration of properties with higher unit prices.<br>
 </li>
@@ -486,9 +497,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 <li>West Region has the lowest peak among all the regions and is positioned towards the far left of the plot. This indicates that the West Region is the most affordable in Singapore.</li>
 </ul>
-</div>
-</div>
-</div>
 </section>
 <section id="critics-on-aesthetics" class="level2">
 <h2 class="anchored" data-anchor-id="critics-on-aesthetics">3.1 Critics on Aesthetics</h2>
@@ -513,6 +521,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="the-data-visualisation-makeover" class="level2">
 <h2 class="anchored" data-anchor-id="the-data-visualisation-makeover">4.0 The Data Visualisation Makeover</h2>
+<section id="envisioned-enhancements" class="level3">
+<h3 class="anchored" data-anchor-id="envisioned-enhancements">4.1 Envisioned Enhancements</h3>
+<p><strong>Task</strong> Prepare a sketch for the alternative design by using the data visualisation design principles and best practices you had learned in Lesson 1 and 2.</p>
+<p>Using the 6 critics mentioned in section 3, I will attempt to enhance the plot by including/removing the following features: 1. Include quantile lines for each Region.<br>
+2. Remove the legend.<br>
+3. Increase the transparency of the distribution to ensure all parts of the distribution is not hidden behind other distribution. Alternatively, we can adjust the scale of the <code>geom_density_ridges()</code> to prevent overlaps. Decision can be made after generating both types for consideration.<br>
+4. Increase the frequency of the x-axis ticks with soft grid lines to improve readability of distribution.<br>
+5. Remove the excess space at the right of the plot after 5,000 mark of x-axis.<br>
+6. Add in a horizontal bar chart to the right of the existing plot to include the comparison with overall median Unit Price ($ PSF) in Singapore with each of the region.<br>
+7. Add in a overall Median Unit Price ($ PSF) for the existing ridgeline plot.<br>
+8. Include median value annotations for each region in the existing ridgeline plot.<br>
+9. Rename the y-axis to just the region name, i.e.&nbsp;“West” instead of “West Region”.<br>
+10. Using <code>patchwork</code> to patch both plots side by side. The left and right plot should have the same region in the same line for consistency.<br>
+</p>
+</section>
+<section id="preparatory-sketch" class="level3">
+<h3 class="anchored" data-anchor-id="preparatory-sketch">4.2 Preparatory Sketch</h3>
+<p><img src="Sketch - take home exercise 02.jpg" class="img-fluid"></p>
+</section>
+<section id="the-makeover-result" class="level3">
+<h3 class="anchored" data-anchor-id="the-makeover-result">4.3 The Makeover Result</h3>
+</section>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">5.0 References</h2>

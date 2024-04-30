@@ -36,6 +36,11 @@ The original visualisation can be found in this [link](https://isss608gj.netlify
 
 ![](EDA%203.png)
 
+**The Insights** - The Central Region’s peak is the most pronounced and shifted towards the high, indicating that there is a high concentration of properties with higher unit prices.\
+- The East Region’s pea is lower and more towards the middle of the x-axis compared to the Central Region. This implies that while the East Region has properties with moderate unit prices, it does not reach as high of a price point as frequently as the Central Region.\
+- North East and North Regions peaks are less sharp and positioned towards the lower end of the price scale, suggesting a more affordable housing options and a wider distribution of unit prices. North Region appears to have a slightly broader distribution than North East.\
+- West Region has the lowest peak among all the regions and is positioned towards the far left of the plot. This indicates that the West Region is the most affordable in Singapore.
+
 ## 2.0 Set Up
 
 We will now set up according to the original code provided in the link.
@@ -154,21 +159,21 @@ ggplot(combined_ds, aes(x = `Unit Price ($ PSF)`, y = `Planning Region`, fill = 
 library(viridis)
 
 ggplot(combined_ds, aes(x = `Unit Price ($ PSF)`, y = `Planning Region`, fill = `Planning Region`)) +
-  geom_density_ridges(scale = 3) +
+  geom_density_ridges(scale = 1) +
   scale_fill_viridis(discrete = TRUE) +
   labs(title = "Unit Price ($ PSF) Distribution by Planning Region",
        x = "Unit Price ($ PSF)",
        y = "Planning Region") +
   theme_ridges()
 ```
+:::
 
-## The Insights
+**The Insights**
 
 -   The Central Region’s peak is the most pronounced and shifted towards the high, indicating that there is a high concentration of properties with higher unit prices.\
 -   The East Region’s pea is lower and more towards the middle of the x-axis compared to the Central Region. This implies that while the East Region has properties with moderate unit prices, it does not reach as high of a price point as frequently as the Central Region.\
 -   North East and North Regions peaks are less sharp and positioned towards the lower end of the price scale, suggesting a more affordable housing options and a wider distribution of unit prices. North Region appears to have a slightly broader distribution than North East.\
 -   West Region has the lowest peak among all the regions and is positioned towards the far left of the plot. This indicates that the West Region is the most affordable in Singapore.
-:::
 
 ## 3.1 Critics on Aesthetics
 
@@ -188,7 +193,26 @@ ggplot(combined_ds, aes(x = `Unit Price ($ PSF)`, y = `Planning Region`, fill = 
 
 ## 4.0 The Data Visualisation Makeover
 
+### 4.1 Envisioned Enhancements
 
+**Task** Prepare a sketch for the alternative design by using the data visualisation design principles and best practices you had learned in Lesson 1 and 2.
+
+Using the 6 critics mentioned in section 3, I will attempt to enhance the plot by including/removing the following features: 1. Include quantile lines for each Region.\
+2. Remove the legend.\
+3. Increase the transparency of the distribution to ensure all parts of the distribution is not hidden behind other distribution. Alternatively, we can adjust the scale of the `geom_density_ridges()` to prevent overlaps. Decision can be made after generating both types for consideration.\
+4. Increase the frequency of the x-axis ticks with soft grid lines to improve readability of distribution.\
+5. Remove the excess space at the right of the plot after 5,000 mark of x-axis.\
+6. Add in a horizontal bar chart to the right of the existing plot to include the comparison with overall median Unit Price (\$ PSF) in Singapore with each of the region.\
+7. Add in a overall Median Unit Price (\$ PSF) for the existing ridgeline plot.\
+8. Include median value annotations for each region in the existing ridgeline plot.\
+9. Rename the y-axis to just the region name, i.e. "West" instead of "West Region".\
+10. Using `patchwork` to patch both plots side by side. The left and right plot should have the same region in the same line for consistency.\
+
+### 4.2 Preparatory Sketch
+
+![](Sketch - take home exercise 02.jpg)
+
+### 4.3 The Makeover Result
 
 ## 5.0 References
 
