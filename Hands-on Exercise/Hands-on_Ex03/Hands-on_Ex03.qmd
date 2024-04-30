@@ -973,7 +973,7 @@ bubble
 ## The Code
 
 ```{r}
-#| echo: False
+#| eval: False
 bubble <- globalPop %>%
   plot_ly(x = ~Old, 
           y = ~Young, 
