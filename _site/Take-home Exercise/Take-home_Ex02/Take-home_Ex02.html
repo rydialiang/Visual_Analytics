@@ -524,20 +524,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="envisioned-enhancements" class="level3">
 <h3 class="anchored" data-anchor-id="envisioned-enhancements">4.1 Envisioned Enhancements</h3>
 <p><strong>Task</strong> Prepare a sketch for the alternative design by using the data visualisation design principles and best practices you had learned in Lesson 1 and 2.</p>
-<p>Using the 6 critics mentioned in section 3, I will attempt to enhance the plot by including/removing the following features: 1. Include quantile lines for each Region.<br>
-2. Remove the legend.<br>
-3. Increase the transparency of the distribution to ensure all parts of the distribution is not hidden behind other distribution. Alternatively, we can adjust the scale of the <code>geom_density_ridges()</code> to prevent overlaps. Decision can be made after generating both types for consideration.<br>
-4. Increase the frequency of the x-axis ticks with soft grid lines to improve readability of distribution.<br>
-5. Remove the excess space at the right of the plot after 5,000 mark of x-axis.<br>
-6. Add in a horizontal bar chart to the right of the existing plot to include the comparison with overall median Unit Price ($ PSF) in Singapore with each of the region.<br>
-7. Add in a overall Median Unit Price ($ PSF) for the existing ridgeline plot.<br>
-8. Include median value annotations for each region in the existing ridgeline plot.<br>
-9. Rename the y-axis to just the region name, i.e.&nbsp;“West” instead of “West Region”.<br>
-10. Using <code>patchwork</code> to patch both plots side by side. The left and right plot should have the same region in the same line for consistency.<br>
-</p>
+<p>Using the 6 critics mentioned in section 3, I will attempt to enhance the plot by including/removing the following features:</p>
+<ol type="1">
+<li><p>Include quantile lines for each Region.</p></li>
+<li><p>Remove the legend.</p></li>
+<li><p>Increase the transparency of the distribution to ensure all parts of the distribution is not hidden behind other distribution. Alternatively, we can adjust the scale of the <code>geom_density_ridges()</code> to prevent overlaps. Decision can be made after generating both types for consideration.</p></li>
+<li><p>Increase the frequency of the x-axis ticks with soft grid lines to improve readability of distribution.</p></li>
+<li><p>Remove the excess space at the right of the plot after 5,000 mark of x-axis.</p></li>
+<li><p>Add in a horizontal bar chart to the right of the existing plot to include the comparison with overall median Unit Price ($ PSF) in Singapore with each of the region.</p></li>
+<li><p>Add in a overall Median Unit Price ($ PSF) for the existing ridgeline plot.</p></li>
+<li><p>Include median value annotations for each region in the existing ridgeline plot.</p></li>
+<li><p>Rename the y-axis to just the region name, i.e.&nbsp;“West” instead of “West Region”.</p></li>
+<li><p>Using <code>patchwork</code> to patch both plots side by side. The left and right plot should have the same region in the same line for consistency.<br>
+</p></li>
+</ol>
 </section>
 <section id="preparatory-sketch" class="level3">
 <h3 class="anchored" data-anchor-id="preparatory-sketch">4.2 Preparatory Sketch</h3>
+<p>The first sketch below shows the intended implementation of the enhancement as mentioned in section 4.1. After this quick sketch with the median values, I realise that there are some further steps to take for a more coherent picture. (caveat: the median value is a rough calculation to facilitate the sketch, it may not be the same value as the final plot reproduced)</p>
+<ol type="1">
+<li><p>The horizontal bar plot should be sorted according from largest negative value to the highest positive value (red at the top to blue at the bottom). This allows the audience to know the most affordable region to the most expensive region from top down.</p></li>
+<li><p>The distribution plot to the left must synchronised in the same sequence based on the Region, so that the price deviation on the right plot is correctly reflected as the same Region.</p></li>
+</ol>
 <p><img src="Sketch - take home exercise 02.jpg" class="img-fluid"></p>
 </section>
 <section id="the-makeover-result" class="level3">
