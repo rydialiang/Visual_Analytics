@@ -228,7 +228,9 @@ The first sketch below shows the intended implementation of the enhancement as m
 
 2.  The distribution plot to the left must synchronised in the same sequence based on the Region, so that the price deviation on the right plot is correctly reflected as the same Region.
 
-![](Sketch%20-%20take%20home%20exercise%2002.jpg) \### 4.3 The Makeover Result
+![](Sketch%20-%20take%20home%20exercise%2002.jpg) 
+
+### 4.3 The Makeover Result
 
 ```{r}
 # Calculate median values
@@ -263,13 +265,13 @@ p1 <-ggplot(combined_ds,
                 y = `Planning Region`, 
                 label = paste("Median:", 
                               round(median_value, 2))),
-            hjust = -0.4, vjust = -3, color = "black", size = 3) +
+            hjust = -0.2, vjust = -3, color = "black", size = 3) +
   labs(title = "Unit Price ($ PSF) Distribution",
        subtitle = "by Planning Region",
        x = "Unit Price ($ PSF)",
        y = "Planning Region") +
   geom_vline(aes(xintercept = median(`Unit Price ($ PSF)`)), col="red", linewidth=0.5, linetype = "dashed") +
-  annotate("text", x=2300, y=0.7, label=paste0("Singapore's Median:",median(combined_ds$`Unit Price ($ PSF)`)), 
+  annotate("text", x=2800, y=0.7, label=paste0("Singapore's Median:",median(combined_ds$`Unit Price ($ PSF)`)), 
            size=3, color="red") +
 scale_x_continuous(breaks = c(0,1000,2000,3000,4000,5000,6000)) +
   guides(fill = FALSE) +
@@ -319,6 +321,16 @@ p2 <- ggplot(df_Aavg, aes(x = `Planning Region`, y = p_z, label = p_z)) +
 ```{r}
 p1+p2
 ```
+
+## 4.4 Conclusion
+
+Although the order of the is reverse of the sketch, it achieve the same effect of ordering the Planning Region from most expensive to most affordable, according to the median Unit Price (\$ PSF). 
+
+Alignment of Planning Region for the left and right plot is important for visual perception of audience, as the alignment allows them to have a direct translation of the differences (the right side plot) without doing mental calculation. 
+
+The two colors of the horizontal bar chart gives an immediate answer to which region is above and below the Singapore's average. 
+
+
 
 ## 5.0 References
 
