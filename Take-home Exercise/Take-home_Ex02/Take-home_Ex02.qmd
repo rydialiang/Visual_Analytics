@@ -249,11 +249,6 @@ combined_ds1 <- combined_ds %>%
 
 
 ```{r}
-
-combined_ds$`Planning Region` <- factor(combined_ds$`Planning Region` , levels = c("North", "East", "West", "North East", "Central"), ordered = TRUE)
-
-
-
 p1 <- ggplot(combined_ds, 
        aes(x = `Unit Price ($ PSF)`, 
            y = `Planning Region`,
@@ -274,9 +269,9 @@ p1 <- ggplot(combined_ds,
   annotate("text", x=2700, y=0.7, label=paste0("Singapore's Median:",median(combined_ds$`Unit Price ($ PSF)`)), 
            size=3, color="red") +
    guides(fill = FALSE) + # Remove legend for Planning Region
-  xlim(0, 4000) # Limit x-axis to 4000
+  xlim(0, 4000) 
 
-p1
+p1 
 ```
 
 ```{r}
