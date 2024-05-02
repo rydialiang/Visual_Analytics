@@ -251,13 +251,13 @@ combined_ds <- combined_ds %>%
 ```
 
 ```{r}
-#| eval:False
+#| eval: False
 combined_ds1 <- combined_ds %>%
   mutate(`Planning Region` = factor(`Planning Region`, levels = median_values$`Planning Region`[order(median_values$median_value)]))
 ```
 
 ```{r}
-p1 <- ggplot(combined_ds1, 
+p1 <- ggplot(combined_ds, 
        aes(x = `Unit Price ($ PSF)`, 
            y = `Planning Region`,
            fill = `Planning Region`)) +
