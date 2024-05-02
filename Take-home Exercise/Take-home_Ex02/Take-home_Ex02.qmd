@@ -257,7 +257,7 @@ combined_ds1 <- combined_ds %>%
 ```
 
 ```{r}
-p1 <- ggplot(combined_ds, 
+p1 <- ggplot(combined_ds1, 
        aes(x = `Unit Price ($ PSF)`, 
            y = `Planning Region`,
            fill = `Planning Region`)) +
@@ -278,6 +278,7 @@ p1 <- ggplot(combined_ds,
            size=3, color="red") +
    guides(fill = FALSE) + # Remove legend for Planning Region
   xlim(0, 4000) # Limit x-axis to 4000
+p1
 ```
 
 ```{r}
