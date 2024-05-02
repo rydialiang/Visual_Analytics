@@ -320,8 +320,6 @@ p1+p2
 
 ## 4.4 Conclusion
 
-Although the order of the is reverse of the sketch, it achieve the same effect of ordering the Planning Region from most expensive to most affordable, according to the median Unit Price (\$ PSF).
-
 Alignment of Planning Region for the left and right plot is important for visual perception of audience, as the alignment allows them to have a direct translation of the differences (the right side plot) without doing mental calculation.
 
 The two colors of the horizontal bar chart gives an immediate answer to which region is above and below the Singapore's average.
