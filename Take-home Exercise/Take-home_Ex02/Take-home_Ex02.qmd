@@ -237,26 +237,23 @@ The first sketch below shows the intended implementation of the enhancement as m
 # Calculate median values
 median_values <- combined_ds %>%
   group_by(`Planning Region`) %>%
-  summarise(median_value = median(`Unit Price ($ PSF)`))
-
-# Recode `Planning Region`
-combined_ds <- combined_ds %>%
-  mutate(`Planning Region` = recode(`Planning Region`, 
-                                  "Central Region" = "Central",
-                                  "East Region" = "East",
-                                  "North Region" = "North",
-                                  "North East Region" = "North East",
-                                  "West Region" = "West"
-                                  ))
+  summarise(median_value = median(`Unit Price ($ PSF)`)) 
 ```
 
 ```{r}
 #| eval: False
 combined_ds1 <- combined_ds %>%
   mutate(`Planning Region` = factor(`Planning Region`, levels = median_values$`Planning Region`[order(median_values$median_value)]))
+
 ```
 
+
 ```{r}
+
+combined_ds$`Planning Region` <- factor(combined_ds$`Planning Region` , levels = c("North", "East", "West", "North East", "Central"), ordered = TRUE)
+
+
+
 p1 <- ggplot(combined_ds, 
        aes(x = `Unit Price ($ PSF)`, 
            y = `Planning Region`,
@@ -278,6 +275,7 @@ p1 <- ggplot(combined_ds,
            size=3, color="red") +
    guides(fill = FALSE) + # Remove legend for Planning Region
   xlim(0, 4000) # Limit x-axis to 4000
+
 p1
 ```
 
