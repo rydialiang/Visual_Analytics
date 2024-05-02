@@ -248,7 +248,10 @@ combined_ds <- combined_ds %>%
                                   "North East Region" = "North East",
                                   "West Region" = "West"
                                   ))
+```
 
+```{r}
+#| eval: False
 combined_ds <- combined_ds %>%
   mutate(`Planning Region` = factor(`Planning Region`, levels = median_values$`Planning Region`[order(median_values$median_value)]))
 ```
@@ -275,7 +278,6 @@ p1 <- ggplot(combined_ds,
            size=3, color="red") +
    guides(fill = FALSE) + # Remove legend for Planning Region
   xlim(0, 4000)  # Limit x-axis to 4000
-p1
 ```
 
 ```{r}
