@@ -4,7 +4,7 @@
     "href": "Hands-on Exercise/Hands-on_Ex04/Hands-on_Ex04.html",
     "title": "Hands-on Ex 4: Fundamentals of Visual Analytics",
     "section": "",
-    "text": "Visual Analytics for Knowledge Discovery\nVisual Analytics Approach for Statistical Testing\nVisual Analytics for Building Better Models\nVisualising Uncertainty\n\nWhy Visualising Uncertainty?\nBasic Statistical Concepts Related to Uncertainty\nUnivariate Graphical Methods for Visualising Uncertainty\n\nError bars\nConfidence strips\nRidge plot\n\nBivariate Graphical Methods for Visualising Uncertainty\n\nFunnel plot (Chapter 12 of R4VA)\n\n\nVariation and Its Discontents"
+    "text": "This hands-on exercise consists of Chapter 10 to 12 of R4VA.\n\n\n\nVisual Analytics for Knowledge Discovery\nVisual Analytics Approach for Statistical Testing\nVisual Analytics for Building Better Models\nVisualising Uncertainty\n\nWhy Visualising Uncertainty?\nBasic Statistical Concepts Related to Uncertainty (Chapter 10 of R4VA)\nUnivariate Graphical Methods for Visualising Uncertainty\n\nError bars (Chapter 11 of R4VA)\nConfidence strips (Chapter 11 of R4VA)\nRidge plot (Chpater 9 of R4VA)\n\nBivariate Graphical Methods for Visualising Uncertainty\n\nFunnel plot (Chapter 12 of R4VA)\n\n\nVariation and Its Discontents"
   },
   {
     "objectID": "Hands-on Exercise/Hands-on_Ex04/Hands-on_Ex04.html#overview",
@@ -46,7 +46,7 @@
     "href": "Hands-on Exercise/Hands-on_Ex04/Hands-on_Ex04.html#lesson-outline",
     "title": "Hands-on Ex 4: Fundamentals of Visual Analytics",
     "section": "",
-    "text": "Visual Analytics for Knowledge Discovery\nVisual Analytics Approach for Statistical Testing\nVisual Analytics for Building Better Models\nVisualising Uncertainty\n\nWhy Visualising Uncertainty?\nBasic Statistical Concepts Related to Uncertainty\nUnivariate Graphical Methods for Visualising Uncertainty\n\nError bars\nConfidence strips\nRidge plot\n\nBivariate Graphical Methods for Visualising Uncertainty\n\nFunnel plot (Chapter 12 of R4VA)\n\n\nVariation and Its Discontents"
+    "text": "Visual Analytics for Knowledge Discovery\nVisual Analytics Approach for Statistical Testing\nVisual Analytics for Building Better Models\nVisualising Uncertainty\n\nWhy Visualising Uncertainty?\nBasic Statistical Concepts Related to Uncertainty (Chapter 10 of R4VA)\nUnivariate Graphical Methods for Visualising Uncertainty\n\nError bars (Chapter 11 of R4VA)\nConfidence strips (Chapter 11 of R4VA)\nRidge plot (Chpater 9 of R4VA)\n\nBivariate Graphical Methods for Visualising Uncertainty\n\nFunnel plot (Chapter 12 of R4VA)\n\n\nVariation and Its Discontents"
   },
   {
     "objectID": "Hands-on Exercise/Hands-on_Ex04/Hands-on_Ex04.html#learning-outcome",
