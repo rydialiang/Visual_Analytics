@@ -277,6 +277,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#funnelplotr-methods" id="toc-funnelplotr-methods" class="nav-link" data-scroll-target="#funnelplotr-methods"><strong>12.4 FunnelPlotR methods</strong></a>
   <ul class="collapse">
   <li><a href="#funnelplotr-methods-the-basic-plot" id="toc-funnelplotr-methods-the-basic-plot" class="nav-link" data-scroll-target="#funnelplotr-methods-the-basic-plot"><strong>12.4.1 FunnelPlotR methods: The basic plot</strong></a></li>
+  <li><a href="#funnelplotr-methods-makeover-1" id="toc-funnelplotr-methods-makeover-1" class="nav-link" data-scroll-target="#funnelplotr-methods-makeover-1"><strong>12.4.2 FunnelPlotR methods: Makeover 1</strong></a></li>
+  <li><a href="#funnelplotr-methods-makeover-2" id="toc-funnelplotr-methods-makeover-2" class="nav-link" data-scroll-target="#funnelplotr-methods-makeover-2"><strong>12.4.3 FunnelPlotR methods: Makeover 2</strong></a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -397,6 +399,10 @@ Plot is adjusted for overdispersion. </code></pre>
 <li><p><code>limit</code>: Plot limits, accepted values are: 95 or 99, corresponding to 95% or 99.8% quantiles of the distribution.</p></li>
 </ul>
 </div>
+</section>
+<section id="funnelplotr-methods-makeover-1" class="level3">
+<h3 class="anchored" data-anchor-id="funnelplotr-methods-makeover-1"><strong>12.4.2 FunnelPlotR methods: Makeover 1</strong></h3>
+<p>The code chunk below plots a funnel plot.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel_plot</span>(</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">.data =</span> covid19,</span>
@@ -419,6 +425,13 @@ Plot is adjusted for overdispersion. </code></pre>
 Plot is adjusted for overdispersion. </code></pre>
 </div>
 </div>
+<div class="{callout-tip}">
+<p>Things to learn from the code chunk above. + data_type argument is used to change from default “SR” to “PR” (i.e.&nbsp;proportions). + xrange and yrange are used to set the range of x-axis and y-axis</p>
+</div>
+</section>
+<section id="funnelplotr-methods-makeover-2" class="level3">
+<h3 class="anchored" data-anchor-id="funnelplotr-methods-makeover-2"><strong>12.4.3 FunnelPlotR methods: Makeover 2</strong></h3>
+<p>The code chunk below plots a funnel plot.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel_plot</span>(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">.data =</span> covid19,</span>
@@ -444,6 +457,10 @@ Plot is adjusted for overdispersion. </code></pre>
 <pre><code>A funnel plot object with 267 points of which 7 are outliers. 
 Plot is adjusted for overdispersion. </code></pre>
 </div>
+</div>
+<div class="{callout-tip}">
+<p>Things to learn from the code chunk above.</p>
+<p>label = NA argument is to removed the default label outliers feature. title argument is used to add plot title. x_label and y_label arguments are used to add/edit x-axis and y-axis titles.</p>
 </div>
 
 
