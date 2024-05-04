@@ -222,7 +222,7 @@ In the code chunk below, [*read_xls()*](https://readxl.tidyverse.org/reference/r
 
 ```{r}
 car_resale <- read_xls("data/ToyotaCorolla.xls", 
-                       "data")
+                       "data") #import only worksheet named "data"
 car_resale
 ```
 
@@ -243,8 +243,9 @@ model
 In the code chunk, [*check_collinearity()*](https://easystats.github.io/performance/reference/check_collinearity.html) of [**performance**](https://easystats.github.io/performance/) package.
 
 ```{r}
-check_collinearity(model)
+t <- check_collinearity(model)
 ```
+
 
 ```{r}
 check_c <- check_collinearity(model)
@@ -254,6 +255,8 @@ plot(check_c)
 ### **10.6.4 Model Diagnostic: checking normality assumption**
 
 In the code chunk, [*check_normality()*](https://easystats.github.io/performance/reference/check_normality.html) of [**performance**](https://easystats.github.io/performance/) package.
+
+The `year` is is excluded 
 
 ```{r}
 model1 <- lm(Price ~ Age_08_04 + KM + 
@@ -276,7 +279,7 @@ In the code chunk, [*check_heteroscedasticity()*](https://easystats.github.io/pe
 check_h <- check_heteroscedasticity(model1)
 ```
 
-```{r}
+```{r fig.height = 4}
 plot(check_h)
 ```
 
@@ -284,7 +287,7 @@ plot(check_h)
 
 We can also perform the complete by using [*check_model()*](https://easystats.github.io/performance/reference/check_model.html).
 
-```{r}
+```{r fig.height=20}
 check_model(model1)
 ```
 

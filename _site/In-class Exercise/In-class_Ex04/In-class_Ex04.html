@@ -269,7 +269,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a>
+  <ul class="collapse">
+  <li><a href="#scatterplot-with-marginal-distribution" id="toc-scatterplot-with-marginal-distribution" class="nav-link" data-scroll-target="#scatterplot-with-marginal-distribution">Scatterplot with marginal distribution</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -532,8 +535,11 @@ NULL</code></pre>
 </div>
 </div>
 </div>
-<p>Looking at the exam tibble: 1. We need to have a subject column and a scores column instead of the current form with Subjects as the header with all the scores as data.<br>
-2. Do a pivot table to combine ENGLISH, MATHS, SCIENCE into a subject column.</p>
+<p>Looking at the exam tibble:</p>
+<ul>
+<li><p>We need to have a subject column and a scores column instead of the current form with Subjects as the header with all the scores as data.</p></li>
+<li><p>Do a pivot table to combine ENGLISH, MATHS, SCIENCE into a subject column.</p></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>exam_long <span class="ot">&lt;-</span> exam <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
@@ -560,8 +566,38 @@ NULL</code></pre>
 </div>
 </div>
 </div>
+<section id="scatterplot-with-marginal-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="scatterplot-with-marginal-distribution">Scatterplot with marginal distribution</h3>
+<ul>
+<li><code>ggscatterstats()</code> wrapped scatter plot into the function.<br>
+</li>
+<li><code>marginal</code> set to TRUE for marginal distribution.<br>
+</li>
+<li><code>label.expression</code> allow us to label/highlight the things we want to focus on.<br>
+</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggscatterstats</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> exam,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> MATHS,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> ENGLISH,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">marginal =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">label.var =</span> ID,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">label.expression =</span> ENGLISH <span class="sc">&gt;</span> <span class="dv">90</span> <span class="sc">&amp;</span> MATHS <span class="sc">&gt;</span> <span class="dv">90</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">smooth.line.args =</span> <span class="fu">list</span>(<span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">formula =</span> y <span class="sc">~</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    x)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="In-class_Ex04_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

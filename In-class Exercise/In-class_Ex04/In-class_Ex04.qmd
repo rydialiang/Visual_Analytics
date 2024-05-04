@@ -19,7 +19,9 @@ pacman::p_load(ggstatsplot, tidyverse)
 ```{r}
 exam <- read_csv("data/Exam_data.csv")
 ```
+
 The parametric test (student's t):
+
 ```{r}
 set.seed(1234)
 
@@ -37,7 +39,8 @@ gghistostats(
 )
 ```
 
-The non-parametric(Wilcoxon) test will have median line plotted instead of mean. 
+The non-parametric(Wilcoxon) test will have median line plotted instead of mean.
+
 ```{r}
 set.seed(1234)
 
@@ -55,15 +58,14 @@ p_n <- gghistostats(
 )
 ```
 
-How to save the tibble after plotting:
-- save the plot as an object "p_n"
+How to save the tibble after plotting: - save the plot as an object "p_n"
 
 ```{r}
 extract_stats(p_n)
 ```
 
-
 The parametric test (student's t):
+
 ```{r}
 set.seed(1234)
 
@@ -81,7 +83,8 @@ gghistostats(
 )
 ```
 
-The robust(bootstrapped method) test will have trimmed mean line plotted instead of mean. 
+The robust(bootstrapped method) test will have trimmed mean line plotted instead of mean.
+
 ```{r}
 set.seed(1234)
 
@@ -98,7 +101,9 @@ gghistostats(
   xlab = "English scores"
 )
 ```
+
 The parametric test (student's t):
+
 ```{r}
 set.seed(1234)
 
@@ -116,7 +121,8 @@ gghistostats(
 )
 ```
 
-The bayes test will have not have the Bayes statistics below. mean of MAP used instead. 
+The bayes test will have not have the Bayes statistics below. mean of MAP used instead.
+
 ```{r}
 set.seed(1234)
 
@@ -133,8 +139,9 @@ gghistostats(
   xlab = "English scores"
 )
 ```
-Adjusting normal.curve TRUE / FALSE
-Adjusting normal.curve.args as list
+
+Adjusting normal.curve TRUE / FALSE Adjusting normal.curve.args as list
+
 ```{r}
 set.seed(1234)
 
@@ -151,13 +158,11 @@ gghistostats(
   xlab = "English scores"
 )
 ```
-Notes on reading documentation:
--   Logical value: TRUE or FALSE
--   normal.curve.arg: can use a list of ggplot's aesthetic arguments
 
+Notes on reading documentation: - Logical value: TRUE or FALSE - normal.curve.arg: can use a list of ggplot's aesthetic arguments
 
-Dot plot:
--   does sorting from highest to lowest and present in percentile.
+Dot plot: - does sorting from highest to lowest and present in percentile.
+
 ```{r}
 ggdotplotstats(
   data = exam,
@@ -169,8 +174,10 @@ ggdotplotstats(
 ```
 
 Looking at the exam tibble:
-1.    We need to have a subject column and a scores column instead of the current form with Subjects as the header with all the scores as data.\
-2.  Do a pivot table to combine ENGLISH, MATHS, SCIENCE into a subject column. 
+
+-   We need to have a subject column and a scores column instead of the current form with Subjects as the header with all the scores as data.
+
+-   Do a pivot table to combine ENGLISH, MATHS, SCIENCE into a subject column.
 
 ```{r}
 exam_long <- exam %>%
@@ -182,6 +189,7 @@ exam_long <- exam %>%
 ```
 
 Note:Data can be filtered using tidyverse commands
+
 ```{r}
 ggwithinstats(
   data = filter(exam_long,
@@ -193,15 +201,21 @@ ggwithinstats(
 )
 ```
 
+### Scatterplot with marginal distribution
 
+-   `ggscatterstats()` wrapped scatter plot into the function.\
+-   `marginal` set to TRUE for marginal distribution.\
+-   `label.expression` allow us to label/highlight the things we want to focus on.\
 
-
-
-
-
-
-
-
-
-
-
+```{r}
+ggscatterstats(
+  data = exam,
+  x = MATHS,
+  y = ENGLISH,
+  marginal = TRUE,
+  label.var = ID,
+  label.expression = ENGLISH > 90 & MATHS > 90,
+  smooth.line.args = list(linewidth = 1, color = "red", method = "lm", formula = y ~
+    x)
+  )
+```
