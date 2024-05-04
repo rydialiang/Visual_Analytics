@@ -10,6 +10,7 @@ execute:
   freeze: true
 ---
 
+
 This hands-on exercise consists of Chapter 10 to 12 of R4VA.
 
 ## **Lesson Outline**
@@ -68,9 +69,11 @@ In this hands-on exercise, you will gain hands-on experience on using:
 
 In this exercise, **ggstatsplot** and **tidyverse** will be used.
 
+
 ```{r}
 pacman::p_load(ggstatsplot, tidyverse, FunnelPlotR,rstantools)
 ```
+
 
 ### **10.3.2 Importing data**
 
@@ -78,13 +81,16 @@ For the purpose of this exercise, Exam_data.csv will be used.
 
 In the code chunk below, [read_csv()](https://readr.tidyverse.org/reference/read_delim.html) of [readr](https://readr.tidyverse.org/) package is used to import Exam_data.csv into R and saved it into a tibble data.frame.
 
+
 ```{r}
 exam <- read_csv("data/Exam_data.csv")
 ```
 
+
 ### **10.3.3 One-sample test: *gghistostats()* method**
 
 In the code chunk below, [*gghistostats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/gghistostats.html) is used to to build an visual of one-sample test on English scores.
+
 
 ```{r}
 set.seed(1234)
@@ -97,6 +103,7 @@ gghistostats(
   xlab = "English scores"
 )
 ```
+
 
 Default information: - statistical details - Bayes Factor - sample sizes - distribution summary.
 
@@ -122,6 +129,7 @@ A **Bayes Factor** can be any positive number. One of the most common interpreta
 
 In the code chunk below, [*ggbetweenstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html) is used to build a visual for two-sample mean test of Maths scores by gender.
 
+
 ```{r}
 ggbetweenstats(
   data = exam,
@@ -132,11 +140,13 @@ ggbetweenstats(
 )
 ```
 
+
 Default information: - statistical details - Bayes Factor - sample sizes - distribution summary
 
 ### **10.3.7 Oneway ANOVA Test: *ggbetweenstats()* method**
 
 In the code chunk below, [*ggbetweenstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html) is used to build a visual for One-way ANOVA test on English score by race.
+
 
 ```{r}
 library(rstantools)
@@ -152,6 +162,7 @@ ggbetweenstats(
   messages = FALSE
 )
 ```
+
 
 -   “ns” → only non-significant
 
@@ -171,6 +182,7 @@ ggbetweenstats(
 
 In the code chunk below, [*ggscatterstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggscatterstats.html) is used to build a visual for Significant Test of Correlation between Maths scores and English scores.
 
+
 ```{r}
 ggscatterstats(
   data = exam,
@@ -180,9 +192,11 @@ ggscatterstats(
   )
 ```
 
+
 ### **10.3.9 Significant Test of Association (Depedence) : *ggbarstats()* methods**
 
 In the code chunk below, the Maths scores is binned into a 4-class variable by using [*cut()*](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/cut).
+
 
 ```{r}
 exam1 <- exam %>% 
@@ -192,13 +206,16 @@ exam1 <- exam %>%
 )
 ```
 
+
 In this code chunk below [*ggbarstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbarstats.html) is used to build a visual for Significant Test of Association.
+
 
 ```{r}
 ggbarstats(exam1, 
            x = MATHS_bins, 
            y = GENDER)
 ```
+
 
 ## **10.4 Visualising Models**
 
@@ -212,13 +229,16 @@ In this section, you will learn how to visualise model diagnostic and model para
 
 ## **10.6 Installing and loading the required libraries**
 
+
 ```{r}
 pacman:::p_load(readxl, performance, parameters,see)
 ```
 
+
 ### **10.6.1 Importing Excel file: readxl methods**
 
 In the code chunk below, [*read_xls()*](https://readxl.tidyverse.org/reference/read_excel.html) of [**readxl**](https://readxl.tidyverse.org/) package is used to import the data worksheet of `ToyotaCorolla.xls` workbook into R.
+
 
 ```{r}
 car_resale <- read_xls("data/ToyotaCorolla.xls", 
@@ -226,11 +246,13 @@ car_resale <- read_xls("data/ToyotaCorolla.xls",
 car_resale
 ```
 
+
 Notice that the output object `car_resale` is a tibble data frame.
 
 ### **10.6.2 Multiple Regression Model using lm()**
 
 The code chunk below is used to calibrate a multiple linear regression model by using *lm()* of Base Stats of R.
+
 
 ```{r}
 model <- lm(Price ~ Age_08_04 + Mfg_Year + KM + 
@@ -238,25 +260,28 @@ model <- lm(Price ~ Age_08_04 + Mfg_Year + KM +
 model
 ```
 
+
 ### **10.6.3 Model Diagnostic: checking for multicolinearity:**
 
 In the code chunk, [*check_collinearity()*](https://easystats.github.io/performance/reference/check_collinearity.html) of [**performance**](https://easystats.github.io/performance/) package.
 
+
 ```{r}
 t <- check_collinearity(model)
 ```
-
 
 ```{r}
 check_c <- check_collinearity(model)
 plot(check_c)
 ```
 
+
 ### **10.6.4 Model Diagnostic: checking normality assumption**
 
 In the code chunk, [*check_normality()*](https://easystats.github.io/performance/reference/check_normality.html) of [**performance**](https://easystats.github.io/performance/) package.
 
 The `year` is is excluded 
+
 
 ```{r}
 model1 <- lm(Price ~ Age_08_04 + KM + 
@@ -271,9 +296,11 @@ check_n <- check_normality(model1)
 plot(check_n)
 ```
 
+
 ### **10.6.5 Model Diagnostic: Check model for homogeneity of variances**
 
 In the code chunk, [*check_heteroscedasticity()*](https://easystats.github.io/performance/reference/check_heteroscedasticity.html) of [**performance**](https://easystats.github.io/performance/) package.
+
 
 ```{r}
 check_h <- check_heteroscedasticity(model1)
@@ -283,17 +310,21 @@ check_h <- check_heteroscedasticity(model1)
 plot(check_h)
 ```
 
+
 ### **10.6.6 Model Diagnostic: Complete check**
 
 We can also perform the complete by using [*check_model()*](https://easystats.github.io/performance/reference/check_model.html).
+
 
 ```{r fig.height=20}
 check_model(model1)
 ```
 
+
 ### **10.6.7 Visualising Regression Parameters: see methods**
 
 In the code below, plot() of see package and parameters() of parameters package is used to visualise the parameters of a regression model.
+
 
 ```{r}
 plot(parameters(model1))
@@ -305,14 +336,17 @@ t1 <- parameters(model1)
 
 
 
+
 ### **10.6.8 Visualising Regression Parameters: *ggcoefstats()* methods**
 
 In the code below, [*ggcoefstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggcoefstats.html) of ggstatsplot package to visualise the parameters of a regression model.
+
 
 ```{r}
 ggcoefstats(model1, 
             output = "plot")
 ```
+
 
 # **11  Visualising Uncertainty**
 
@@ -346,19 +380,23 @@ For the purpose of this exercise, the following R packages will be used, they ar
 
 -   ggdist for visualising distribution and uncertainty.
 
+
 ```{r}
 pacman::p_load(ungeviz, plotly, crosstalk,
                DT, ggdist, ggridges,
                colorspace, gganimate, tidyverse)
 ```
 
+
 ### **11.2.2 Data import**
 
 For the purpose of this exercise, *Exam_data.csv* will be used.
 
+
 ```{r}
 exam <- read_csv("data/Exam_data.csv")
 ```
+
 
 ## **11.3 Visualizing the uncertainty of point estimates: ggplot2 methods**
 
@@ -372,6 +410,7 @@ In this section, you will learn how to plot error bars of maths scores by race b
 
 Firstly, code chunk below will be used to derive the necessary summary statistics.
 
+
 ```{r}
 my_sum <- exam %>%
   group_by(RACE) %>%
@@ -382,6 +421,7 @@ my_sum <- exam %>%
     ) %>%
   mutate(se=sd/sqrt(n-1))
 ```
+
 
 ::: callout-tip
 ## Things to learn
@@ -404,17 +444,21 @@ Next, the code chunk below will be used to display *my_sum* tibble data frame 
 ::: panel-tabset
 ## The Code
 
+
 ```{r}
 #| eval: False
 knitr::kable(head(my_sum), format = 'html')
 ```
 
+
 ## The Table
+
 
 ```{r}
 #| echo: False
 knitr::kable(head(my_sum), format = 'html')
 ```
+
 :::
 
 ### **11.3.1 Plotting standard error bars of point estimates**
@@ -423,6 +467,7 @@ Now we are ready to plot the standard error bars of mean maths score by race as 
 
 ::: panel-tabset
 ## The Plot
+
 
 ```{r}
 #| echo: FALSE
@@ -445,7 +490,9 @@ ggplot(my_sum) +
   ggtitle("Standard error of mean maths score by race")
 ```
 
+
 ## The Code
+
 
 ```{r}
 #| eval: FALSE
@@ -467,6 +514,7 @@ ggplot(my_sum) +
            alpha=1) +
   ggtitle("Standard error of mean maths score by race")
 ```
+
 :::
 
 ::: callout-tip
@@ -484,6 +532,7 @@ Instead of plotting the standard error bar of point estimates, we can also plot 
 ::: panel-tabset
 ## The Plot
 
+
 ```{r}
 #| echo: FALSE
 ggplot(my_sum) +
@@ -506,7 +555,9 @@ ggplot(my_sum) +
        title = "95% confidence interval of mean maths score by race")
 ```
 
+
 ## The Code
+
 
 ```{r}
 #| eval: FALSE
@@ -529,6 +580,7 @@ ggplot(my_sum) +
   labs(x = "Maths score",
        title = "95% confidence interval of mean maths score by race")
 ```
+
 :::
 
 ### **11.3.3 Visualizing the uncertainty of point estimates with interactive error bars**
@@ -538,6 +590,7 @@ In this section, you will learn how to plot interactive error bars for the 99% c
 ::: panel-tabset
 ## The Plot
 
+
 ```{r}
 #| echo: FALSE
 shared_df = SharedData$new(my_sum)
@@ -586,7 +639,9 @@ bscols(widths = c(4,8),
                      digits=2))
 ```
 
+
 ## The Code
+
 
 ```{r}
 #| eval: FALSE
@@ -635,6 +690,7 @@ bscols(widths = c(4,8),
          formatRound(columns=c('mean', 'sd', 'se'),
                      digits=2))
 ```
+
 :::
 
 ## **11.4 Visualising Uncertainty: ggdist package**
@@ -653,6 +709,7 @@ bscols(widths = c(4,8),
 
 In the code chunk below, [`stat_pointinterval()`](https://mjskay.github.io/ggdist/reference/stat_pointinterval.html) of **ggdist** is used to build a visual for displaying distribution of maths scores by race.
 
+
 ```{r}
 exam %>%
   ggplot(aes(x = RACE, 
@@ -663,6 +720,7 @@ exam %>%
     subtitle = "Mean Point + Multiple-interval plot")
 ```
 
+
 For example, in the code chunk below the following arguments are used:
 
 -   .width = 0.95
@@ -670,6 +728,7 @@ For example, in the code chunk below the following arguments are used:
 -   .point = median
 
 -   .interval = qi
+
 
 ```{r}
 ?stat_pointinterval()
@@ -690,9 +749,11 @@ exam %>%
     subtitle = "Median Point + Multiple-interval plot")
 ```
 
+
 ### **11.4.2 Visualizing the uncertainty of point estimates: ggdist methods**
 
 Makeover the plot on previous slide by showing 95% and 99% confidence intervals is shown below:
+
 
 ```{r}
 exam %>%
@@ -705,9 +766,11 @@ exam %>%
     subtitle = "Mean Point + Multiple-interval plot")
 ```
 
+
 ### **11.4.3 Visualizing the uncertainty of point estimates: ggdist methods**
 
 In the code chunk below, [`stat_gradientinterval()`](https://mjskay.github.io/ggdist/reference/stat_gradientinterval.html) of **ggdist** is used to build a visual for displaying distribution of maths scores by race.
+
 
 ```{r}
 exam %>%
@@ -722,7 +785,9 @@ exam %>%
     subtitle = "Gradient + interval plot")
 ```
 
+
 ## **11.5 Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
+
 
 ```{r}
 library(ungeviz)
@@ -746,6 +811,7 @@ ggplot(data = exam,
   # `.draw` is a generated column indicating the sample draw
   transition_states(.draw, 1, 3)
 ```
+
 
 # **12  Funnel Plots for Fair Comparisons**
 
@@ -773,9 +839,11 @@ In this exercise, four R packages will be used. They are:
 
 -   **plotly** for creating interactive funnel plot.
 
+
 ```{r}
 pacman::p_load(readr,tidyverse, FunnelPlotR, plotly, knitr)
 ```
+
 
 ## **12.3 Importing Data**
 
@@ -783,10 +851,12 @@ In this section, COVID-19_DKI_Jakarta will be used. The data was downloaded from
 
 The code chunk below imports the data into R and save it into a tibble data frame object called *covid19*.
 
+
 ```{r}
 covid19 <- read_csv("data/COVID-19_DKI_Jakarta.csv") %>%
   mutate_if(is.character, as.factor)
 ```
+
 
 ## **12.4 FunnelPlotR methods**
 
@@ -808,6 +878,7 @@ covid19 <- read_csv("data/COVID-19_DKI_Jakarta.csv") %>%
 
 The code chunk below plots a funnel plot.
 
+
 ```{r}
 funnel_plot(
   .data = covid19,
@@ -816,6 +887,7 @@ funnel_plot(
   group = `Sub-district`
 )
 ```
+
 
 ::: callout-tip
 Things to learn from the code chunk above.
@@ -831,6 +903,7 @@ Things to learn from the code chunk above.
 
 The code chunk below plots a funnel plot.
 
+
 ```{r}
 funnel_plot(
   .data = covid19,
@@ -843,6 +916,7 @@ funnel_plot(
 )
 ```
 
+
 ::: callout-tip
 Things to learn from the code chunk above. + data_type argument is used to change from default “SR” to “PR” (i.e. proportions). + xrange and yrange are used to set the range of x-axis and y-axis
 :::
@@ -850,6 +924,7 @@ Things to learn from the code chunk above. + data_type argument is used to chang
 ### **12.4.3 FunnelPlotR methods: Makeover 2**
 
 The code chunk below plots a funnel plot.
+
 
 ```{r}
 funnel_plot(
@@ -867,6 +942,7 @@ funnel_plot(
 )
 ```
 
+
 Things to learn from the code chunk above.
 
 -   `label = NA` argument is to removed the default label outliers feature.
@@ -879,6 +955,7 @@ Things to learn from the code chunk above.
 
 To plot the funnel plot from scratch, we need to derive cumulative death rate and standard error of cumulative death rate.
 
+
 ```{r}
 df <- covid19 %>%
   mutate(rate = Death / Positive) %>%
@@ -886,15 +963,19 @@ df <- covid19 %>%
   filter(rate > 0)
 ```
 
+
 Next, the fit.mean is computed by using the code chunk below.
+
 
 ```{r}
 fit.mean <- weighted.mean(df$rate, 1/df$rate.se^2)
 ```
 
+
 ### **12.5.2 Calculate lower and upper limits for 95% and 99.9% CI**
 
 The code chunk below is used to compute the lower and upper limits for 95% confidence interval.
+
 
 ```{r}
 number.seq <- seq(1, max(df$Positive), 1)
@@ -906,9 +987,11 @@ dfCI <- data.frame(number.ll95, number.ul95, number.ll999,
                    number.ul999, number.seq, fit.mean)
 ```
 
+
 ### **12.5.3 Plotting a static funnel plot**
 
 In the code chunk below, ggplot2 functions are used to plot a static funnel plot.
+
 
 ```{r}
 p <- ggplot(df, aes(x = Positive, y = rate)) +
@@ -956,9 +1039,11 @@ p <- ggplot(df, aes(x = Positive, y = rate)) +
 p
 ```
 
+
 ### **12.5.4 Interactive Funnel Plot: plotly + ggplot2**
 
 The funnel plot created using ggplot2 functions can be made interactive with `ggplotly()` of **plotly** r package.
+
 
 ```{r}
 fp_ggplotly <- ggplotly(p,
@@ -967,6 +1052,7 @@ fp_ggplotly <- ggplotly(p,
               "y"))
 fp_ggplotly
 ```
+
 
 ## **12.6 References**
 
@@ -977,3 +1063,4 @@ fp_ggplotly
 -   [Changing funnel plot options](https://nhs-r-community.github.io/FunnelPlotR/articles/changing_funnel_plot_options.html)
 
 -   [ggplot2](https://ggplot2.tidyverse.org/) package.
+

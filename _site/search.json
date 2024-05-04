@@ -138,5 +138,12 @@
     "title": "Hands-on Ex 4: Fundamentals of Visual Analytics",
     "section": "12.6 References",
     "text": "12.6 References\n\nfunnelPlotR package.\nFunnel Plots for Indirectly-standardised ratios.\nChanging funnel plot options\nggplot2 package."
+  },
+  {
+    "objectID": "In-class Exercise/In-class_Ex04/In-class_Ex04.html#visualing-models",
+    "href": "In-class Exercise/In-class_Ex04/In-class_Ex04.html#visualing-models",
+    "title": "In-class Ex04: Visualising Statistical Analysis",
+    "section": "10.4 Visualing Models",
+    "text": "10.4 Visualing Models\n\nDiagnostics Test on Models"
   }
 ]

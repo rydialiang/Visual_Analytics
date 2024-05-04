@@ -219,3 +219,30 @@ ggscatterstats(
     x)
   )
 ```
+
+
+
+## 10.4 Visualing Models
+
+1.    Diagnostics Test on Models\
+2.    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
