@@ -13,7 +13,7 @@ execute:
 ## 
 
 ```{r}
-pacman::p_load(ggstatsplot, tidyverse, FunnelPlotR,rstantools)
+pacman::p_load(ggstatsplot, tidyverse)
 ```
 
 ```{r}
@@ -151,6 +151,57 @@ gghistostats(
   xlab = "English scores"
 )
 ```
+Notes on reading documentation:
+-   Logical value: TRUE or FALSE
+-   normal.curve.arg: can use a list of ggplot's aesthetic arguments
+
+
+Dot plot:
+-   does sorting from highest to lowest and present in percentile.
+```{r}
+ggdotplotstats(
+  data = exam,
+  x = ENGLISH,
+  y = CLASS,
+  title = "",
+  xlab = ""
+)
+```
+
+Looking at the exam tibble:
+1.    We need to have a subject column and a scores column instead of the current form with Subjects as the header with all the scores as data.\
+2.  Do a pivot table to combine ENGLISH, MATHS, SCIENCE into a subject column. 
+
+```{r}
+exam_long <- exam %>%
+  pivot_longer(
+    cols = ENGLISH:SCIENCE,
+    names_to = "SUBJECT",
+    values_to = "SCORES") %>%
+  filter(CLASS == "3A")
+```
+
+Note:Data can be filtered using tidyverse commands
+```{r}
+ggwithinstats(
+  data = filter(exam_long,
+                SUBJECT %in%
+                  c("MATHS", "SCIENCE")),
+  x = SUBJECT,
+  y = SCORES,
+  type = "p"
+)
+```
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -10,7 +10,6 @@ execute:
   freeze: true
 ---
 
-
 This hands-on exercise consists of Chapter 10 to 12 of R4VA.
 
 ## **Lesson Outline**
@@ -713,6 +712,7 @@ exam %>%
     title = "Visualising confidence intervals of mean math score",
     subtitle = "Gradient + interval plot")
 ```
+
 ## **11.5 Visualising Uncertainty with Hypothetical Outcome Plots (HOPs)**
 
 ```{r}
@@ -737,7 +737,6 @@ ggplot(data = exam,
   # `.draw` is a generated column indicating the sample draw
   transition_states(.draw, 1, 3)
 ```
-
 
 # **12  Funnel Plots for Fair Comparisons**
 
